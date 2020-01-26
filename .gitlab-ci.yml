@@ -1,0 +1,43 @@
+image: aergus/latex
+
+variables:
+  FILENAME: thesis
+  FILEDIR: .
+  DIFFCMD: bash git-latexdiff --exclude-textcmd="section,subsection" -b --main $FILENAME.tex --latexmk
+
+stages:
+  - build
+  - diff
+
+build:
+  stage: build
+  tags:
+    - dockered
+  artifacts:
+    paths:
+      - $FILEDIR/$FILENAME.pdf
+      - $FILEDIR/build_$FILENAME.log
+  script:
+    - cd "$FILEDIR"
+    - latexmk -pdf "$FILENAME.tex" 2>&1 | tee build_"$FILENAME".log
+    - 'grep -v "LaTeX Warning: There were undefined references." build_"$FILENAME".log'
+
+diff:
+  stage: diff
+  tags:
+    - dockered
+  artifacts:
+    paths:
+      - $FILEDIR/difftag_$FILENAME.pdf
+      - $FILEDIR/diffcommit_$FILENAME.pdf
+  script:
+    - cd "$FILEDIR"
+    - LAST_TAG=$(git describe --abbrev=0 --tags HEAD~1)
+    - wget https://gitlab.com/git-latexdiff/git-latexdiff/raw/ef53cddc761ce2d278ba5016d17828cf63e30af5/git-latexdiff
+    - if [ "$LAST_TAG" ] ; then
+    -   $DIFFCMD -o "difftag_$FILENAME.pdf" "$LAST_TAG"
+    - fi
+    - if [ "$CI_BEFORE_SHA" ] ; then
+    -   $DIFFCMD -o "diffcommit_$FILENAME.pdf" "$CI_BEFORE_SHA"
+    - fi
+  allow_failure: true

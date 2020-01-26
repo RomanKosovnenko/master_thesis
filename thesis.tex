@@ -1,0 +1,139 @@
+% the following command is only required if the thesis is written in german
+\RequirePackage[ngerman=ngerman-x-latest]{hyphsubst}
+
+% change to english for english theses
+\documentclass[ngerman,BCOR=1.5cm,twoside]{tudscrreprt}
+
+\usepackage[T1]{fontenc}
+\usepackage[utf8]{inputenc}
+\usepackage[ngerman]{babel}
+\usepackage{isodate}
+
+\usepackage[
+    style=numeric-comp,
+    backend=biber,
+    url=false,
+    doi=false,
+    isbn=false,
+    hyperref,
+]{biblatex}
+\addbibresource{bibliography.bib}
+\AtEveryBibitem{%
+    \clearfield{note}%
+}
+
+\usepackage[hidelinks]{hyperref} % makes all links clickable but hides ugly boxes
+\usepackage[capitalise,nameinlink,noabbrev]{cleveref} % automatically inserts Fig. X in the text with \cref{..}
+
+\usepackage[colorinlistoftodos,prependcaption,textsize=tiny]{todonotes}
+
+\usepackage{graphicx}
+\graphicspath{ {./images/} }
+
+% if you need mathy stuff
+\newtheorem{lem}{Lemma}
+\crefname{lem}{Lemma}{Lemmas}
+\newtheorem{thm}{Theorem}
+\crefname{thm}{Theorem}{Theorems}
+\newtheorem{defs}{Definition}
+\crefname{defs}{Def.}{Defs.}
+
+\usepackage{blindtext}
+
+%\usepackage{tudscrsupervisor} % if you want to copy the sources of the task description into the thesis
+
+\usepackage{csquotes}
+
+
+
+\usepackage{caption}
+\captionsetup{font=sf,labelfont=bf,labelsep=space}
+\usepackage{floatrow}
+\floatsetup{font=sf}
+\floatsetup[table]{style=plaintop}
+\captionsetup{singlelinecheck=off,format=hang,justification=raggedright}
+\DeclareCaptionSubType[alph]{figure}
+\DeclareCaptionSubType[alph]{table}
+\captionsetup[subfloat]{labelformat=brace,list=off}
+
+\usepackage{booktabs}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{tabulary}
+\usepackage{tabu}
+\usepackage{longtable}
+
+\usepackage{quoting}
+
+\usepackage[babel]{microtype}
+
+\usepackage{xfrac}
+
+\usepackage{enumitem}
+\setlist[itemize]{noitemsep}
+
+\usepackage{ellipsis}
+\let\ellipsispunctuation\relax
+
+\input{lst.tex}
+
+\begin{document}
+
+\faculty{Fakultät Informatik}
+\department{}
+\institute{Institut für Software- und Multimediatechnik}
+\chair{Lehrstuhl für Softwaretechnologie}
+\title{%
+    Entwicklung eines optimalen Verfahrens zur Eroberung des
+    Geldspeichers in Entenhausen
+}
+
+%% for a bachelor thesis
+%\thesis{bachelor}
+%\graduation[B.Sc.]{Bachelor of Science}
+
+% for a master thesis
+\thesis{master}
+\graduation[M.Sc.]{Master of Science}
+
+% for a diploma thesis
+%\thesis{diploma}
+%\graduation[Dipl.Inf.]{Diplom-Informatiker}
+
+\author{Mickey Mouse}
+\emailaddress[]{mickey.mouse@tu-dresden.de}
+\matriculationnumber{12345678}
+\matriculationyear{2016}
+\dateofbirth{1.1.1990}
+\placeofbirth{Dresden}
+%\discipline{Distributed Systems Engineering}
+
+\course{Distributed Systems Engineering}
+
+\supervisor{%
+    Dipl.-Inf. ABC XYZ%
+    \and Dr. Sebastian Götz%
+}
+\professor{Prof. Dr. rer. nat habil. Uwe Aßmann}
+\date{10.10.2018}
+\maketitle
+\newpage
+
+\tableofcontents
+\listoffigures
+\listoftables
+
+\input{sections/einleitung}
+\input{sections/grundlagen.tex}
+\input{sections/problem.tex}
+\input{sections/eval.tex}
+\input{sections/zusammenfassung.tex}
+
+\printbibliography[heading=bibintoc]\label{sec:bibliography}%
+
+\appendix
+\input{sections/appendix}
+
+\confirmation
+
+\end{document}

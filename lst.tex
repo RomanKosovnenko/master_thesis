@@ -1,0 +1,61 @@
+\usepackage{listings}
+\usepackage{inconsolata}
+
+\lstdefinestyle{common-style}{
+  basicstyle=\scriptsize\ttfamily,  % the size of the fonts that are used for the code
+  showspaces=false,                   % show spaces adding particular underscores
+  showstringspaces=false,             % underline spaces within strings
+  showtabs=false,                     % show tabs within strings adding particular underscores
+%  frame=tlrb,                         % adds a frame around the code
+  framexleftmargin=1em,               % space between left part of frame and listing
+  tabsize=2,                          % sets default tabsize to 2 spaces
+  breaklines=true,                    % sets automatic line breaking
+  breakatwhitespace=true,             % sets if automatic breaks should only happen at whitespace
+  keywordstyle={\color{blue}\textbf}, % keywords are blue
+  commentstyle={\color{gray}},        % comments
+  literate={\$}{{{\$}}}1,
+  basewidth=0.5em,
+  breakindent=40pt,
+  breakautoindent=true,
+  escapechar=\&,
+  aboveskip={0.1\baselineskip}
+}
+
+\lstdefinestyle{shortlisting}{
+	xleftmargin=\parindent,
+	frame=none,
+	aboveskip=3pt,belowskip=3pt
+}
+
+\lstdefinestyle{unboxed}{
+  style=common-style,
+	frame=none,
+}
+
+% JastAdd
+\lstdefinelanguage{AST}{
+	style=common-style,
+	morekeywords={abstract,rel},
+	otherkeywords={::=,->,<,>},
+	morecomment=[l]{//}, morecomment=[s]{/*}{*/},
+}
+
+\lstdefinelanguage{JRAG}[]{java}{
+	style=common-style,
+	morekeywords={abstract,public,private,boolean,aspect,null,syn,inh,coll,eq,with,int,contributes,new,return,for,if,else,this,to,true,false},
+	morecomment=[l]{//}, morecomment=[s]{/*}{*/},
+}
+
+\newcommand{\lstbg}[3][0pt]{{\fboxsep#1\colorbox{#2}{\strut #3}}}
+\lstdefinelanguage{diff}[]{java}{
+  style=common-style,
+  morecomment=[f][\lstbg{HKS07!30}]-,
+  morecomment=[f][\lstbg{HKS65!30}]+,
+  morecomment=[f][\textit]{@@},
+  %morecomment=[f][\textit]{---},
+  %morecomment=[f][\textit]{+++},
+}
+
+\lstdefinestyle{AST} { language=AST,style=common-style } 
+\lstdefinestyle{JRAG} { language=JRAG,style=common-style }
+\lstdefinestyle{Java} { language=Java,style=common-style }

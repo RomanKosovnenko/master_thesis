@@ -1,0 +1,54 @@
+\RequirePackage[ngerman=ngerman-x-latest]{hyphsubst}
+\documentclass[ngerman,twoside]{tudscrreprt}
+%\usepackage{selinput}\SelectInputMappings{adieresis={ä},germandbls={ß}}
+%\usepackage[T1]{fontenc}
+\usepackage{babel}
+\usepackage[utf8]{luainputenc}
+\usepackage{isodate}
+\usepackage{tudscrsupervisor}
+\usepackage{enumitem}\setlist{noitemsep}
+
+\begin{document}
+\faculty{Fakultät Informatik}\department{Institut für Software- und Multimediatechnik}
+%\institute{Institut für Kriminologie}
+\chair{Lehrstuhl für Softwaretechnik}
+\title{%
+  Das ist der Titel
+}
+\thesis{bachelor}
+%\graduation[M.Sc.]{Master of Science}
+\author{%
+  Firstname Lastname\matriculationnumber{123456}
+  \dateofbirth{01.01.1996}\placeofbirth{Dresden}
+  \discipline{Bachelor Informatik 2009}
+}%\matriculationyear{1234}
+\issuedate{01.08.2018}\duedate{01.11.2018}
+\supervisor{%
+  Dipl.-Inf. Carl Mai \and
+  Dr.\ Thomas Kühn
+}
+\professor{Prof.\ Dr.\ rer.\ nat.\ habil. Uwe Aßmann}
+
+\taskform{%
+  In dieser Arbeit soll untersucht werden. blabla [1].
+
+  \textbf{Fragestellungen:}
+  \begin{itemize}
+    \item blabla
+    \item blabla
+  \end{itemize}
+
+  \textbf{Aus den Fragestellungen lassen sich folgende Aufgaben ableiten:}
+  \begin{itemize}
+    \item	blabla
+  \end{itemize}
+
+\textbf{Quellen:}
+\begin{itemize}
+  \item	[1] Adaptive Petri Nets - A Petri Net Extension for Reconfigurable Structures (Carl Mai, René Schöne, Johannes Mey, Thomas Kühn and Uwe Aßmann), In Adaptive 2018
+\end{itemize}
+
+}{%
+}
+
+\end{document}
