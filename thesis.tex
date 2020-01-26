@@ -1,12 +1,12 @@
 % the following command is only required if the thesis is written in german
-\RequirePackage[ngerman=ngerman-x-latest]{hyphsubst}
+%\RequirePackage[ngerman=ngerman-x-latest]{hyphsubst}
 
 % change to english for english theses
-\documentclass[ngerman,BCOR=1.5cm,twoside]{tudscrreprt}
+\documentclass[english,BCOR=1.5cm,twoside]{tudscrreprt}
 
 \usepackage[T1]{fontenc}
 \usepackage[utf8]{inputenc}
-\usepackage[ngerman]{babel}
+\usepackage[english]{babel}
 \usepackage{isodate}
 
 \usepackage[
@@ -77,15 +77,18 @@
 
 \input{lst.tex}
 
+\newcommand{\todoD}[1]{\todo[color=green,inline,size=\small]{Reviewer: #1}}
+\newcommand{\todoJ}[1]{\todo[color=green,inline,size=\small]{Johannes: #1}}
+\newcommand{\todoR}[1]{\todo[color=yellow,inline,size=\small]{Roman: #1}}
+
 \begin{document}
 
-\faculty{Fakultät Informatik}
+\faculty{Faculty of Computer Science}
 \department{}
-\institute{Institut für Software- und Multimediatechnik}
-\chair{Lehrstuhl für Softwaretechnologie}
+\institute{Institute of Software and Multimedia Technology}
+\chair{Chair of Software Technology}
 \title{%
-    Entwicklung eines optimalen Verfahrens zur Eroberung des
-    Geldspeichers in Entenhausen
+    Systematic Parameter Tuning of Genetic Optimization Approaches
 }
 
 %% for a bachelor thesis
@@ -100,34 +103,45 @@
 %\thesis{diploma}
 %\graduation[Dipl.Inf.]{Diplom-Informatiker}
 
-\author{Mickey Mouse}
-\emailaddress[]{mickey.mouse@tu-dresden.de}
-\matriculationnumber{12345678}
-\matriculationyear{2016}
-\dateofbirth{1.1.1990}
-\placeofbirth{Dresden}
+\author{Roman Kosovnenko}
+\emailaddress[]{roman.kosovnenko@mailbox.tu-dresden.de}
+\matriculationnumber{4733290}
+\matriculationyear{2017}
+\dateofbirth{18.1.1994}
+\placeofbirth{Chernihiv}
 %\discipline{Distributed Systems Engineering}
 
 \course{Distributed Systems Engineering}
 
 \supervisor{%
-    Dipl.-Inf. ABC XYZ%
-    \and Dr. Sebastian Götz%
+%	Dipl.-Inf. ABC XYZ%
+	M.Sc. Dmytro Pukhkaiev
+	\and Dipl.-Inf. Johannes Mey
+    \and Dr.-Ing. Sebastian Götz%
 }
 \professor{Prof. Dr. rer. nat habil. Uwe Aßmann}
-\date{10.10.2018}
+\date{9.3.2020}
 \maketitle
 \newpage
+
+\input{Acknowledgment}
 
 \tableofcontents
 \listoffigures
 \listoftables
 
-\input{sections/einleitung}
-\input{sections/grundlagen.tex}
-\input{sections/problem.tex}
-\input{sections/eval.tex}
-\input{sections/zusammenfassung.tex}
+\input{sections/intro}
+\input{sections/background}
+\input{sections/parameter_tuning}
+\input{sections/evalutation}
+\input{sections/conclution}
+\input{sections/future_work}
+
+%\input{sections/einleitung}
+%\input{sections/grundlagen.tex}
+%\input{sections/problem.tex}
+%\input{sections/eval.tex}
+%\input{sections/zusammenfassung.tex}
 
 \printbibliography[heading=bibintoc]\label{sec:bibliography}%
 
