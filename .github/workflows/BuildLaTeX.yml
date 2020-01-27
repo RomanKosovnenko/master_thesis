@@ -18,6 +18,15 @@ jobs:
         with:
           name: pdf
           path: ./thesis.pdf
-      - name: Upload a Release Asset
-        uses: actions/upload-release-asset@v1.0.1
+      - name: Install Dependencies
+        run: |
+          mkdir pdfs
+          mv thesis.pdf pdfs/thesis.pdf
+      - name: Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@3.2.0
+        with:
+          ACCESS_TOKEN: ${{ secrets.ACCESS_TOKEN }}
+          BRANCH: gh-pages # The branch the action should deploy to.
+          FOLDER: pdfs # The folder the action should deploy.
+
 
