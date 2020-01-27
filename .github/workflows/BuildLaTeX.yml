@@ -20,17 +20,29 @@ jobs:
           path: ./thesis.pdf
       - name: move pdf
         run: |
-          mkdir pdfs
-          mv thesis.pdf pdfs/thesis.pdf
+          mkdir public
+          mv thesis.pdf public/thesis.pdf
           ls
           echo "check folder"
-          ls pdfs
+          ls public
+          cat > public/index.html <<EOL
+          <!doctype html>
+          <html>
+            <head>
+              <title>GitHub Pages deployed!</title>
+            </head>
+            <body>
+              <p>GitHub Pages with <strong>${{ github.sha }}</strong> commit ID has been deployed through <a href="https://github.com/marketplace/actions/github-pages">GitHub Pages action</a> successfully.</p>
+            </body>
+          </html>
+          EOL
       - name: Deploy to GitHub Pages
-        run: |
-          rm -rf .git
-          cd pdfs && git init && git add . 
-          git commit -m "Initial commit" 
-          git remote add origin git@github.com:RomanKosovnenko/master_thesis.git 
-          git push --force origin master:gh-pages
+        uses: crazy-max/ghaction-github-pages@v1
+        with:
+          target_branch: gh-pages
+          build_dir: public
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
 
 
