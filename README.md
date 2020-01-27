@@ -1,6 +1,6 @@
 ![Build LaTeX document](https://github.com/RomanKosovnenko/master_thesis/workflows/Build%20LaTeX%20document/badge.svg?event=push)
 
-* [Latest PDF](/raw/gh-pages/thesis.pdf)
+* [Latest PDF](https://github.com/RomanKosovnenko/master_thesis/blob/gh-pages/thesis.pdf)
 
 
 Helpful documents
