@@ -23,12 +23,14 @@ jobs:
           mkdir pdfs
           mv thesis.pdf pdfs/thesis.pdf
           ls
+          echo "check folder"
           ls pdfs
       - name: Deploy to GitHub Pages
-        uses: JamesIves/github-pages-deploy-action@3.2.0
-        with:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          BRANCH: gh-pages # The branch the action should deploy to.
-          FOLDER: pdfs # The folder the action should deploy.
+        run: |
+          rm -rf .git
+          cd pdfs && git init && git add . 
+          git commit -m "Initial commit" 
+          git remote add origin git@github.com:RomanKosovnenko/master_thesis.git 
+          git push --force origin master:gh-pages
 
 
