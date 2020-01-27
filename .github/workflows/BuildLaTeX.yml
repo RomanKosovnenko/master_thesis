@@ -3,10 +3,6 @@ description: Automagically build LaTex manuscripts and push the latest PDF back 
 
 on: push
 
-branding:
-  icon: 'zap'
-  color: 'blue'
-
 jobs:
   build:
     runs-on: ubuntu-latest
