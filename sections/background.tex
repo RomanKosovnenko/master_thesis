@@ -107,7 +107,7 @@ The solution is computed by the MQuAT solver. There are many solvers:
 	\item Simulated Annealing (SA) solver, based on the simulated annealing meta-heuristic~\cite{pukhkaiev19}.
 	\item Genetic solver that uses a genetic algorithm to solve the problem.
 \end{itemize}
-In this thesis, we will talk about Genetic solver in detail in the next sections.
+In this thesis, we talk about Genetic solver in detail in the next sections.
 The solution could be represented as a tree structure. An example of the solution shown in Figure ~\ref{fig:SolutionModel}
 \begin{figure}
 	\centering
@@ -161,7 +161,7 @@ There are many different selection algorithms
 	\item SPEA3\todo{litref}
 	\item PDE \todo{litref}
 \end{itemize}
-In this thesis, we will focus on a selection algorithm only as a parameter of a genetic algorithm and will use NSGA2 and SPEA2 due to software constraints of the used framework. 
+In this thesis, we focus on a selection algorithm only as a parameter of a genetic algorithm and use NSGA2 and SPEA2 due to software constraints of the used framework. 
 \todo{Will add more information about selectors}
 \subsection{crossover}
 Crossover is an operator of a genetic algorithm that allows the recombination of two individuals by swapping some genes between them.
@@ -272,36 +272,31 @@ There are two more probabilities that represent a chance of mutation in implemen
 information from literature!\todo{will add more in next draft}
 
 \section{BRISE}
-BRISE is a software product line (SPL) for parameter tuning.
-BRISE has a distributed structure and consists of three components.
+BRISE is a software product line (SPL) for parameter tuning~\cite{pukhkaiev19}.
+This SPL has two conceptual parts:
 \begin{itemize}
-	\item Main Node
-	\item Worker Service
-	\item Worker
+	\item Static part describes the main flow of parameter tuning, task management, and reporting.
+	\item Configurable part should be configured for each experiment.
 \end{itemize}
-All these components work as docker containers and communicate between themselves using queens. 
+
 \begin{figure}
 	\centering
-	\includegraphics[width=\textwidth]{images/BRISEarch.png}
-	\caption{Main loop of the genetic algorithm}
+	\includegraphics[width=\textwidth]{images/BRISEarch.pdf}
+	\caption{High-level architecture of BRISE}
 	\label{fig:BRISEarch}
 \end{figure}
 
-\subsection{Main node}
-\begin{figure}
-	\centering
-	\includegraphics[width=\textwidth]{images/BRISEMain.png}
-	\caption{Main loop of the genetic algorithm}
-	\label{fig:BRISEMain}
-\end{figure}
-Main Node is a core component of the framework, it is responsible for the whole flow of the application except the measurement process.~\cite{pukhkaiev19} 
-
-\subsection{Worker Service}
-
-
-\subsection{Worker}
-
-The Worker is a lightweight component, containing only the logic of the algorithm to be tuned (or its wrapper), which should be specified by the user. It gets a parameter combination to be tested as an input and outputs the quality metric to be later evaluated in the Main Node. 
+Figure~\ref{fig:BRISEarch} shown the high-level architecture of BRISE.
+Configurable part consist of 
+\begin{itemize}
+	\item Experiment description - describes the experiment, parameters that need to tune, the objective of the experiment, and expected values to detect outliers.
+	\item Selector - selection algorithm that is used to get the combination of parameters from the search space of all possible combinations. BRISE has two selection algorithms out of the box: Sobol sampling~\cite{sobol99} and Fedorov's exchange algorithm~\cite{fedorov13}. 
+	\item Model - predict new configuration. New Model builds after each iteration of measurement of configuration, and if Model predicts a valid result, this configuration goes to be measured in the next iteration. BRISE has several models out of the box.
+	\item Stop condition - the Component that analyzes the results of the experiment, validates the result, and makes a decision to stop the experiment or continue. There are many different stop conditions that could work as a combination of criteria.
+	\item Repeater - component of BRISE that decide about the number of measurement for each configuration to get need accuracy of the results. 
+	\item Worker - contains the process that BRISE needs to tune. Run this process with different configurations and returns the metric of this configuration to use it in the next model build.
+\end{itemize}
+All components from the configurable part could be extended by users to achieve their goals.
 
 
 
