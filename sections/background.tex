@@ -12,7 +12,7 @@ A specialty of MQuAT is the application of QoS contracts to cover non-functional
 
 \subsection{Operation principles of MQuAT}
 The core runtime approach proposed in MQuAT is the THE Auto-Tuning Runtime Environment (THEATRE)\cite{gotz10, gotz12}.
-The concept of runtime environment contains three layers: a user, software, and a resource layer. All of them depicted in Figure ~\label{fig:threelayersmquat}
+The concept of runtime environment contains three layers: a user, software, and a resource layer. All of them depicted in Figure ~\ref{fig:threelayersmquat}
 \begin{figure}
 	\centering
 	\includegraphics[width=\textwidth]{images/ThreeLayersMQuAT}
@@ -34,7 +34,7 @@ To controlling and monitoring all resources, the Global Resource Manager(GRM) is
 	\caption[Layers of MQuAT]{}
 	\label{fig:CombinedMQuAT}
 \end{figure}
-As showed in Figure ~\label{fig:CombinedMQuAT}, in addition to the actual code, the developer is creating the models and quality contracts. The users interact with the system at runtime and prepare their objectives and requests. 
+As showed in Figure ~\ref{fig:CombinedMQuAT}, in addition to the actual code, the developer is creating the models and quality contracts. The users interact with the system at runtime and prepare their objectives and requests. 
 In addition to the running components, the runtime system includes a runtime model, representing the current state of the system. The objectives of the user are transformed into objective functions of an optimization program prior to optimization. Depending on the type of optimization technique used, either all users ' objectives are merged into a single objective function, or one objective function is extracted per purpose. Such objective functions and the system's runtime model are used by the runtime optimization method to produce formulations of the optimization problem for the respective technique. Finally, the system determines whether the optimal configuration differs from the actual configuration~\cite{gotz13, ahmad18}.
 
 For more details about MQuAT, please read refer~\cite{gotz13}. For this thesis, we are discussing a solver of the MQuAT problem that is based on MQuAT. Hence, detailed knowledge about MQuAT is not required. 
@@ -49,18 +49,32 @@ MQuAT problem was presented in ~\cite{gotz18}, and it consists of two problems:
 	\item Variant selection, which provides the best utility by selecting better software implementations.
 \end{itemize} 
 
-To solve this problem was presented new generic metamodel. Both problems are interrelated by user requests specifying minimum requirements on the provided non-functional properties (i.e., minimum utility) while searching for a selection and mapping both to maximize utility and minimize costs. Correctness denotes that only solutions that \textit{do not violate} the users ' minimum requirements are considered \textbf{valid}~\cite{gotz18}.
+To solve this problem was presented new generic metamodel. Both problems are interrelated by user requests specifying minimum requirements on the provided non-functional properties (i.e., minimum utility) while searching for a selection and mapping both to maximize utility and minimize costs. Correctness denotes that only solutions that \textit{do not violate} the users minimum requirements are considered \textbf{valid}.
 
-The problem to be solved is selecting variants of software components and mapping them based on user requests to suitable hardware resources~\cite{gotz18}
+The problem to be solved is selecting variants of software components and mapping them based on user requests to suitable hardware resources.
 
 The MQuAT problem could be described as a metamodel which consists of:
 \begin{itemize}
-	\item Hardware metamodel
-	\item Software metamodel
-	\item The Objective
-	\item A Request
+	\item Hardware metamodel, which consists of hierarchically structured resource types and resources as instances of these types. So the hardware model composes static awareness of resources (types) and knowledge of runtime (instances). Certain types of resources can run the software, i.e., they are valid targets for software implementation mapping. The container attribute is used to mark such types. Figure~\ref{fig:HWmodel} depicted Hardware metamodel.
+	\begin{figure}
+		\centering
+		\includegraphics[width=\textwidth]{images/HWModel}
+		\caption{}
+		\label{fig:HWmodel}
+	\end{figure}
+	In addition, a set of properties further characterize resource types. Resources specify then specific values for these properties. As an example, the resource type RAM could be defined with a property amount of memory and marked as a container
+	\item Software metamodel showed on Figure~\ref{fig:SWModel}. Its main element called Component and represents some functionality.
+	Each Component consists of implementations that provide this functionality, requiring additional components or resources to complete their work. 
+	\begin{figure}
+		\centering
+		\includegraphics[width=\textwidth]{images/SWModel}
+		\caption{}
+		\label{fig:SWModel}
+	\end{figure}
+	\item The Objective specifies how to calculate a solution's objective value, i.e., for which value(s) the problem should be optimized. This selects a property to optimize for, and an objective function to define how to aggregate all values of this property.
+	\item A Request represents a user requirement, which specifies which algorithm should be used to execute parameters and requirements. Requests contain their functional requirements by referring to a target software component, limitations on non-functional requirements (e.g., quality).
 \end{itemize}
-and shown on Figure~\label{fig:mquatmodel}.
+Full problem depicted on Figure~\ref{fig:mquatmodel}
 \begin{figure}
 	\centering
 	\includegraphics[width=\textwidth]{images/MQuATModel}
@@ -68,35 +82,6 @@ and shown on Figure~\label{fig:mquatmodel}.
 	\label{fig:mquatmodel}
 \end{figure}
 
-
-\subsection{Hardware metamodel}
-Figure~\label{fig:HWmodel} depicted the Hardware metamodel, which consists of hierarchically structured resource types and resources as instances of these types. So the hardware model composes static awareness of resources (types) and knowledge of runtime (instances). Certain types of resources can run the software, i.e., they are valid targets for software implementation mapping. The container attribute is used to mark such types~\cite{gotz18}.
-\begin{figure}
-	\centering
-	\includegraphics[width=\textwidth]{images/HWModel}
-	\caption{}
-	\label{fig:HWmodel}
-\end{figure}
-
-In addition, a set of properties further characterize resource types. Resources specify then specific values for these properties. As an example, the resource type RAM could be defined with a property amount of memory and marked as a container~\cite{gotz18}. 
-
-\subsection{Software metamodel}
-Figure~\label{fig:SWModel} depicts Software metamodel and its main element called Component and represents some functionality.
-Each Component consists of implementations that provide this functionality, requiring additional components or resources to complete their work. 
-\begin{figure}
-	\centering
-	\includegraphics[width=\textwidth]{images/SWModel}
-	\caption{}
-	\label{fig:SWModel}
-\end{figure}
-
-\subsection{Objective}
-The Objective specifies how to calculate a solution's objective value, i.e., for which value(s) the problem should be optimized. This selects a property to optimize for, and an objective function to define how to aggregate all values of this property~\cite{gotz18}.
-
-\subsection{Request}
-A Request represents a user requirement, which specifies which algorithm should be used to execute parameters and requirements. Requests contain their functional requirements by referring to a target software component, limitations on non-functional requirements (e.g., quality)~\cite{gotz18}.
-
-\subsection{Constrains}
 There are some constraints that are grouped in Architectural, Request, and Negotiation constraints groups.
 \begin{itemize}
 	\item Architectural constraints ensure that each request is fulfilled, selecting exactly one implementation per Component and deploying no more than one implementation on one resource.
@@ -108,14 +93,22 @@ There are additional constraints due to problem generation:
 	\item structures for the software and hardware components are fixed to ensure comparability,
 	\item computeNode that represents a regular computer hardware consist of one or more CPUs, RAM memory, disk, and a networking interface,
 	\item software model has a simple tree structure,
-	\item  fixed branching factor of two~\cite{gotz18}.
+	\item fixed branching factor of two.
 \end{itemize}
 
-
 \todo{Should I add parameters that describe a problem(software variants, number of requests and so on)?)}
+
 \section{The solution of the MQuAT problem}
-The solution is computed by the MQuAT solver. There are many solvers, but we talk only about one of them a bit later.
-The solution could be represented as a tree structure. An example of the solution shown in Figure~\label{fig:SolutionModel}
+The solution is computed by the MQuAT solver. There are many solvers:
+\begin{itemize}
+	\item Simple solver, which goes step by step from one solution candidate to another.
+	\item ILP solver, which generates integer linear programming (ILP) problem from the MQUAT problem and after that solve it.
+	\item Random solver - tries random solution candidates.
+	\item Simulated Annealing (SA) solver, based on the simulated annealing meta-heuristic~\cite{pukhkaiev19}.
+	\item Genetic solver that uses a genetic algorithm to solve the problem.
+\end{itemize}
+In this thesis, we will talk about Genetic solver in detail in the next sections.
+The solution could be represented as a tree structure. An example of the solution shown in Figure ~\ref{fig:SolutionModel}
 \begin{figure}
 	\centering
 	\includegraphics[width=\textwidth]{images/MQuATSolutionModel.png}
@@ -133,6 +126,7 @@ A solution is valid if for each user request
 If it is valid and no other solution has a better objective value, then a solution is optimal~\cite{gotz18}.
 
 \section{Genetic algorithm}
+\label{sec:GeneticAlgorithm}
 Evolutionary algorithms are a subset of evolutionary computation and belong to set of modern heuristics-based search method.~\cite{vikhar16}
 Appeared as a result of the influence of the biological evolution on computer scientists. This domain contains different types.
 There are
@@ -142,8 +136,6 @@ There are
 	\item Evolutionary programming
 	\item Evolution strategy
 \end{itemize}
-
-The genetic algorithm (GA) is the most popular type of EA.
 
 \begin{figure}
 	\centering
@@ -159,7 +151,7 @@ In step 4, using recombination and mutation on selected candidates, GA creates a
 
 GA based on different components and operators.
 \subsection{Selector}
-The selector is one of the most important components of GA. It selects \textit{mu} number of individuals from the population. The motivation for this operation comes from Charles Darwin's theory of natural selection. He says that the most fitted or adapted individuals have a better chance to get better offspring.
+The selector is one of the most important components of GA. It selects \textit{mu} number of individuals from the population.
 
 There are many different selection algorithms
 \begin{itemize}
@@ -169,10 +161,10 @@ There are many different selection algorithms
 	\item SPEA3\todo{litref}
 	\item PDE \todo{litref}
 \end{itemize}
-In this thesis we will focus on selection algorithm only as a parameter of genetic algorithm and will use NSGA2 and SPEA2. 
+In this thesis, we will focus on a selection algorithm only as a parameter of a genetic algorithm and will use NSGA2 and SPEA2 due to software constraints of the used framework. 
 \todo{Will add more information about selectors}
 \subsection{crossover}
-Crossover is an operator of genetic algorithm that allows recombination of two individuals by swapping some genes between them.
+Crossover is an operator of a genetic algorithm that allows the recombination of two individuals by swapping some genes between them.
 In general, the crossover has several parameters such as
 \begin{itemize}
 	\item Crossover rate - parameter that describes the probability of two chromosomes to exchange their genes.
@@ -204,7 +196,7 @@ To perform a mutation on chromosome need to do:
 	\item Change selected gene to another.
 \end{enumerate}
 
-Figure~\label{fig:MutationVector} presented a simple mutation on the chromosome that described as a vector of bits.
+Figure~\ref{fig:MutationVector} presented a simple mutation on the chromosome that described as a vector of bits.
 
 \begin{figure}
 	\centering
@@ -221,11 +213,17 @@ This solver is based on Opt4J framework~\footnote{http://opt4j.sourceforge.net/d
 
 To solve the custom problem using genetic algorithm, the user needs to create several things:
 \begin{enumerate}
-	\item Creator
-	\item Decoder
-	\item Evaluator
+	\item Creator is needed to create a random genotype for the initial population.
+	In the genetic solver Creator create the genotype by creating a random solution model and transform it into a Tree Shape Genotype structure.
+	\item Decoder is needed to perform decoding the tree shape genotype into phenotype. The phenotype, in this case, is a Solution Model of MQuAT.
+	\item Evaluator calculates the objective functions of the solution. In the case of genetic solver, the Evaluator calculates two objectives: 
+	\begin{itemize}
+		\item Validity errors - number of violated contracts
+		\item Energy value - energy consumption
+	\end{itemize}
 \end{enumerate}
-Also, if your genotype can't be described as a vector, then you first need to implement:
+
+If your genotype can't be described as a vector, then you first need to implement:
 \begin{enumerate}
 	\item Genotype
 	\item Crossover operator
@@ -233,12 +231,22 @@ Also, if your genotype can't be described as a vector, then you first need to im
 \end{enumerate}
 
 \subsection{Tree Shape Genotype}
-Because of the problem model of MQuAT in genetic solver was created Tree Shape Genotype~\cite{ahmad18}.
+Because of the problem model of MQuAT, which requires mapping of implementations to resources, in genetic solver was created Tree Shape Genotype~\cite{ahmad18}.
+The example of this genotype shown on Figure~\ref{fig:TreeShapeGenotypeExample}
 
-\todo{will add more}.
+\begin{figure}
+	\centering
+	\includegraphics[width=\textwidth]{images/TreeShapeGenotypeExample.png}
+	\caption{}
+	\label{fig:TreeShapeGenotypeExample}
+\end{figure}
+
+The first node in this genotype contains the input request. The second node represents the mapping of the user component. In this node, Impl A-1 is selected rather than Impl A-0 of the user component. As shown in Figure~\ref{fig:TreeShapeGenotypeExample}, this implementation is mapped to Hardware-Resources1. Moreover, Impl A-1 also requires software components B and C that have only one Impl B-0 and Impl C-0 implementation and are mapped to Hardware-Resource5 and Hardware-Resource4, respectively.
 
 \subsection{Crossover operator}
-This operator performs a crossover between two Tree Shaped Genotypes. 
+This operator performs a crossover between two Tree Shaped Genotypes and are performed on software implementation and hardware resource in each tree shape genotype. Figure~\ref{fig:GeneticSolverCrossover} depicted the crossover. 
+During this process, there is a check that ensures that the implementation and resources are not the same. If this check showed that comparing nodes are the same, then crossover goes recursively to child nodes and performs the check.
+If the check showed that nodes are not the same, they swap the implementation, the resource, and all lower substructure.
 
 \begin{figure}
 	\centering
@@ -250,7 +258,8 @@ This operator performs a crossover between two Tree Shaped Genotypes.
 
 
 \subsection{Mutation operator}
-This operator performs a crossover between two Tree Shaped Genotypes. 
+Mutation operation is used to randomly add new features to the tree-shaped genotype. Figure~\ref{fig:GeneticSolverCrossover} depicts the mutation process in which with some probability to mutate current node or recursively go down to children.
+There are two more probabilities that represent a chance of mutation in implementation and resource accordingly. 
 
 \begin{figure}
 	\centering
@@ -258,35 +267,6 @@ This operator performs a crossover between two Tree Shaped Genotypes.
 	\caption{Main loop of the genetic algorithm}
 	\label{fig:GeneticSolverMutation}
 \end{figure}
-
-\subsection{Creator}
-\label{subsec:Creator}
-Genetic algorithm uses creator to create random genotypes for initial population.
-In the genetic solver Creator create the genotype by creating a random solution model and transform it into a Tree Shape Genotype structure.
-
-\begin{figure}
-	\centering
-	\includegraphics[width=\textwidth]{images/Opt4JGA.png}
-	\caption{Main loop of the genetic algorithm}
-	\label{fig:GeneticSolverMutation}
-\end{figure}
-
-\subsection{Decoder}
-
-Decoder decode genotype into phenotype.
-Phenotype is a solution that could be evaluated.
-In genetic solver decoder transform genotype to Solution Model of MQuAT.
-
-
-\subsection{Evaluator}
-
-Evaluator calculates the objective functions of the solution. 
-In genetic solver, the Evaluator calculates two objectives:
-
-\begin{enumerate}
-	\item Validity errors - number of violated contracts
-	\item Energy value - energy consumption
-\end{enumerate}
 
 \section{Parameter Tuning Strategies for GA}
 information from literature!\todo{will add more in next draft}
