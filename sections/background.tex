@@ -16,7 +16,7 @@ The concept of runtime environment contains three layers: a user, software, and 
 \begin{figure}
 	\centering
 	\includegraphics[width=\textwidth]{images/ThreeLayersMQuAT}
-	\caption[Layers of MQuAT]{}
+	\caption[Three layers of MQuAT]{Three layers of MQuAT}
 	\label{fig:threelayersmquat}
 \end{figure}
 
@@ -31,7 +31,7 @@ To controlling and monitoring all resources, the Global Resource Manager(GRM) is
 \begin{figure}
 	\centering
 	\includegraphics[width=\textwidth]{images/CombinedMQuAT}
-	\caption[Layers of MQuAT]{}
+	\caption[Combined structure of MQuAT]{Combined structure of MQuAT}
 	\label{fig:CombinedMQuAT}
 \end{figure}
 As showed in Figure ~\ref{fig:CombinedMQuAT}, in addition to the actual code, the developer is creating the models and quality contracts. The users interact with the system at runtime and prepare their objectives and requests. 
@@ -59,16 +59,17 @@ The MQuAT problem could be described as a metamodel which consists of:
 	\begin{figure}
 		\centering
 		\includegraphics[width=\textwidth]{images/HWModel}
-		\caption{}
+		\caption[Hardware meta-model]{Hardware meta-model}
 		\label{fig:HWmodel}
 	\end{figure}
+
 	In addition, a set of properties further characterize resource types. Resources specify then specific values for these properties. As an example, the resource type RAM could be defined with a property amount of memory and marked as a container
 	\item Software metamodel showed on Figure~\ref{fig:SWModel}. Its main element called Component and represents some functionality.
 	Each Component consists of implementations that provide this functionality, requiring additional components or resources to complete their work. 
 	\begin{figure}
 		\centering
-		\includegraphics[width=\textwidth]{images/SWModel}
-		\caption{}
+		\includegraphics[width=0.75\textwidth]{images/SWModel}
+		\caption[Software meta-model]{Software meta-model}
 		\label{fig:SWModel}
 	\end{figure}
 	\item The Objective specifies how to calculate a solution's objective value, i.e., for which value(s) the problem should be optimized. This selects a property to optimize for, and an objective function to define how to aggregate all values of this property.
@@ -78,7 +79,7 @@ Full problem depicted on Figure~\ref{fig:mquatmodel}
 \begin{figure}
 	\centering
 	\includegraphics[width=\textwidth]{images/MQuATModel}
-	\caption{}
+	\caption[MQuAT problem model]{MQuAT problem model}
 	\label{fig:mquatmodel}
 \end{figure}
 
@@ -104,17 +105,12 @@ The solution is computed by the MQuAT solver. There are many solvers:
 	\item Simple solver, which goes step by step from one solution candidate to another.
 	\item ILP solver, which generates integer linear programming (ILP) problem from the MQUAT problem and after that solve it.
 	\item Random solver - tries random solution candidates.
-	\item Simulated Annealing (SA) solver, based on the simulated annealing meta-heuristic~\cite{pukhkaiev19}.
+	\item Simulated Annealing (SA) solver, based on the simulated annealing meta-heuristic~{pukhkaiev19}.
 	\item Genetic solver that uses a genetic algorithm to solve the problem.
 \end{itemize}
 In this thesis, we talk about Genetic solver in detail in the next sections.
 The solution could be represented as a tree structure. An example of the solution shown in Figure ~\ref{fig:SolutionModel}
-\begin{figure}
-	\centering
-	\includegraphics[width=\textwidth]{images/MQuATSolutionModel.png}
-	\caption{}
-	\label{fig:SolutionModel}
-\end{figure}
+
 It contains a list of assignments. Each assignment select one implementation of required component and map it to the resources~\cite{gotz18}.
 A solution is valid if for each user request
 \begin{enumerate}
@@ -139,8 +135,8 @@ There are
 
 \begin{figure}
 	\centering
-	\includegraphics[width=\textwidth]{images/GeneticLoop}
-	\caption{Main loop of the genetic algorithm}
+	\includegraphics[width=0.8\textwidth]{images/GeneticLoop}
+	\caption[Main loop of the genetic algorithm]{Main loop of the genetic algorithm}
 	\label{fig:GeneticLoop}
 \end{figure}
 Main principle of GA looks like a loop with several steps.
@@ -177,8 +173,8 @@ Secondly, swap genes between chromosomes.
 
 \begin{figure}
 	\centering
-	\includegraphics[width=\textwidth]{images/crossoverVector.png}
-	\caption{Main loop of the genetic algorithm}
+	\includegraphics[width=0.5\textwidth]{images/crossoverVector.png}
+	\caption[Example of the crossover]{Example of the crossover between chromosome that described as a vector of bits}
 	\label{fig:crossoverVector}
 \end{figure}
 
@@ -195,15 +191,15 @@ To perform a mutation on chromosome need to do:
 	\item Randomly select gene which mutates
 	\item Change selected gene to another.
 \end{enumerate}
-
-Figure~\ref{fig:MutationVector} presented a simple mutation on the chromosome that described as a vector of bits.
-
 \begin{figure}
 	\centering
-	\includegraphics[width=\textwidth]{images/MutationVector.png}
-	\caption{Main loop of the genetic algorithm}
+	\includegraphics[width=0.5\textwidth]{images/MutationVector.png}
+	\caption[Example of the mutation]{Example of the mutation between chromosome that described as a vector of bits}
 	\label{fig:MutationVector}
 \end{figure}
+Figure~\ref{fig:MutationVector} presented a simple mutation on the chromosome that described as a vector of bits.
+
+
 
 
 \section{Genetic solver}
@@ -236,8 +232,8 @@ The example of this genotype shown on Figure~\ref{fig:TreeShapeGenotypeExample}
 
 \begin{figure}
 	\centering
-	\includegraphics[width=\textwidth]{images/TreeShapeGenotypeExample.png}
-	\caption{}
+	\includegraphics[width=0.6\textwidth]{images/TreeShapeGenotypeExample.png}
+	\caption[Example of the Tree Shape Genotype]{Example of the Tree Shape Genotype}
 	\label{fig:TreeShapeGenotypeExample}
 \end{figure}
 
@@ -250,8 +246,8 @@ If the check showed that nodes are not the same, they swap the implementation, t
 
 \begin{figure}
 	\centering
-	\includegraphics[width=\textwidth]{images/GeneticSolverCrossover.png}
-	\caption{Main loop of the genetic algorithm}
+	\includegraphics[width=0.9\textwidth]{images/GeneticSolverCrossover.png}
+	\caption[Crossover in Tree Shape Genotype]{Example of crossover between two Tree Shape Genotypes}
 	\label{fig:GeneticSolverCrossover}
 \end{figure}
 
@@ -264,7 +260,7 @@ There are two more probabilities that represent a chance of mutation in implemen
 \begin{figure}
 	\centering
 	\includegraphics[width=\textwidth]{images/GeneticSolverMutation.png}
-	\caption{Main loop of the genetic algorithm}
+	\caption[Mutation in Tree Shape Genotype]{Example of mutation between two Tree Shape Genotypes}
 	\label{fig:GeneticSolverMutation}
 \end{figure}
 
@@ -282,7 +278,7 @@ This SPL has two conceptual parts:
 \begin{figure}
 	\centering
 	\includegraphics[width=\textwidth]{images/BRISEarch.pdf}
-	\caption{High-level architecture of BRISE}
+	\caption[The high-level architecture of BRISE]{The high-level architecture of BRISE}
 	\label{fig:BRISEarch}
 \end{figure}
 
