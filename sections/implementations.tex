@@ -16,7 +16,7 @@ Figure~\ref{label} shown the box-plot of number of contract violation in basic v
 \begin{figure}
 	\centering
 	\includegraphics[width=\textwidth]{images/BoxPlotSolverBasic}
-	\caption[Boxplot of number of contract violations for the basic version of genetic solver]{}
+	\caption[Boxplot with a number of contract violations for the basic version of genetic solver]{}
 	\label{fig:boxplotsolverbasic}
 \end{figure}
 
@@ -52,7 +52,7 @@ The results showed on Figure~\ref{fig:boxplotsolverbasictuning}.
 \begin{figure}
 	\centering
 	\includegraphics[width=\textwidth]{images/BoxPlotSolverBasicTuning}
-	\caption[Boxplot of number of contract violations for the basic version of genetic solver and with tuned parameters]{}
+	\caption[Boxplot with a number of contract violations for the basic version of genetic solver and with tuned parameters]{}
 	\label{fig:boxplotsolverbasictuning}
 \end{figure}
 
@@ -61,29 +61,64 @@ Conclusions of this step:
 	\item All results still not valid.
 	\item Number of contract violations is less.
 	\item The distance between max and min result is smaller.
-	\item This step confirms the fact that good values of parameters have a big influence on the results, but sometimes parameter tuning not enough to get good results.
 \end{enumerate}
 
 \section{What if we could change magic numbers or Explain the code to ducks}
-the section about how we replace the hardcoded parameters...
+Previous section show that even with good set of parameters genetic solver could not get valid results.
+After more detailed analysis of code we found out more parameters, that has static values:
+\todo{Should I put here a screenshot from the code?}
+\begin{itemize}
+	\item lambda - the number of new the number of new offspring individuals per generation,
+	\item CrossoverRate - as mentioned in section~\ref{sec:GeneticAlgorithmCrossover}, it describes the probability of two individuals to exchange their genes,
+	\item mu - the number of parents, that selected by selector to create new individuals,
+	\item MutationRate - as mentioned in section~\ref{sec:GeneticAlgorithmMutation}, it describes the probability of the individual to mutate,
+	\item Resource Mutation Probability - the probability that during mutation mapped resource will mutate,
+	\item CrossoverProbability - probability to do crossover inside crossover operator,\todo{so stupid}
+	\item ValidityWeight - coefficient that shows how each contract violation degrees the quality of the solution, 
+	\item SoftwareValidityWeight - coefficient that shows how each error in software tree degrees the quality of the solution,
+	\item RandomSoftwareAssignmentAttempts - max number of attempts to set a valid software tree to individual on creation phase,
+	\item populateSoftwareSolutionAttempts -  max number of attempts to assign software component and resource to get a valid individual on creation phase.
+\end{itemize}
+
+To made them changeable we use \textit{GoogleGuiceDependencyInjection} to change values of this parameters during the solver call.
+
+Figure~\ref{fig:boxplotsolverNoHardcodedTuning} shows the results of genetic solver with all parameters after optimization in BRISE.
+\begin{figure}
+	\centering
+	\includegraphics[width=\textwidth]{images/BoxPlotSolverNoHardcodedTuning.pdf}
+	\caption[Boxplot with a number of contract violations for the genetic solver without hardcoded parameters]{Boxplot with a number of contract violations for the genetic solver without hardcoded parameters}
+	\label{fig:boxplotsolverNoHardcodedTuning}
+\end{figure}
+Results a bit better but still without valid results.
+This step confirms the fact that good values of parameters have a big influence on the results, but sometimes parameter tuning not enough to get good results.
+That's the time when we need good parameter engineering. 
 
 \section{Astrologers have announced a week of probabilities. The number of probabilities doubled.}
-the section about new probabilities in Crossover and Mutation operators
+if you look more detailed in the implementation of the crossover and mutation you will find out that crossover point and mutation point are pretty static.
+In crossover:
+\begin{itemize}
+	\item after the check it recursively goes down and swap both children and their sub-trees,
+	\item recombination applied on all requests of the genotype,
+	\item crossover point depends on checks of the same nodes of trees.
+\end{itemize}
 
-\section{Rule34: optimize everything}
-information how we optimize all parameters at this step
+To made crossover and mutation points are more random we add more probabilities that moves them in different ways.
+There are:
+\begin{itemize}
+	\item Crossover On Random Child Probability
+	\item Crossover On Random Level Probability
+	\item Crossover On Random Request Probability
+	\item Mutation On Random Child Probability
+	\item Mutation On Random Request Probability
+\end{itemize}
+
 
 \section{Peppa Pig and adaptation for own life}
 adaptive CrossoverRate and how it works
 
-\section{Peppa Pig and life without cash as a result of optimal self-adaptation}
-static tuning is good or not for adaptive parameters
 
 \section{Unique genotypes is a God sign or placebo for genetic algorithms}
 How works unique individuals in a population
-
-\section{As my grandfather said: "I am your optimization"}
-info about results of optimization
 
 \section{Bermuda Triangle and Missing Parameters}
 MAYBE there will be information about not important parameters

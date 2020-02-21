@@ -159,7 +159,7 @@ There are many different selection algorithms
 \end{itemize}
 In this thesis, we focus on a selection algorithm only as a parameter of a genetic algorithm and use NSGA2 and SPEA2 due to software constraints of the used framework. 
 \todo{Will add more information about selectors}
-\subsection{crossover}
+\subsection{crossover}\label{sec:GeneticAlgorithmCrossover}
 Crossover is an operator of a genetic algorithm that allows the recombination of two individuals by swapping some genes between them.
 In general, the crossover has several parameters such as
 \begin{itemize}
@@ -178,12 +178,12 @@ Secondly, swap genes between chromosomes.
 	\label{fig:crossoverVector}
 \end{figure}
 
-\subsection{mutation}
+\subsection{mutation}\label{sec:GeneticAlgorithmMutation}
 
 The mutation is an operator of a genetic algorithm that changes a single gene in a chromosome. As a crossover operator, a mutation has parameters:
 
 \begin{itemize}
-	\item Mutation rate - parameter that describes the probability mutation.
+	\item Mutation rate - parameter that describes the probability of mutation.
 \end{itemize}
 
 To perform a mutation on chromosome need to do:
