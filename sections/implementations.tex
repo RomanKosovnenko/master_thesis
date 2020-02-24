@@ -1,4 +1,4 @@
-\chapter{The way to get better results}
+\chapter{Implementation}
 In this chapter described several approaches to improve genetic solver to solve more complex problems.
 To do this, a benchmark measurement was made.
 We concentrate on solving the problem with parameters:
@@ -21,7 +21,7 @@ Figure~\ref{label} shown the box-plot of number of contract violation in basic v
 \end{figure}
 
 
-\section{Parameter tuning as a beginning of live}\todo{new title}
+\section{Parameters that need tuning}
 The first step to improve the genetic solver was a parameter optimization. To perform parameter optimization was performed a few important steps.
 \begin{enumerate}
 	\item Analysis of genetic solver to find out all parameters that could be changed. 
@@ -34,7 +34,7 @@ After deep-diving into the code of genetic solver, the list of parameters was pr
 In the basic version of the genetic solver, there are only three parameters that are changeable on call. There are:
 \begin{itemize}
 	\item selectorType - type of the selector algorithm that was mentioned in section~\ref{sec:GeneticAlgorithm:Selector},
-	\item number of generation - number of generations that performed by the genetic solver, working as a termination condition, in this thesis we use only timeout termination, so this parameter set as a huge value,
+	\item Number of generation - number of generations that performed by the genetic solver, working as a termination condition, in this thesis we use only timeout termination, so this parameter set as a huge value,
 	\item PopulationSize - number of individuals in a population.
 \end{itemize}
 
@@ -44,7 +44,7 @@ Adaptation of genetic solver to work into a BRISE consist of a few steps:
 	\item implement a method for a worker that will call the file from the previous step and returns the results with a number of contract violations and energy consumption.
 \end{enumerate}
 
-Step number 3 means that the user describes parameters that need to optimize, their names, ranges if the parameter has continuous range, or all variants if categorical. The user also should set what components to use, what the minimal number of measurements of a single Configuration, etc.
+Step number 3 means that the user describes parameters that need to optimize, their names, ranges if the parameter has continuous range, or all variants if categorical. The user also should set what components to use, what the minimal Number of measurements of a single Configuration, etc.
 For parameter optimization of genetic solver, we use the experiment description shown in \todo{appendix or here?}.
 
 When optimal configuration was founded, we use it to analyze results in a boxplot.
@@ -63,23 +63,23 @@ Conclusions of this step:
 	\item The distance between max and min result is smaller.
 \end{enumerate}
 
-\section{What if we could change magic numbers or Explain the code to ducks}
-Previous section show that even with good set of parameters genetic solver could not get valid results.
-After more detailed analysis of code we found out more parameters, that has static values:
+\section{More parameters}
+The previous section shows that even with a good set of parameters, a genetic solver could not get valid results.
+After more detailed Analysis of code, we found out more parameters, that has static values:
 \begin{itemize}
-	\item lambda - the number of new the number of new offspring individuals per generation,
+	\item lambda - the Number of new offspring individuals per generation,
 	\item CrossoverRate - as mentioned in section~\ref{sec:GeneticAlgorithmCrossover}, it describes the probability of two individuals to exchange their genes,
-	\item mu - the number of parents, that selected by selector to create new individuals,
+	\item mu - the Number of parents, selected by the selector to create new individuals,
 	\item MutationRate - as mentioned in section~\ref{sec:GeneticAlgorithmMutation}, it describes the probability of the individual to mutate,
 	\item Resource Mutation Probability - the probability that during mutation mapped resource will mutate,
 	\item CrossoverProbability - probability to do crossover inside crossover operator,\todo{so stupid}
 	\item ValidityWeight - coefficient that shows how each contract violation degrees the quality of the solution, 
 	\item SoftwareValidityWeight - coefficient that shows how each error in software tree degrees the quality of the solution,
-	\item RandomSoftwareAssignmentAttempts - max number of attempts to set a valid software tree to individual on creation phase,
-	\item populateSoftwareSolutionAttempts -  max number of attempts to assign software component and resource to get a valid individual on creation phase.
+	\item RandomSoftwareAssignmentAttempts - max Number of attempts to set a valid software tree to the individual on the creation phase,
+	\item populateSoftwareSolutionAttempts -  max Number of attempts to assign software components and resources to get a valid individual on the creation phase.
 \end{itemize}
 
-To made them changeable we use \textit{GoogleGuiceDependencyInjection} to change values of this parameters during the solver call.
+To make them changeable, we use \textit{GoogleGuiceDependencyInjection} to change the values of these parameters during the solver call.
 
 Figure~\ref{fig:boxplotsolverNoHardcodedTuning} shows the results of genetic solver with all parameters after optimization in BRISE.
 \begin{figure}
@@ -89,28 +89,28 @@ Figure~\ref{fig:boxplotsolverNoHardcodedTuning} shows the results of genetic sol
 	\label{fig:boxplotsolverNoHardcodedTuning}
 \end{figure}
 Results a bit better but still without valid results.
-This step confirms the fact that good values of parameters have a big influence on the results, but sometimes parameter tuning not enough to get good results. 
+This step confirms the fact that good values of parameters have a significant influence on the results, but sometimes parameter tuning not enough to get good results. 
 
-\section{Astrologers have announced a week of probabilities. The number of probabilities doubled.}
-When parameter tuning could not improve your algorithm or process, then this job must do another research field that called parameter engineering.
-Detailed analysis of crossover and mutation operators showed that crossover point and mutation point are pretty static.
+\section{Even more parameters}
+When parameter tuning could not improve your algorithm or process, then this job must do another research field called parameter engineering.
+Detailed Analysis of crossover and mutation operators showed that crossover point and mutation points are pretty static.
 
-Crossover point is defined as a node of the tree shape genotype recursively comparing the corresponding nodes of the threes by software implementation and the hardware resource for each request.
+The crossover point is defined as a node of the tree shape genotype recursively comparing the corresponding nodes of the threes by software implementation and the hardware resource for each request.
 If it is not located at the root of the tree, then the exchange occurs with all children.
 
-Mutation point is defined for one random request and with probability `MutationRate` it mutate the root of the tree shape genotype otherwise both children.
+Mutation point is defined for one random request, and with probability `MutationRate`, it mutates the root of the tree shape genotype otherwise both children.
 
-To made crossover and mutation points are more random we add more probabilities that moves them in different ways.
+To made crossover and mutation points are more random, we add more probabilities that move them in different ways.
 There are:
 \begin{itemize}
 	\item Crossover On Random Child Probability - chance that crossover will occur on the random child, or on both children otherwise,
-	\item Crossover On Random Level Probability - probability that describes a chance to do crossover on random level of the tree, 
-	\item Crossover On Random Request Probability - chance to do crossover on random request,
-	\item Mutation On Random Child Probability - probability that describes a chance of mutation on random child,
-	\item Mutation On Random Level Probability - chance of mutation on random level of the tree shape genotype.
+	\item Crossover On Random Level Probability - the probability that describes a chance to do a crossover on random level of the tree, 
+	\item Crossover On Random Request Probability - a chance to do a crossover on random request,
+	\item Mutation On Random Child Probability - the probability that describes a chance of mutation on a random child,
+	\item Mutation On Random Level Probability - the chance of mutation on a random level of the tree shape genotype.
 \end{itemize}
 
-After those probability were added to operators with some default values of probabilities and all previous parameters were as in basic version, the results of genetic solver was almost the same as a results from previous section (Figure~\ref{fig:boxplotsolverNewParameters}).
+After those probabilities were added to operators with some default values of probabilities and all previous parameters were as in basic version, the results of the genetic solver were almost the same as results from the previous section (Figure~\ref{fig:boxplotsolverNewParameters}).
 \begin{figure}
 	\centering
 	\includegraphics[width=\textwidth]{images/BoxPlotSolverNewParameters.pdf}
@@ -118,7 +118,7 @@ After those probability were added to operators with some default values of prob
 	\label{fig:boxplotsolverNewParameters}
 \end{figure}
 
-This results show that new parameters have big influence on result as tuning. That means that good parameter engineering is important in any process.  But what if we could tune new parameters together with other?
+These results show that new parameters have a big influence on the result of tuning. That means that good parameter engineering is important in any process.  But what if we could tune new parameters together with others?
 Figure~\ref{fig:boxplotsolverNewParametersTuning} shows the result that combine new probabilities and parameter tuning.
 \begin{figure}
 	\centering
@@ -127,15 +127,15 @@ Figure~\ref{fig:boxplotsolverNewParametersTuning} shows the result that combine 
 	\label{fig:boxplotsolverNewParametersTuning}
 \end{figure}
 
-Combined approach of new parameters and parameter tuning gives the valid result. The boxplot also shows that not all results are valid. The reason for this is the local optimum and the inability to get out of it due to the fact that at a certain moment the majority of the individual in the population becomes the same. 
+The combined approach of new parameters and parameter tuning gives a valid result. The boxplot also shows that not all results are valid. The reason for this is the local optimum and the inability to get out of it due to the fact that at a certain moment, the majority of the individual in the population becomes the same. 
 
-\section{Peppa Pig and adaptation for own life}
-The reason why all individuals in the population are the same is primarily due to the crossover. To create new individuals, the selector takes the best individuals. Crossover, taking two decisions and performing a gene change, creates two new idividuals. If these individuals are worse, then the selector in the new iteration will drop them, and if they are close, they will take them to create new individuals. At a certain point, a situation occurs that the crossover occurs between two identical genotypes, which creates two exactly the same individuals. Which exponentially increases the number of identical elements and leads to the collapse of the genetic diversity of the population.
+\section{Adaptive parameters}
+The reason why all individuals in the population are the same is primarily due to the crossover. To create new individuals, the selector takes the best individuals. Crossover, taking two decisions, and performing a gene change, creates two new individuals. If these individuals are worse, then the selector in the new iteration will drop them, and if they are close, they will take them to create new individuals. At a certain point, a situation occurs that the crossover occurs between two identical genotypes, which creates two the same individuals. This exponentially increases the number of identical elements and leads to the collapse of the genetic diversity of the population.
 
-The idea how to solve this issue is adaptive crossover rate that change chance of the crossover depends on number of the same individuals in population. 
+The idea of how to solve this issue is an adaptive crossover rate that changes the chance of the crossover depends on the Number of the same individuals in a population. 
 The principle of operation is as follows. After each iteration, a part of the unique genotypes in the population is calculated. If the resulting number is small, then the probability of a crossover increases, and vice versa, the probability of a crossover decreases with a small number of unique individuals.
 
-The results of genetic solver with added adaptive crossover rate with basic set of parameters and with tuned parameters showed on Figure~\ref{fig:boxplotsolverAdaptiveCrossoverTuning}
+The results of the genetic solver with added adaptive crossover rate with a basic set of parameters and with tuned parameters showed on Figure~\ref{fig:boxplotsolverAdaptiveCrossoverTuning}
 \begin{figure}
 	\centering
 	\includegraphics[width=\textwidth]{images/BoxPlotSolverAdaptiveCrossoverTuning.pdf}
@@ -145,20 +145,20 @@ The results of genetic solver with added adaptive crossover rate with basic set 
 
 As a conclusion from this section is next:
 \begin{enumerate}
-	\item Adaptive crossover rate gives little improvement in comparison to previous untuned version, but results not valid.
-	\item Parameter tuning works good for static parameters, but for parameters that changes during the run of the genetic solver results are worse, because BRISE doesn't know that parameter could change and most important how it change.
+	\item Adaptive crossover rate gives little improvement in comparison to previous untuned versions, but results not valid.
+	\item Parameter tuning works good for static parameters, but for parameters that change during the run of the genetic solver, results are worse because BRISE doesn't know that parameter could change and, most importantly, how it changes.
 	\item Adaptive crossover rate helps to slightly delay the collapse of the diversity of individuals in the population, but this is not enough.
 \end{enumerate}                         
 
-\section{Unique genotypes is a God sign or placebo for genetic algorithms}
-Due to the fact that the adaptive crossover did not help to reduce the number of duplicates in the population, a more radical decision was made. If the same individual already has populations, then the second one cannot get there. Therefore, at any moment the population will consist of unique individuals. In this configuration of the genetic solver, the use of the adaptive crossover does not make any sense, so it was disabled and a constant value was used.
+\section{Unique genotypes in a population}
+Due to the fact that the adaptive crossover did not help to reduce the Number of duplicates in the population, a more radical decision was made. If the same individual already has populations, then the second one cannot get there. Therefore, at any moment, the population will consist of unique individuals. In this configuration of the genetic solver, the use of the adaptive crossover does not make any sense, so it was disabled, and a constant value was used.
 
-Figure~\ref{fig:boxplotsolverNoDuplicates} shows the results of this approach without tuning and with tuned parameters. In comparison with the basic version this approach gives better results, but in comparison with other approaches described previously the efficiency of current approach is worth.
+Figure~\ref{fig:boxplotsolverNoDuplicates} shows the results of this approach without tuning and with tuned parameters. In comparison with the basic version, this approach gives better results, but in comparison with other methods described previously, the efficiency of the current approach is worth it.
 
 The reasons for this are:
 \begin{itemize}
 	\item on each generation best individual could give a new offspring only a few times, 
-	\item calculation speed of this approach is slower and as result less generation in specified time.
+	\item calculation speed of this approach is slower and, as a result, less generation in specified time.
 \end{itemize}
 
 
@@ -169,5 +169,4 @@ The reasons for this are:
 	\label{fig:boxplotsolverNoDuplicates}
 \end{figure}
 
-The conclusion of this idea is quite pessimistic due to fact that other approaches works better on this problem, but it may works better then others with the different problems.
- 
+The conclusion of this idea is quite pessimistic due to the fact that other approaches work better on this problem, but it may work better than others with different problems.
