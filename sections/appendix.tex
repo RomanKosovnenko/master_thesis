@@ -78,16 +78,23 @@ neue Spaltentypen definiert.
 \newcolumntype{F}{>{\raggedleft}Y}
 
 \begin{table}
-\begin{tabularx}{\textwidth}{@{}DEFY@{}}
+\begin{tabularx}{\textwidth}{@{}EEEEE@{}}
 \toprule
-\textbf{Linksbündig} & \textbf{Zentriert} &
-\textbf{Rechtsbündig} & \textbf{Blocksatz} \tabularnewline
-\midrule
-Ein linksbündiger Blindtext zur Demonstration einer S"~Spalte &
-Ein zentrierter Blindtext zur Demonstration einer T"~Spalte &
-Ein rechtsbündiger Blindtext zur Demonstration einer U"~Spalte &
-Ein längerer Blindtext im Blocksatz zur besseren Demonstration
-einer Y"~Spalte\tabularnewline
+\textbf{Problem ID} & \textbf{Basic} &
+\textbf{with new probabilities} & \textbf{without duplicates in population} & \textbf{without duplicates in population + tuning} 
+\tabularnewline
+1 & 1.23 & 0.01 & 0 & 0
+\tabularnewline
+10 & 0.26 & 0.01 & 0 & 0
+\tabularnewline
+13 & 1.23 & 0.01 & 0 & 0
+\tabularnewline
+19 & 1.23 & 0.01 & 0 & 0
+\tabularnewline
+28 & 1.23 & 0.01 & 0 & 0
+\tabularnewline
+31 & 1.23 & 0.01 & 0 & 0
+\tabularnewline
 \bottomrule
 \end{tabularx}
 \caption{Eine \texttt{tabularx}"=Tabelle}\label{tab:tabularx}
