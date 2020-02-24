@@ -1,0 +1,42 @@
+name: Build Review document
+on:
+  push:	
+    branches:	
+      - review
+jobs:
+  build_latex:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set up Git repository
+        uses: actions/checkout@v1
+      - name: Compile LaTeX document
+        uses: xu-cheng/latex-action@master
+        with:
+          root_file: thesis.tex
+      - name: upload
+        uses: actions/upload-artifact@v1
+        with:
+          name: pdf
+          path: ./thesis.pdf
+      - name: move pdf
+        run: |
+          mkdir public
+          mv thesis.pdf public/thesis.pdf
+          cat > public/index.html <<EOL
+          <!doctype html>
+          <html>
+            <head>
+              <title>GitHub Pages deployed!</title>
+            </head>
+            <body>
+              <p>GitHub Pages with <strong>${{ github.sha }}</strong> commit ID has been deployed through <a href="https://github.com/marketplace/actions/github-pages">GitHub Pages action</a> successfully.</p>
+            </body>
+          </html>
+          EOL
+      - name: Deploy to GitHub Pages
+        uses: crazy-max/ghaction-github-pages@v1
+        with:
+          target_branch: review_builds
+          build_dir: public
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
