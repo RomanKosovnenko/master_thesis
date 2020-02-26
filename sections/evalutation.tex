@@ -1,13 +1,13 @@
 \chapter{Evaluation and Analysis}
 
-In previous chapter a few approaches that could improve the genetic solver were presented.
-The best results gives a combination of genetic solver with added probabilities and parameter tuning.
+In the previous chapter, a few approaches that could improve the genetic solver were presented.
+The best results give a combination of the genetic solver with added probabilities and parameter tuning.
 Other methods like an adaptive crossover rate or population without duplicated individuals give less effect on the results.
 
-On the other hand, we get valid result only for one problem. What if the problem will be smaller of bigger?
-Evaluation was done to find out how all approaches work with different problem sizes. 
+On the other hand, we get valid results only for one problem. What if the problem will be smaller or bigger?
+The evaluation was done to find out how all approaches work with different problem sizes. 
 \section{Evaluation}
-To evaluate genetic solver a benchmark set of 36 problems was used.
+To evaluate genetic solver, a benchmark set of 36 problems was used.
 Each problem with different characteristics that describes them.
 
 This set was tested with several versions of genetic solver:
@@ -22,10 +22,10 @@ This set was tested with several versions of genetic solver:
 	\item without duplicates in a population and tuning.
 \end{itemize}
 
-Each version of the genetic solver tries 5 times to solve each problem.
+Each version of the genetic solver tries five times to solve each problem.
 
 Figure~\ref{fig:EvaluationNumberOfSolvedProblems} shows the number of problems in which genetic solver get a valid result.
-All previously presented approaches get more valid results in comparison to basic version.
+All previously presented approaches get more valid results in comparison to the basic version.
 \begin{figure}
 	\centering
 	\includegraphics[width=\textwidth]{images/EvaluationNumberOfSolvedProblems.pdf}
@@ -38,8 +38,8 @@ All previously presented approaches get more valid results in comparison to basi
 But what about energy?
 
 
-Table~\ref{tab:EnergyTable} shows  the percentage deviation of the found solution from the optimum.
-The conclusion from this table is that if solver find out a valid results it will be optimal or near optimal.
+Table~\ref{tab:EnergyTable} shows the percentage deviation of the found solution from the optimum.
+The conclusion from this table is that if solver finds out valid results it will be optimal or near-optimal.
 
 \begin{table}
 	\begin{tabularx}{\textwidth}{@{}rrrrr@{}}
@@ -67,27 +67,50 @@ The conclusion from this table is that if solver find out a valid results it wil
 
 
 
-The results also shows that even with modifications genetic solver could not get valid and optimal results for all problems.
+The results also show that even with modifications, genetic solver could not get valid and optimal results for all problems.
 
 
 \section{Analysis}
-Benchmark showed that genetic solver is not the best choice to solve the MquAT problem.
-In this section we presented analysis of results, reasons why described in Chapter~\ref{chapter:Implementation} approaches and 
+Benchmark showed that a genetic solver is not the best choice to solve the MquAT problem.
+In this section, we presented an analysis of results, reasons why described in Chapter~\ref{chapter:Implementation} approaches, and optimizations have small efficiency.
 
+A considerable influence on improving the performance of the genetic solver had several factors. Adding additional probabilities to the crossover and mutation operators, the crossover and mutation points began to change their position randomly.
+Optimized parameters also improved results, but not in all cases.
 
-\begin{itemize}
-	\item Good parameter engineering 
-	\item Self-adaptive software is not the best thing to optimize!
-	\item GA is not the best idea for this kind of problem
-\end{itemize}
+But why did not all the improvements made give even more significant improvement, and why did the tuning of the parameters in several cases provide a worse result?
 
-Plots for analysis:
-\begin{itemize}
-	\item Search space view
-	\item correlation
-	\item distribution of two parameters
-	\item list for combinations of 3-15
-	\item Barplots that shows that solver could find optimal results or near optimal 
-	combined chart of validity and objective to parameter
-	
-\end{itemize}
+First, we optimized the parameters for a specific task, and, possibly, these optimized parameters are not optimal for other problems.
+Second, the search space for parameters that have been optimized, more than 3 thousand configurations were measured and depicted in Figure~\ref{label}.
+\begin{figure}
+	\centering
+	\includegraphics[width=\textwidth]{images/EvaluationNumberOfSolvedProblems.pdf}
+	\caption[Number of problems for each version of the genetic solver]{Number of solved problems for each version of the genetic solver}
+	\label{fig:EvaluationNumberOfSolvedProblems}
+\end{figure}
+There is not much useful information. Among the configurations, there are those that led to valid results (the number of contract violations is 0) and many that led to more contract violations.
+
+Filtering out only those configurations that gave valid results, we got the search space shown in Figure~\ref{label}. From the Figure~\ref{label} it follows that there are no apparent dependencies between the parameters and the number of contract violations, or between the parameters themselves.
+
+To confirm this idea, a correlation analysis was made and showed in Figure~\ref{label}. Colors indicate the level of correlation. Blue is the inverse correlation, and red is the direct correlation.
+From the correlation analysis, we can conclude that there are no strong dependencies between the number of contract violations and parameters. There are two more important parameters: crossover rate and Crossover on random request probability.
+
+For further analysis of dependencies, graphs of the distribution of parameter pairs were constructed. Let us examine one exponential distribution and, using another as an example, show how others look.
+
+Most distributions are similar to Figure~\ref{label}, which shows the distribution of parameters of crossover rate and mutation rate. 
+The Figure~\ref{label} shows that valid, or close to valid results are on the entire plane.
+
+At the same time, any distribution associated with the population size parameter has a different look and shows that this parameter has an effect on the result.
+Figure~\ref{label} shows an example of such distribution, and it is clearly seen that valid results, or close to valid, are in the range from 1000 to 2600.
+
+The next step in the analysis is the distribution of the parameter value and the number of contract violations that he gave. Consider the distribution of the population size parameter.
+The color indicates the number of contract violations. The column height of a specific color is a percentage of the total number of configurations that have the same value. As can be seen, valid solutions are in the range from 1000 to 2600, which confirms the conclusion from the last step.
+
+For a more visual image, we construct a similar graph for the smaller problem. It is shown in Figure~\ref{label}. If we compare Figure~\ref{label} and Figure~\ref{label}, we can see that they have a similar distribution.
+
+The distributions of most parameters look like the distribution of the mutation rate parameter outlined in Figure~\ref{label}.
+
+Such a distribution means that the result of the solver does not matter from the value of the specific parameter.
+
+As for energy, let's build the distribution of the obtained energy values for the same parameters (Figure~\ref{label}).
+
+This distribution proves the fact that if the solver found a valid solution, then this solution is optimal, or close to it.
