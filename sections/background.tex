@@ -22,7 +22,7 @@ The concept of runtime environment contains three layers: a user, software, and 
 
 The user layer invokes features and identifies their specifications. The  Global  User  Manager  (GUM)  is required to manage the mapping between users and software component implementations and to coordinate the requests. User requests are minimal software system specifications that have to be met to satisfy the user. The general aim of the runtime system is to help the user as effectively as possible about the purposes of the user~\cite{gotz13}.
 
-The software layer contains all software components, and it's implementations. Each Component has a Local Quality Manager(LQM), which responsible for controlling the set of components~\cite{gotz13, ahmad18}. Also, there is a single Global Quality Manager (GQM) which carry out the study and preparation phases of the feedback loop, while the LQM is responsible for the implementation process~\cite{gotz13}.
+The software layer contains all software components, and it's implementations. Each component has a Local Quality Manager(LQM), which responsible for controlling the set of components~\cite{gotz13, ahmad18}. Also, there is a single Global Quality Manager (GQM) which carry out the study and preparation phases of the feedback loop, while the LQM is responsible for the implementation process~\cite{gotz13}.
 
 The resources layer comprises physical (e.g., CPU or RAM) as well as virtual resources(e.g., operating system).
 To controlling and monitoring all resources, the Global Resource Manager(GRM) is presented. Each resource has its own Local Resource Manager (LRM), which has in-depth knowledge about its resource and the ability to steer the resource by~\cite{gotz13, ahmad18}.
@@ -64,8 +64,8 @@ The MQuAT problem could be described as a metamodel which consists of:
 	\end{figure}
 
 	In addition, a set of properties further characterize resource types. Resources specify then specific values for these properties. As an example, the resource type RAM could be defined with a property amount of memory and marked as a container
-	\item Software metamodel showed on Figure~\ref{fig:SWModel}. Its main element called Component and represents some functionality.
-	Each Component consists of implementations that provide this functionality, requiring additional components or resources to complete their work. 
+	\item Software metamodel showed on Figure~\ref{fig:SWModel}. Its main element called component and represents some functionality.
+	Each component consists of implementations that provide this functionality, requiring additional components or resources to complete their work. 
 	\begin{figure}
 		\centering
 		\includegraphics[width=0.75\textwidth]{images/SWModel}
@@ -85,7 +85,7 @@ Full problem depicted on Figure~\ref{fig:mquatmodel}
 
 There are some constraints that are grouped in Architectural, Request, and Negotiation constraints groups.
 \begin{itemize}
-	\item Architectural constraints ensure that each request is fulfilled, selecting exactly one implementation per Component and deploying no more than one implementation on one resource.
+	\item Architectural constraints ensure that each request is fulfilled, selecting exactly one implementation per component and deploying no more than one implementation on one resource.
 	\item Request constraints ensure components are selected for each request so as to provide the requested non-functional properties.
 	\item Negotiation constraints ensure non-functional requirements are met depending on the implementation.
 \end{itemize}
@@ -96,8 +96,11 @@ There are additional constraints due to problem generation:
 	\item software model has a simple tree structure,
 	\item fixed branching factor of two.
 \end{itemize}
-
-\todo{Should I add parameters that describe a problem(software variants, number of requests and so on)?)}
+Each MQuAT problem is characterize by four parameters:
+\paragraph{variants} - the number of implementations for each software component,
+\paragraph{requests} - the number of requests to run software components, that described by user, 
+\paragraph{depth} - depth of the software tree, that describes dependency of software components,
+\paragraph{resources} - resource ratio of the minimally required resources.
 
 \section{The solution of the MQuAT problem}
 The solution is computed by the MQuAT solver. There are many solvers:
@@ -115,7 +118,7 @@ It contains a list of assignments. Each assignment select one implementation of 
 A solution is valid if for each user request
 \begin{enumerate}
 	\item an implementation is deployed for the target component,
-	\item for each Component required implementation is deployed,
+	\item for each component required implementation is deployed,
 	\item all necessary (non-functional) property clauses (including request constraints) are met,
 	\item at most one implementation for each resource is deployed.
 \end{enumerate}
@@ -284,15 +287,33 @@ This SPL has two conceptual parts:
 
 Figure~\ref{fig:BRISEarch} shown the high-level architecture of BRISE.
 Configurable part consist of 
-\begin{itemize}
-	\item Experiment description - describes the experiment, parameters that need to tune, the objective of the experiment, and expected values to detect outliers.
-	\item Selector - selection algorithm that is used to get the combination of parameters from the search space of all possible combinations. BRISE has two selection algorithms out of the box: Sobol sampling~\cite{sobol99} and Fedorov's exchange algorithm~\cite{fedorov13}. 
-	\item Model - predict new configuration. New Model builds after each iteration of measurement of configuration, and if Model predicts a valid result, this configuration goes to be measured in the next iteration. BRISE has several models out of the box.
-	\item Stop condition - the Component that analyzes the results of the experiment, validates the result, and makes a decision to stop the experiment or continue. There are many different stop conditions that could work as a combination of criteria.
-	\item Repeater - component of BRISE that decide about the number of measurement for each configuration to get need accuracy of the results. 
-	\item Worker - contains the process that BRISE needs to tune. Run this process with different configurations and returns the metric of this configuration to use it in the next model build.
-\end{itemize}
+	\paragraph{Experiment description} - describes the experiment, parameters that need to tune, the objective of the experiment, and expected values to detect outliers.
+	\paragraph{Selector} - selection algorithm that is used to get the combination of parameters from the search space of all possible combinations. BRISE has two selection algorithms out of the box: Sobol sampling~\cite{sobol99} and Fedorov's exchange algorithm~\cite{fedorov13}. 
+	\paragraph{Model} - predict new configuration. New Model builds after each iteration of measurement of configuration, and if Model predicts a valid result, this configuration goes to be measured in the next iteration. BRISE has several models out of the box.
+	\paragraph{Stop condition} - the component that analyzes the results of the experiment, validates the result, and makes a decision to stop the experiment or continue. There are many different stop conditions that could work as a combination of criteria.
+	\paragraph{Repeater} - component of BRISE that decide about the number of measurement for each configuration to get need accuracy of the results. 
+	\paragraph{Worker} - contains the process that BRISE needs to tune. Run this process with different configurations and returns the metric of this configuration to use it in the next model build.
 All components from the configurable part could be extended by users to achieve their goals.
+
+BRISE has two modes: \textit{Search space exploration} and \textit{Hyperparameter tuning}.
+First one is used to get information about search space of hyperparameters. In this mode there is no predictions cause BRISE uses the selector to cover the search space. As a result of using BRISE without predictions, the model component is disabled. Also stop condition is disabled in this mode and BRISE stops after it have covered all search space. Repeater works as it should to achieve needed accuracy.
+
+The second mode is used to find the optimized values for hyperparameters. All components of the main node are used in this mode.
+
+The main principle of how BRISE works in both modes is the same, but 
+Search space exploration mode has one exception.
+
+User prepare metric function that will runing in workers and measure the result for specified configuration of hyperparameters.
+After that user describe the experiment description - JSON file that contains all information about hyperparameters, their ranges and default values, result structure, expected ranges for result values and the max time needed to run one task.
+
+The user input of BRISE is experiment description, that in BRISE transforms into Experiment object. After that BRISE start working.
+
+It start with measurement of default configuration. When the default configuration had been measured, selector gives set of new configurations to be measured. After measurments workers return the results to main node. The repeater checks the result and decide to measure this configuration one more time or results has needed accuracy. 
+
+On the next step model component tries to build the model and validate itself. If built model is valid then it predicts new configuration. if the model is not valid, BRISE get new configuration from the selector. BRISE send it to worker service to measure and get the result. If SPL working in Search space exploration mode, the model build step is skipped and new configuration always received from the selector. 
+
+This measurements are performing until stop condition criteria in stop condition component are met.
+
 
 
 
