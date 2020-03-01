@@ -1,7 +1,9 @@
 \chapter{Implementation}\label{chapter:Implementation}
+
 In this chapter described several approaches to improve genetic solver to solve more complex problems.
 To do this, a benchmark measurement was made.
 In this section we concentrate on this problem:
+
 \begin{itemize}
 	\item variants: 10,
 	\item depth: 2,
@@ -9,6 +11,7 @@ In this section we concentrate on this problem:
 	\item resources: 5,
 	\item timeout: 5 minutes.
 \end{itemize}.
+
 Due to the problem, the basic version of the genetic solver could not solve this problem at all. We do all this work to, firstly, achieve valid results, and then get a near-optimal solution. 
 All measurements here and later were done five times.
 We mark basic~\footnote{As a basic version taked version from 24.09.2019, commit: \href{https://git-st.inf.tu-dresden.de/mquat/mquat2/commit/57845c126c30a1ea59cb35eb16af0bd37930dda9}{57845c126c30a1ea59cb35eb16af0bd37930dda9}} version of the genetic solver as \textbf{GSB} (Genetic Solver Basic).
@@ -23,7 +26,9 @@ Figure~\ref{fig:boxplotsolverbasic} shown the box-plot of number of contract vio
 
 
 \section{Parameters that need tuning}
+
 The first step to improve the genetic solver was a parameter optimization. To perform parameter optimization was performed a few important steps.
+
 \begin{enumerate}
 	\item Analysis of genetic solver to find out all parameters that could be changed externally. This parameters will be a hyperparameters that BRISE will tune.
 	\item Adapt BRISE to work with the genetic solver.
@@ -38,6 +43,7 @@ In the basic version of the genetic solver, there are only three parameters that
 	\paragraph{\texttt{PopulationSize}} - number of individuals in a population.
 
 Adaptation of genetic solver to work into a BRISE consist of a few steps:
+
 \begin{enumerate}
 	\item prepare executable file of genetic solver,
 	\item implement a method for a worker that will call the file from the previous step and returns the results with a number of contract violations and energy consumption.
@@ -63,9 +69,11 @@ For parameter optimization of genetic solver, we use the experiment description 
 	\end{tabularx}
 	\caption{Table name}\label{tab:EnergyTable}
 \end{table}
+
 We mark current version~\footnote{commit: \href{https://git-st.inf.tu-dresden.de/mquat/mquat2/commit/e103f52b3333900d61c6218a1f2ca811bca10289}{e103f52b3333900d61c6218a1f2ca811bca10289}} of the genetic solver as \textbf{GSBT}(Genetic Solver Basic Tuned).
 When optimal configuration was found, we use it to analyze results in a boxplot.
 The results showed on Figure~\ref{fig:boxplotsolverbasictuning}.
+
 \begin{figure}
 	\centering
 	\includegraphics[width=\textwidth]{images/BoxPlotSolverBasicTuning}
@@ -74,14 +82,17 @@ The results showed on Figure~\ref{fig:boxplotsolverbasictuning}.
 \end{figure}
 
 Conclusions of this step:
+
 \begin{enumerate}
 	\item All results still not valid.
 	\item Number of contract violations is less.
 	\item The distance between max and min result is smaller.
 \end{enumerate}
+
 Here we get the answer on \textbf{RQ2}: parameter tuning has a positive effect on the results of the genetic solver.
 
 \section{More parameters}
+
 The previous section shows that even with a optimized set of parameters, a genetic solver could not get valid results.
 After more detailed analysis of code, we found out more parameters, that are not exposed for external tuning:
 	 \paragraph{\texttt{lambda}} - as mentioned in section~\ref{sec:GeneticAlgorithm:Selecto}, it describes the number of new offspring per generation. In this step it was changed to a part of population size,
@@ -121,16 +132,19 @@ We mark current version~\footnote{commit: \href{https://git-st.inf.tu-dresden.de
 \end{table}
 
 Figure~\ref{fig:boxplotsolverNoHardcodedTuning} shows the results of genetic solver with all parameters after optimization in BRISE.
+
 \begin{figure}
 	\centering
 	\includegraphics[width=\textwidth]{images/BoxPlotSolverNoHardcodedTuning.pdf}
 	\caption[Boxplot with a number of contract violations for the genetic solver without hardcoded parameters in comparison with previous versions]{Boxplot with a number of contract violations for the genetic solver without hardcoded parameters in comparison with previous versions}
 	\label{fig:boxplotsolverNoHardcodedTuning}
 \end{figure}
+
 Results a bit better but still without valid results.
 This step confirms the fact that good values of parameters have a significant influence on the results, but in current implementation parameter tuning could not give valid results for current problems. 
 
 \section{Even more parameters}
+
 Due to fact, that parameter tuning from previous step could not give a valid results, we decide to use another approach called parameter engineering.
 Detailed analysis of crossover and mutation operators showed that crossover point and mutation points are coarse-grained.
 
@@ -148,6 +162,7 @@ There are:
 	\paragraph{\texttt{MutationOnRandomLevelProbability}} - the chance of mutation on a random level of the tree shape genotype.
 
 This version~\footnote{commit: \href{https://git-st.inf.tu-dresden.de/mquat/mquat2/commit/817f7f1ef06f3acbbb4d5e24e32a26c5e6abc4b5}{817f7f1ef06f3acbbb4d5e24e32a26c5e6abc4b5}} of the genetic solver marked as \textbf{GSNP}(Genetic Solver New Probabilities).
+
 \begin{table}
 	\begin{tabularx}{\textwidth}{@{}rrrrrrrrrrrrrrrrr@{}}
 		\toprule
@@ -169,6 +184,7 @@ This version~\footnote{commit: \href{https://git-st.inf.tu-dresden.de/mquat/mqua
 \end{table}
 
 After those probabilities were added to operators with some default values of probabilities and all previous parameters were as in basic version, the results of the genetic solver were almost the same as results from the previous section (Figure~\ref{fig:boxplotsolverNewParameters}).
+
 \begin{figure}
 	\centering
 	\includegraphics[width=\textwidth]{images/BoxPlotSolverNewParameters.pdf}
@@ -179,6 +195,7 @@ After those probabilities were added to operators with some default values of pr
 These results show that new parameters have a big influence on the result of tuning. That means that good parameter engineering is important in any process.
 After that we tuned all parameters again and mark this version~\footnote{commit: \href{https://git-st.inf.tu-dresden.de/mquat/mquat2/commit/e103f52b3333900d61c6218a1f2ca811bca10289}{e103f52b3333900d61c6218a1f2ca811bca10289}} of the genetic solver as \textbf{GSNPT}(Genetic Solver New Probabilities Tuned).
 Figure~\ref{fig:boxplotsolverNewParametersTuning} shows the result that combine new probabilities and parameter tuning.
+
 \begin{figure}
 	\centering
 	\includegraphics[width=\textwidth]{images/BoxPlotSolverNewParametersTuning.pdf}
@@ -189,6 +206,7 @@ Figure~\ref{fig:boxplotsolverNewParametersTuning} shows the result that combine 
 The combined approach of new parameters and parameter tuning finally gives a valid results. The boxplot also shows that not all results are valid. The reason for this is the local optimum and the inability to get out of it due to the fact that at a certain moment, the majority of the individual in the population becomes the same. 
 
 \section{Adaptive parameters}
+
 The reason why all individuals in the population are the same is primarily due to the crossover. To create new individuals, the selector takes the best individuals. Crossover, taking two individuals, and performing a gene change, creates two new individuals. If these individuals are worse, then the selector in the new iteration will drop them, and if they are close, they will take them to create new individuals. At a certain point, a situation occurs that the crossover occurs between two identical genotypes, which creates two the same individuals. This exponentially increases the number of identical elements and leads to the collapse of the genetic diversity of the population.
 
 The idea of how to solve this issue is an adaptive crossover rate that changes the chance of the crossover depends on the number of the same individuals in a population. 
@@ -218,6 +236,7 @@ This version~\footnote{commit: \href{https://git-st.inf.tu-dresden.de/mquat/mqua
 
 
 The results of the genetic solver with added adaptive crossover rate with a basic set of parameters and with tuned parameters showed on Figure~\ref{fig:boxplotsolverAdaptiveCrossoverTuning}
+
 \begin{figure}
 	\centering
 	\includegraphics[width=\textwidth]{images/BoxPlotSolverAdaptiveCrossoverTuning.pdf}
@@ -226,12 +245,12 @@ The results of the genetic solver with added adaptive crossover rate with a basi
 \end{figure}
 
 As a conclusion from this section is next:
+
 \begin{enumerate}
 	\item Adaptive crossover rate gives little improvement in comparison to previous untuned versions, but results not valid.
 	\item Parameter tuning works good for static parameters, but for parameters that change during the run of the genetic solver, results are worse because BRISE doesn't know that parameter could change and, most importantly, how it changes.
 	\item Adaptive crossover rate helps to slightly delay the collapse of the diversity of individuals in the population, but this is not enough.
 \end{enumerate} 
-
 
 \begin{figure}
 	\centering
@@ -240,18 +259,18 @@ As a conclusion from this section is next:
 	\label{fig:UniqIndividualsPerGeneration3}
 \end{figure}                        
 
-
 \section{Unique genotypes in a population}
+
 Due to the fact that the adaptive crossover did not help to reduce the number of duplicates in the population, a more radical decision was made. If the same individual already in a population, then the second one can not be added to the population. Therefore, at any moment, the population will consist of unique individuals. In this configuration of the genetic solver, the use of the adaptive crossover does not make any sense, so it was disabled, and a constant value was used.
 This version~\footnote{commit: \href{https://git-st.inf.tu-dresden.de/mquat/mquat2/commit/1d79c50d7932c9216c653bf6d0354d990f6aecbc}{1d79c50d7932c9216c653bf6d0354d990f6aecbc}} of the genetic solver marked as \textbf{GSWD}(Genetic Solver Without duplicates)and tuned version~\footnote{commit: \href{https://git-st.inf.tu-dresden.de/mquat/mquat2/commit/24504c77024ac383c77849c5121471e0f06ce913}{24504c77024ac383c77849c5121471e0f06ce913}} was marked as \textbf{GSACRT}(Genetic Solver Without duplicates Tuned).
 Figure~\ref{fig:boxplotsolverNoDuplicates} shows the results of this approach without tuning and with tuned parameters. In comparison with the basic version, this approach gives better results, but in comparison with other methods described previously, the efficiency of the current approach is worth it.
 
 The reasons for this are:
+
 \begin{itemize}
 	\item on each generation best individual could give a new offspring only a few times, 
 	\item calculation speed of this approach is slower and, as a result, less generation in specified time.
 \end{itemize}
-
 
 \begin{figure}
 	\centering
