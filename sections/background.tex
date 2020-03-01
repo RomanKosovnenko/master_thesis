@@ -97,10 +97,12 @@ There are additional constraints due to problem generation:
 	\item fixed branching factor of two.
 \end{itemize}
 Each MQuAT problem is characterize by four parameters:
-\paragraph{variants} - the number of implementations for each software component,
-\paragraph{requests} - the number of requests to run software components, that described by user, 
-\paragraph{depth} - depth of the software tree, that describes dependency of software components,
-\paragraph{resources} - resource ratio of the minimally required resources.
+\begin{itemize}
+	\item[variants] - the number of implementations for each software component,
+	\item[requests] - the number of requests to run software components, that described by user, 
+	\item[depth] - depth of the software tree, that describes dependency of software components,
+	\item[resources] - resource ratio of the minimally required resources.
+\end{itemize}
 
 \section{The solution of the MQuAT problem}
 The solution is computed by the MQuAT solver. There are many solvers:
@@ -303,7 +305,7 @@ The second mode is used to find the optimized values for hyperparameters. All co
 The main principle of how BRISE works in both modes is the same, but 
 Search space exploration mode has one exception.
 
-User prepare metric function that will runing in workers and measure the result for specified configuration of hyperparameters.
+User prepare target system that will runing in workers and measure the result for specified configuration of hyperparameters.
 After that user describe the experiment description - JSON file that contains all information about hyperparameters, their ranges and default values, result structure, expected ranges for result values and the max time needed to run one task.
 
 The user input of BRISE is experiment description, that in BRISE transforms into Experiment object. After that BRISE start working.
