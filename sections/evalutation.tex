@@ -162,16 +162,14 @@ The quality of results in a case of the bigger problem is much worse. The minima
 
 \begin{figure}
 	\centering
-	\begin{subfigure}
-		\centering
-		\includegraphics[width=0.5\textwidth]{images/EnergyDeviationSmallProblem.pdf}
+	\begin{subfigure}{0.45\textwidth}
+		\includegraphics[width=\textwidth]{images/EnergyDeviationSmallProblem.pdf}
 		\caption{$y=x$}
 		\label{fig:SmallProblemEnergy}
 	\end{subfigure}
-\hfill
-	\begin{subfigure}
-		\centering
-		\includegraphics[width=0.5\textwidth]{images/EnergyDeviationMediumProblem.pdf}
+	\hfill
+	\begin{subfigure}{0.45\textwidth}
+		\includegraphics[width=\textwidth]{images/EnergyDeviationMediumProblem.pdf}
 		\caption{$y=x$}
 		\label{fig:MediumProblemEnergy}
 	\end{subfigure}	
@@ -186,8 +184,12 @@ However, there are problems from the set that could not be solved by the genetic
 
 \section{Analysis}
 
-Benchmark showed that a genetic solver is not the best choice to solve the MquAT problem.
-In this section, we presented an analysis of results, reasons why described in Chapter~\ref{chapter:Implementation} approaches, and optimizations have small efficiency.
+Benchmark showed that a genetic solver could not solve all MQuAT problems from the evaluation set.
+In this section, we presented an analysis of results, reasons why described in Chapter~\ref{chapter:Implementation} approaches, and optimizations have lower efficiency that we need.
+
+Firstly, let us discuss the reasons why modifications that we made improve the genetic solver. After that we will concentrate on the reasons why not all tasks could be solved.
+
+
 
 A considerable influence on improving the performance of the genetic solver had several factors. Adding additional probabilities to the crossover and mutation operators, the crossover and mutation points began to change their position randomly.
 Optimized parameters also improved results, but not in all cases.
