@@ -10,7 +10,7 @@ In this section we concentrate on this problem:
 	\item depth: 2,
 	\item resources: 5,
 	\item timeout: 5 minutes.
-\end{itemize}.
+\end{itemize}
 
 Due to the problem, the basic version of the genetic solver could not solve this problem at all. We do all this work to, firstly, achieve valid results, and then get an optimal or near-optimal solution. 
 All measurements here and later were done five times.
@@ -149,12 +149,7 @@ This section shows how correctly selected parameter values affect the result of 
 \section{Even more parameters}\label{sec:NP}
 
 Since parameter tuning from the previous steps could not give valid results, we decide to use another approach called parameter engineering.
-Detailed analysis of crossover and mutation operators showed that crossover point and mutation points are coarse-grained.
-
-The crossover point is defined as a node of the tree shape genotype recursively comparing the corresponding nodes of the threes by software implementation and the hardware resource for each request.
-If it is not located at the root of the tree, then the exchange occurs with all children.
-
-Mutation point is defined for one random request, and with probability `MutationRate`, it mutates the root of the tree shape genotype otherwise both children.
+Detailed analysis of crossover and mutation operators showed that crossover point and mutation points are coarse-grained. The principle how these points defines described in Section~\ref{sec:GeneticAlgorithmCrossover} and Section~\ref{sec:GeneticAlgorithmMutation}.
 
 We add a few more probabilities to crossover and mutation operators. These probabilities allow changing the location of crossover/mutation points in different ways of the Tree Shape Genotype.
 There are:

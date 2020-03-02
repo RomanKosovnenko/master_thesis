@@ -189,15 +189,25 @@ In this section, we presented an analysis of results, reasons why described in C
 
 Firstly, let us discuss the reasons why modifications that we made improve the genetic solver. After that we will concentrate on the reasons why not all tasks could be solved.
 
+There is a few reasons why the genetic solver with our modifications could solve more problems than the B version. First of all, parameter tuning was performed for all versions. Optimized values of parameters gives a better results as it showed in the previous section. The second reason is a new probabilities that we added in Section~\ref{sec:NP}.These probabilities give a possibility to randomly change the position of the Crossover and mutation points and as a result, the genetic solver gives results that a bit worse than parameter tuning. 
 
+Nevertheless, not all tasks were solved. The one of the reasons of such result is parameter tuning. We optimized parameters for specific problems, that we described at the beginning of Chapter~\ref{chapter:Implementation}.
 
-A considerable influence on improving the performance of the genetic solver had several factors. Adding additional probabilities to the crossover and mutation operators, the crossover and mutation points began to change their position randomly.
-Optimized parameters also improved results, but not in all cases.
+There is a \textbf{"no free lunch" (NFL) theorem}\cite{wolpert1996, wolpert1997} that describes the obtained results. The NFL theorem says that if an algorithm works well with a certain class of tasks, then it must pay for it with a deterioration in performance on the set of all remaining problems.
 
-But why did not all the improvements made give even more significant improvement, and why did the tuning of the parameters in several cases provide a worse result?
+Another reason could be many parameters of the genetic solver or their dependencies between themselves. As a result, the user and BRISE do not know details about the search space of parameters and could not find an optimized set. 
 
-First, we optimized the parameters for a specific task, and, possibly, these optimized parameters are not optimal for other problems.
-Second, the search space for parameters that have been optimized, more than 3 thousand configurations were measured and depicted in Figure~\ref{fig:SearchSpaceViewFull}.
+We start an analysis with search space representation. For this representation, we performed measurements for more than three thousand configurations using BRISE in the Search space exploration mode with NP version of the genetic solver. This mode was described in Section~\ref{sec:BRISE}. For this type of analysis we use the same problem as in Chapter~\ref{chapter:Implementation} and it has parameter values:
+\begin{itemize}
+	\item variants: 10,
+	\item requests: 15,
+	\item depth: 2,
+	\item resources: 5,
+	\item timeout: 5 minutes.
+\end{itemize}
+
+The search space representation as a parallel coordinates plot showed in Figure~\ref{fig:SearchSpaceViewFull}.
+Each parameter is represented in the plot as a vertical line that contains all possible values of the parameter. Each configuration that was measured showed on the plot as a line that connects all values that describe itself. The last vertical line and the color shows the number of contract violations that gives the configuration. The more dark color means fewer contract violations and vise versa, the lighter color gives a higher number of contract violations.
 
 \begin{figure}
 	\centering
@@ -206,7 +216,7 @@ Second, the search space for parameters that have been optimized, more than 3 th
 	\label{fig:SearchSpaceViewFull}
 \end{figure}
 
-There is not much useful information. Among the configurations, there are those that led to valid results (the number of contract violations is 0) and many that led to more contract violations.
+Figure~\ref{fig:SearchSpaceViewFull} shows that search space of parameters contains configuration that led to results with different number of contract violations. There is no any visible dependencies between parameters. 
 
 \begin{figure}
 	\centering
@@ -215,7 +225,7 @@ There is not much useful information. Among the configurations, there are those 
 	\label{fig:SearchSpaceValid}
 \end{figure}
 
-Filtering out only those configurations that gave valid results, we got the search space shown in Figure~\ref{fig:SearchSpaceValid}. From the Figure~\ref{fig:SearchSpaceValid} it follows that there are no apparent dependencies between the parameters and the number of contract violations, or between the parameters themselves.
+If we are filtering out all configurations that gave not valid results, we obtained the search space a few that contain only valid results. A parallel plot that demonstrates this situation showed in Figure~\ref{fig:SearchSpaceValid}. The plot shows that many configurations give a valid result for the specified problem. However, still, there are no visible dependencies between the parameters and the number of contract violations, or between the parameters themselves.
 
 \begin{figure}
 	\centering
@@ -225,7 +235,13 @@ Filtering out only those configurations that gave valid results, we got the sear
 \end{figure}
 
 Cause Figure~\ref{fig:SearchSpaceViewFull} and Figure~\ref{fig:SearchSpaceValid} shows that search space view could not give any conclusions about dependencies between parameters or between parameters and number of contract violations, another method of analysis was performed.
-We made a correlation analysis and it showed in Figure~\ref{fig:CorrelationAnalysis}. Colors indicate the level of correlation. Blue is the inverse correlation, that means that bigger value of parameter gives smaller number of contract violations. Red color means that bigger value o parameter gives bigger number of contract violations.
+
+To get information how parameters relay on each others the correlation analysis was performed and results showed in Figure~\ref{fig:CorrelationAnalysis}.
+
+\todoR{I stopped here}
+
+
+Colors indicate the level of correlation. Blue is the inverse correlation, that means that bigger value of parameter gives smaller number of contract violations. Red color means that bigger value o parameter gives bigger number of contract violations.
 From the correlation analysis, we can conclude that there are no strong dependencies between the number of contract violations and parameters. There are two more important parameters: \texttt{CrossoverRate}(R5) and \texttt{CrossoverOnRandomRequestProbability}(R16).
 Correlation analysis showed that the \texttt{CrossoverRate} need to has a big value. Also, conclusion from this analysis that small value  \texttt{CrossoverOnRandomRequestProbability}. It's also shows that we can remove this parameter. 
 
