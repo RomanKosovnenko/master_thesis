@@ -49,56 +49,59 @@ Benchmark trying so solve each task, if a solution was valid, genetic solver sta
 
 Figure~\ref{fig:EvaluationNumberOfSolvedProblems} results of the benchmark. For each version of the genetic solver, a vertical bar was built. The height of the bar shows the number of solved problems from the benchmark set. The B version solved the least of problems than any other version. Almost in all cases, parameter tuning increases the number of solved problems. It also confirms the answer to \textbf{RQ1}. The comparison of N-T, WHC-T, and NP versions shows that the NP bar is higher than N-T but lower than WHC-T. This comparison confirms the first conclusion from Section~\ref{sec:NP}, that well-designed parameters are important for any algorithm. The combination of parameter engineering and parameter tuning in NP-T gives the best results. The same situation was for one problem in the previous chapter~(Figure~\ref{fig:boxplotsolverNoDuplicates}). The WD-T gives worse results than the untuned version. The possible reasons for such results were discussed in Section~\ref{sec:WD}. The result of the benchmark for the ICCR-T version contradicts the results obtained in the last section because the parameter tuning of the ICCR version gives the biggest improvement. In general, benchmark results for a set of 36 MQuAT problems correspond to the results for one problem.
 
-The benchmark also shows that no one version of the genetic solver solved all problems from the set.
+The benchmark also shows that no one version of the genetic solver solved all problems from the set. Table~\ref{tab:ProblemsColorCoding} shows the results of the benchmark in the context of a solved or unsolved problem. Each row describes the result for a specified problem. The problem numbers contain in column \textit{Problem Id}. Black filled cell means that solver solved the problem. Table~\ref{tab:ProblemsColorCoding} also shows ids of problems that unsolved by all versions of the genetic solver.
 
 \begin{table}
 	\centering
 	\caption{Problem color coding}\label{tab:ProblemsColorCoding}
 	\resizebox*{\textwidth}{\textheight}{
-		\begin{tabular}{c c c c c c c c c c}
+		\begin{tabular}{c | c | c | c | c | c | c | c | c | c}
 			\hline
 			\rotatebox{90}{Problem Id} & \rotatebox{90}{B} & \rotatebox{90}{B-T} & \rotatebox{90}{WHC-T} & \rotatebox{90}{NP} & \rotatebox{90}{NP-T} & \rotatebox{90}{ICCR} & \rotatebox{90}{ICCR-T} & \rotatebox{90}{WD} & \rotatebox{90}{WD-T} \\
 			\hline			
-			1 & \cellcolor{lightgray} & \cellcolor{Gray} & \cellcolor{black} & \cellcolor{yellow} & \cellcolor{orange} & \cellcolor{red} & \cellcolor{brown} & \cellcolor{lime} & \cellcolor{green} \\ 
-			2 &   &   & \cellcolor{black} &   & \cellcolor{orange} &   &   & \cellcolor{lime} & \cellcolor{green}  \\
-			3 &   &   &   &   & \cellcolor{orange} &   &   & \cellcolor{lime} &  \\
-			4 &   & \cellcolor{Gray} & \cellcolor{black} & \cellcolor{yellow} & \cellcolor{orange} & \cellcolor{red} & \cellcolor{brown} & \cellcolor{lime} & \cellcolor{green} \\
-			5 &   &   &   &   & \cellcolor{orange} &   & \cellcolor{brown} &   & \\
+			1 & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} \\ 
+			2 &   &   & \cellcolor{black} &   & \cellcolor{black} &   &   & \cellcolor{black} & \cellcolor{black}  \\
+			3 &   &   &   &   & \cellcolor{black} &   &   & \cellcolor{black} &  \\
+			4 &   & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} \\
+			5 &   &   &   &   & \cellcolor{black} &   & \cellcolor{black} &   & \\
 			6 &   &   &   &   &   &   &   &   & \\
-			7 &   & \cellcolor{Gray} & \cellcolor{black} & \cellcolor{yellow} & \cellcolor{orange} &   & \cellcolor{brown} & \cellcolor{lime} & \cellcolor{green}\\
+			7 &   & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} &   & \cellcolor{black} & \cellcolor{black} & \cellcolor{black}\\
 			8 &   &   &   &   &   &   &   &   & \\
 			9 &   &   &   &   &   &   &   &   & \\
-			10 & \cellcolor{lightgray} & \cellcolor{Gray} & \cellcolor{black} & \cellcolor{yellow} & \cellcolor{orange} & \cellcolor{red} & \cellcolor{brown} & \cellcolor{lime} & \cellcolor{green} \\
-			11 &   &   & \cellcolor{black} & \cellcolor{yellow} & \cellcolor{orange} & \cellcolor{red} & \cellcolor{brown} & \cellcolor{lime} & \cellcolor{green} \\
-			12 &   &   &   &   & \cellcolor{orange} &   & \cellcolor{brown} & \cellcolor{lime} &   \\
-			13 & \cellcolor{lightgray} & \cellcolor{Gray} & \cellcolor{black} & \cellcolor{yellow} & \cellcolor{orange} & \cellcolor{red} & \cellcolor{brown} & \cellcolor{lime} & \cellcolor{green} \\
-			14 &   &   &   &   & \cellcolor{orange} &   & \cellcolor{brown} &   &   \\
+			10 & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} \\
+			11 &   &   & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} \\
+			12 &   &   &   &   & \cellcolor{black} &   & \cellcolor{black} & \cellcolor{black} &   \\
+			13 & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} \\
+			14 &   &   &   &   & \cellcolor{black} &   & \cellcolor{black} &   &   \\
 			15 &   &   &   &   &   &   &   &   & \\
-			16 &   & \cellcolor{Gray} & \cellcolor{black} & \cellcolor{yellow} & \cellcolor{orange} &   & \cellcolor{brown} &   & \cellcolor{green} \\
+			16 &   & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} &   & \cellcolor{black} &   & \cellcolor{black} \\
 			17 &   &   &   &   &   &   &   &   & \\
 			18 &   &   &   &   &   &   &   &   & \\
-			19 & \cellcolor{lightgray} & \cellcolor{Gray} & \cellcolor{black} & \cellcolor{yellow} & \cellcolor{orange} & \cellcolor{red} & \cellcolor{brown} & \cellcolor{lime} & \cellcolor{green}\\
-			20 &   &   & \cellcolor{black} & \cellcolor{yellow} & \cellcolor{orange} & \cellcolor{red} & \cellcolor{brown} & \cellcolor{lime} & \cellcolor{green} \\
-			21 &   &   &   &   & \cellcolor{orange} &   & \cellcolor{brown} &   & \\
-			22 & \cellcolor{lightgray} & \cellcolor{Gray} & \cellcolor{black} &   & \cellcolor{orange} & \cellcolor{red} & \cellcolor{brown} & \cellcolor{lime} & \cellcolor{green} \\
-			23 &   &   & \cellcolor{black} & \cellcolor{yellow} & \cellcolor{orange} &   & \cellcolor{brown} & \cellcolor{lime} &  \\
+			19 & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} & \cellcolor{black}\\
+			20 &   &   & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} \\
+			21 &   &   &   &   & \cellcolor{black} &   & \cellcolor{black} &   & \\
+			22 & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} &   & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} \\
+			23 &   &   & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} &   & \cellcolor{black} & \cellcolor{black} &  \\
 			24 &   &   &   &   &   &   &   &   & \\
-			25 &   &   & \cellcolor{black} & \cellcolor{yellow} & \cellcolor{orange} &   & \cellcolor{brown} &   & \cellcolor{green} \\
+			25 &   &   & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} &   & \cellcolor{black} &   & \cellcolor{black} \\
 			26 &   &   &   &   &   &   &   &   & \\
 			27 &   &   &   &   &   &   &   &   & \\
-			28 & \cellcolor{lightgray} & \cellcolor{Gray} & \cellcolor{black} & \cellcolor{yellow} & \cellcolor{orange} & \cellcolor{red} & \cellcolor{brown} & \cellcolor{lime} & \cellcolor{green} \\
-			29 &   & \cellcolor{Gray} & \cellcolor{black} & \cellcolor{yellow} & \cellcolor{orange} & \cellcolor{red} & \cellcolor{brown} & \cellcolor{lime} & \cellcolor{green} \\
+			28 & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} \\
+			29 &   & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} \\
 			30 &   &   &   &   &   &   &   &   & \\
-			31 & \cellcolor{lightgray} & \cellcolor{Gray} & \cellcolor{black} & \cellcolor{yellow} & \cellcolor{orange} & \cellcolor{red} & \cellcolor{brown} & \cellcolor{lime} & \cellcolor{green} \\
-			32 &   &   & \cellcolor{black} & \cellcolor{yellow} & \cellcolor{orange} &   & \cellcolor{brown} & \cellcolor{lime} &  \\ 
+			31 & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} \\
+			32 &   &   & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} &   & \cellcolor{black} & \cellcolor{black} &  \\ 
 			33 &   &   &   &   &   &   &   &   & \\
-			34 &   & \cellcolor{Gray} & \cellcolor{black} &   & \cellcolor{orange} &   & \cellcolor{brown} & \cellcolor{lime} & \cellcolor{green} \\
+			34 &   & \cellcolor{black} & \cellcolor{black} &   & \cellcolor{black} &   & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} \\
 			35 &   &   &   &   &   &   &   &   & \\
 			36 &   &   &   &   &   &   &   &   & \\
 			\hline
 		\end{tabular}
 	}
 \end{table}
+
+Unsolved tasks are presented in Table~\ref{tab:UnsolvedProblems}. It shows parameters that specified the problem. We can see, there are a few types of unsolved problems are exist. All versions of the genetic solver could not solve the problem that contains two or more requests, and the depth is three or more. The exception for this definition is a problem number 30. It has one request and depth four, but it also has variants four and resources - 100 and genetic solvers could not solve it.
+
 
 \begin{table}
 	\centering
@@ -117,6 +120,7 @@ The benchmark also shows that no one version of the genetic solver solved all pr
 			24 & 4 & 2 & 4 & 50 \\
 			26 & 4 & 4 & 3 & 50 \\
 			27 & 4 & 4 & 4 & 50 \\
+			30 & 4 & 1 & 4 & 100 \\
 			33 & 4 & 2 & 4 & 100 \\
 			35 & 4 & 4 & 3 & 100 \\
 			36 & 4 & 4 & 4 & 100 \\
@@ -125,7 +129,8 @@ The benchmark also shows that no one version of the genetic solver solved all pr
 	}
 \end{table}
 
-But what about energy?
+If a genetic solver could solve some problems, then solutions have a quality.
+Let us now discuss the quality of the received results. Figure~\ref{fig:EnergyPercentage} shows the percentage of the deviation from the optimum for problems that solved by all versions of the genetic solver. The optimum values for problems received by the ILP solver. If the percentage of the deviation is zero, that means that the received solution is \textbf{optimal}. The max deviation is near 30\% for the B version with problem 31. However, other versions give solutions with deviation from optimal that less than 10\% or even optimal solutions for the NP-T version. There are high deviations from optimum in problems number 13 for tuned versions of the genetic solver such as B-T, NP-T, ICCR-T, and WD-T. Nevertheless, WHC-T and untuned versions give a near-optimal solution with minimal deviation. The ICCR version gives a much higher percentage of deviation than other versions in problem 19.
 
 \begin{figure}
 	\centering
@@ -134,24 +139,49 @@ But what about energy?
 	\label{fig:EnergyPercentage}
 \end{figure}
 
+Figure~\ref{fig:EnergyPercentage} also shows that the deviation is increasing for big size problems. To confirm that fact, we take two problems with different sizes~(Figures~\ref{fig:SmallMediumProblemEnergy}). These problems solved by all version of the genetic solver except the B version. Figure~\ref{fig:SmallProblemEnergy} shows the percentage of deviation from optimum for a small size problem. This problem's parameters are:
+\begin{itemize}
+	\item variants: 2,
+	\item requests: 2,
+	\item depth: 2,
+	\item resources: 50.
+\end{itemize}.
+
+The quality of results for the problem is near-optimal, because the deviation is less than one percent. The NP-T and WD-T versions give an optimal solution for the problem.
+
+On the side, Figure~\ref{fig:MediumProblemEnergy} shows the percentage of deviation from optimum for a bigger size problem. This problem's parameters are:
+\begin{itemize}
+	\item variants: 4,
+	\item requests: 1,
+	\item depth: 3,
+	\item resources: 100.
+\end{itemize}.
+
+The quality of results in a case of the bigger problem is much worse. The minimal deviation is 35\% for the NP-T version because the deviation is less than one percent. The NP-T and WD-T versions give an optimal solution for the problem. The WD and WD-T versions give less valid solutions in the benchmark, but the quality of the solution is higher. The quality of the solution from other solvers is lower because the percentage of the deviation is more than 100\%. The reason why the quality of solutions is decreasing with a bigger size of the problem could be a higher number of hardware resources. The higher number of resources means that more hardware resources could satisfy the requirements of the software component. The genetic solver could not find best-suited resources for requested components, and as a result, quality is decreasing. 
+
+
 \begin{figure}
-	\subfloat[Name A2]{%
-		\includegraphics[width=0.5\textwidth]{images/EnergyDeviationSmallProblem.pdf}%
-	}
-	
-	\subfloat[Name b2]{%
-		\includegraphics[width=0.5\textwidth]{images/EnergyDeviationMediumProblem.pdf}%
-	}
-	
-	\caption{main caption2}	
+	\centering
+	\begin{subfigure}
+		\centering
+		\includegraphics[width=0.5\textwidth]{images/EnergyDeviationSmallProblem.pdf}
+		\caption{$y=x$}
+		\label{fig:SmallProblemEnergy}
+	\end{subfigure}
+\hfill
+	\begin{subfigure}
+		\centering
+		\includegraphics[width=0.5\textwidth]{images/EnergyDeviationMediumProblem.pdf}
+		\caption{$y=x$}
+		\label{fig:MediumProblemEnergy}
+	\end{subfigure}	
+	\caption{Three simple graphs}
+	\label{fig:SmallMediumProblemEnergy}	
 \end{figure}
 
 
-Table~\ref{tab:EnergyTable} shows the percentage deviation of the found solution from the optimum.
-The conclusion from this table is that if solver finds out valid results it will be optimal or near-optimal.
-
-
-The results also show that even with modifications, genetic solver could not get valid and optimal results for all problems.
+This section shows that modification that we made improve the results of the genetic solver. The NP-T version solved three times more problems than the B version. We evaluated the quality of solutions. As a result of the quality evaluation, we make two conclusions. First, modified versions of the genetic solver also improve the quality of the results. Second, the quality is decreasing for a bigger size of the problem.
+However, there are problems from the set that could not be solved by the genetic solver.
 
 
 \section{Analysis}
