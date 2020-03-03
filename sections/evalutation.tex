@@ -2,15 +2,15 @@
 
 In the previous chapter, a few approaches that could improve the genetic solver were presented.
 The best results give a combination of the genetic solver with added probabilities and parameter tuning.
-Other methods like an adaptive crossover rate or population without duplicated individuals give less effect on the results.
+Other methods like a changeable crossover rate or population without duplicated individuals have less effect on the results.
 
-But we get valid results only for one problem. What if the problem will be smaller or bigger?
+However, we get valid results only for one problem. What if the problem will be smaller or bigger?
 The evaluation was done to find out how all approaches work with different problem sizes. 
 
 \section{Evaluation}
+\label{sec:evaluation}
 
-To evaluate genetic solver, a benchmark set of 36 problems was used.
-Each problem with different parameters that describes them.
+To evaluate the genetic solver, we performed a benchmark. The benchmark set consists of 36 problems. Each problem has different parameters that describe it.
 All parameters are:
 
 \begin{itemize}
@@ -38,7 +38,7 @@ Each version of the genetic solver tries five times to solve each problem.
 
 The benchmark set was run on an Intel Core i7-8700 CPU machine with 64Gb of memory using Fedora Server 29 and OpenJDK 1.8.0 201-b09.
 
-Benchmark trying so solve each task, if a solution was valid, genetic solver start to solve next problem. If after five attempts the genetic solver did not find a valid solution, it proceeded to the next problem.
+Benchmark trying so solve each task, if a solution was valid, genetic solver start to solve the next problem. If, after five attempts, the genetic solver did not find a valid solution, it proceeded to the next problem.
 
 \begin{figure}
 	\centering
@@ -58,7 +58,7 @@ The benchmark also shows that no one version of the genetic solver solved all pr
 		\begin{tabular}{c | c | c | c | c | c | c | c | c | c}
 			\hline
 			\rotatebox{90}{Problem Id} & \rotatebox{90}{B} & \rotatebox{90}{B-T} & \rotatebox{90}{WHC-T} & \rotatebox{90}{NP} & \rotatebox{90}{NP-T} & \rotatebox{90}{ICCR} & \rotatebox{90}{ICCR-T} & \rotatebox{90}{WD} & \rotatebox{90}{WD-T} \\
-			\hline			
+			\hline            
 			1 & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} \\ 
 			2 &   &   & \cellcolor{black} &   & \cellcolor{black} &   &   & \cellcolor{black} & \cellcolor{black}  \\
 			3 &   &   &   &   & \cellcolor{black} &   &   & \cellcolor{black} &  \\
@@ -110,7 +110,7 @@ Unsolved tasks are presented in Table~\ref{tab:UnsolvedProblems}. It shows param
 		\begin{tabular}{c c c c c}
 			\hline
 			Problem Id & variants & requests & depth & resources \\
-			\hline			
+			\hline            
 			6 & 2 & 2 & 4 & 50 \\
 			8 & 2 & 4 & 3 & 50 \\
 			9 & 2 & 4 & 4 & 50 \\
@@ -139,7 +139,7 @@ Let us now discuss the quality of the received results. Figure~\ref{fig:EnergyPe
 	\label{fig:EnergyPercentage}
 \end{figure}
 
-Figure~\ref{fig:EnergyPercentage} also shows that the deviation is increasing for big size problems. To confirm that fact, we take two problems with different sizes~(Figures~\ref{fig:SmallMediumProblemEnergy}). These problems solved by all version of the genetic solver except the B version. Figure~\ref{fig:SmallProblemEnergy} shows the percentage of deviation from optimum for a small size problem. This problem's parameters are:
+Figure~\ref{fig:EnergyPercentage} also shows that the deviation is increasing for big size problems. To confirm that fact, we take two problems with different sizes~(Figures~\ref{fig:SmallMediumProblemEnergy}). These problems solved by all versions of the genetic solver except the B version. Figure~\ref{fig:SmallProblemEnergy} shows the percentage of deviation from optimum for a small size problem. This problem's parameters are:
 \begin{itemize}
 	\item variants: 2,
 	\item requests: 2,
@@ -147,7 +147,7 @@ Figure~\ref{fig:EnergyPercentage} also shows that the deviation is increasing fo
 	\item resources: 50.
 \end{itemize}.
 
-The quality of results for the problem is near-optimal, because the deviation is less than one percent. The NP-T and WD-T versions give an optimal solution for the problem.
+The quality of results for the problem is near-optimal because the deviation is less than one percent. The NP-T and WD-T versions give an optimal solution for the problem.
 
 Figure~\ref{fig:MediumProblemEnergy} shows the percentage of deviation from optimum for a bigger size problem. This problem's parameters are:
 \begin{itemize}
@@ -157,7 +157,7 @@ Figure~\ref{fig:MediumProblemEnergy} shows the percentage of deviation from opti
 	\item resources: 100.
 \end{itemize}.
 
-The quality of results in a case of the bigger problem is much worse. The minimal deviation is 35\% for the NP-T version because the deviation is less than one percent. The NP-T and WD-T versions give an optimal solution for the problem. The WD and WD-T versions give less valid solutions in the benchmark, but the quality of the solution is higher. The quality of the solution from other solvers is lower because the percentage of the deviation is more than 100\%. The reason why the quality of solutions is decreasing with a bigger size of the problem could be a higher number of hardware resources. The higher number of resources means that more hardware resources could satisfy the requirements of the software component. The genetic solver could not find best-suited resources for requested components, and as a result, quality is decreasing. 
+The quality of results in a case of the bigger problem is much worse. The minimal deviation is 35\% for the NP-T version because the deviation is less than one percent. The NP-T and WD-T versions give an optimal solution for the problem. The WD and WD-T versions give less number of valid solutions, but with better quality. The quality of the solution from other solvers is lower because the percentage of the deviation is more than 100\%. The reason why the quality of solutions is decreasing with a bigger size of the problem could be a higher number of hardware resources. The higher number of resources means that more hardware resources could satisfy the requirements of the software component. The genetic solver could not find best-suited resources for requested components, and as a result, quality is decreasing. 
 
 
 \begin{figure}
@@ -172,9 +172,9 @@ The quality of results in a case of the bigger problem is much worse. The minima
 		\includegraphics[width=\textwidth]{images/EnergyDeviationMediumProblem.pdf}
 		\caption{$y=x$}
 		\label{fig:MediumProblemEnergy}
-	\end{subfigure}	
+	\end{subfigure}    
 	\caption{Three simple graphs}
-	\label{fig:SmallMediumProblemEnergy}	
+	\label{fig:SmallMediumProblemEnergy}    
 \end{figure}
 
 
@@ -187,17 +187,17 @@ However, there are problems from the set that could not be solved by the genetic
 Benchmark showed that a genetic solver could not solve all MQuAT problems from the evaluation set.
 In this section, we presented an analysis of results, reasons why described in Chapter~\ref{chapter:Implementation} approaches, and optimizations have lower efficiency that we need.
 
-Firstly, let us discuss the reasons why modifications that we made improve the genetic solver. After that we will concentrate on the reasons why not all tasks could be solved.
+Firstly, let us discuss the reasons why modifications that we made improve the genetic solver. After that, we will concentrate on the reasons why not all tasks could be solved.
 
-There is a few reasons why the genetic solver with our modifications could solve more problems than the B version. First of all, parameter tuning was performed for all versions. Optimized values of parameters gives a better results as it showed in the previous section. The second reason is a new probabilities that we added in Section~\ref{sec:NP}.These probabilities give a possibility to randomly change the position of the Crossover and mutation points and as a result, the genetic solver gives results that a bit worse than parameter tuning. 
+There are a few reasons why the genetic solver with our modifications could solve more problems than the B version. First of all, parameter tuning was performed for all versions. Optimized values of parameters give better results, as it showed in the previous section. The second reason are new probabilities that we added in Section~\ref{sec:NP}. These probabilities give a possibility to change the position of the crossover and mutation points randomly, and as a result, the genetic solver gives results that a bit worse than parameter tuning. 
 
-Nevertheless, not all tasks were solved. The one of the reasons of such result is parameter tuning. We optimized parameters for specific problems, that we described at the beginning of Chapter~\ref{chapter:Implementation}.
+Nevertheless, not all tasks were solved. One of the reasons for such a result is parameter tuning. We optimized parameters for a specific problem that we described at the beginning of Chapter~\ref{chapter:Implementation}.
 
 Obtained results could be described with a \textbf{"no free lunch" (NFL) theorem}\cite{wolpert1996, wolpert1997}. It says that if an algorithm works well with a certain class of tasks, then it must pay for it with a deterioration in performance on the set of all remaining problems.
 
 Another reason that we optimize parameters without knowledge about dependencies between them. Parameters that we found or added did not fit well for our goals. Let us analyze earlier discussed parameters.
 
-We start an analysis with search space representation. For this representation, we performed measurements for more than three thousand configurations using BRISE in the Search space exploration mode with NP version of the genetic solver. This mode was described in Section~\ref{sec:BRISE}. For this type of analysis we use the same problem as in Chapter~\ref{chapter:Implementation} and it has parameter values:
+We start an analysis with search space representation. For this representation, we performed measurements for more than three thousand configurations using BRISE in the Search space exploration mode with the NP version of the genetic solver. This mode was described in Section~\ref{sec:BRISE}. For this type of analysis, we use the same problem as in Chapter~\ref{chapter:Implementation} and it has parameter values:
 \begin{itemize}
 	\item variants: 10,
 	\item requests: 15,
@@ -207,7 +207,7 @@ We start an analysis with search space representation. For this representation, 
 \end{itemize}
 
 The search space representation for the SPEA2 selector as a parallel coordinates plot showed in Figure~\ref{fig:SearchSpaceViewFull}.
-Each parameter is represented in the plot as a vertical line that contains all possible values of the parameter. Each configuration that was measured showed on the plot as a line that connects all values that describe itself. The last vertical line and the color shows the number of contract violations that gives the configuration. The more dark color means fewer contract violations and vise versa, the lighter color gives a higher number of contract violations.
+Each parameter is represented in the plot as a vertical line that contains all possible values of the parameter. Each configuration that was measured showed on the plot as a line that connects all values that describe itself. The last vertical line and the color shows the number of contract violations that give the configuration. The more dark color means fewer contract violations and vise versa, the lighter color gives a higher number of contract violations.
 
 \begin{figure}
 	\centering
@@ -216,7 +216,7 @@ Each parameter is represented in the plot as a vertical line that contains all p
 	\label{fig:SearchSpaceViewFull}
 \end{figure}
 
-Figure~\ref{fig:SearchSpaceViewFull} shows all values of parameters could give "good" and "bad" results. There is no any visible dependencies between parameters. 
+Figure~\ref{fig:SearchSpaceViewFull} shows all values of parameters could give "good" and "bad" results. There are no visible dependencies between parameters. 
 
 \begin{figure}
 	\centering
@@ -234,16 +234,16 @@ If we are filtering out all configurations that gave not valid results, we obtai
 	\label{fig:CorrelationAnalysis}
 \end{figure}
 
-Cause Figure~\ref{fig:SearchSpaceViewFull} and Figure~\ref{fig:SearchSpaceValid} shows that search space view could not give any conclusions about dependencies between parameters or between parameters and number of contract violations, another method of analysis was performed.
+Cause Figure~\ref{fig:SearchSpaceViewFull} and Figure~\ref{fig:SearchSpaceValid} show that the search space view could not give any conclusions about dependencies between parameters or between parameters and number of contract violations, another method of analysis was performed.
 
-To get information how parameters relay on each others the correlation analysis was performed. Results of the analysis showed in Figure~\ref{fig:CorrelationAnalysis} as a correlation matrix where value of the correlation is a color of the cell. Each row and column in this matrix represent parameter of the genetic algorithm. There is only upper triangle of the matrix because it is symmetric. The last column of the matrix represents the correlation between parameters of the genetic solver (NP version) and number of contract violations~(CVs). There are two types of correlation. Direct correlation showed with red color and inverse correlation with blue color. In case of last column, direct correlation means that bigger value o parameter gives bigger number of contract violations. Inverse correlation in the same case means that bigger value of parameter gives smaller number of contract violations. Grey color shows that there is no correlation between values.
+We performed the correlation analysis of parameters to understand how are they relay on each other. The results showed in Figure~\ref{fig:CorrelationAnalysis} as a correlation matrix where the value of the correlation is the color of the cell. Each row and column in this matrix represent the parameter of the genetic algorithm. There is only an upper triangle of the matrix because it is symmetric. The last column of the matrix represents the correlation between parameters of the genetic solver (NP version) and a number of contract violations~(CVs). There are two types of correlation. Direct correlation showed with red color and an inverse correlation with blue color. In the case of the last column, direct correlation means that a bigger value o parameter gives a bigger number of contract violations. Inverse correlation, in the same case, means that the bigger value of parameter gives a smaller number of contract violations. Grey color shows that there is no correlation between values.
 
 From the correlation analysis, we can conclude that there are no strong dependencies between the number of contract violations and parameters. There are two more important parameters: \texttt{CrossoverRate}(R5) and \texttt{CrossoverOnRandomRequestProbability}(R16).
-The analysis showed that the \texttt{CrossoverRate} need to has a big value and value of \texttt{CrossoverOnRandomRequestProbability} needs to be as low as possible. In this case of small value of probability it may be a good idea to remove this parameter for parameter tuning.
+The analysis showed that the \texttt{CrossoverRate} parameter needs to have big value and value of \texttt{CrossoverOnRandomRequestProbability} needs to be as low as possible. In this case of the small value of probability, it may be a good idea to remove this parameter for parameter tuning.
 
-Correlation analysis showed that some parameters have dependencies. But we don't know yet how they depend.
+Correlation analysis showed that some parameters have dependencies. Nevertheless, we do not know yet how they depend.
 
-For further investigation of dependencies, we constructed plots that show the distribution of parameter pairs. We will discuss only two distribution. The first plot will show one representative distribution, and the second plot represents what most of the constructed distributions look like.
+For further investigation of dependencies, we constructed plots that show the distribution of parameter pairs. We will discuss only two distribution. The first plot will show one representative distribution, and the second plot represents how most of the constructed distributions look like.
 
 \begin{figure}
 	\centering
@@ -252,7 +252,7 @@ For further investigation of dependencies, we constructed plots that show the di
 	\label{fig:populatioSizeVsResMutationProbability}
 \end{figure}
 
-The representative distribution showed in Figure~\ref{fig:populatioSizeVsResMutationProbability}. Each point on this plot represent a value combination of two parameters \texttt{populationSize}~(R3) and \texttt{resourcesMutationProbability}~(R8). The color of point is a number of contract violations. In this case blue color is small number of contract violations. Red color represent a big number of contract violations. As we can see, there is gradient coloring from the mostly blue on the left size to mostly red on the right size. Such result means that \texttt{populationSize}~(R3) have a bigger influence on the result than \texttt{resourcesMutationProbability}~(R8). The figure also shows that for any value of \texttt{resourcesMutationProbability}~(R8) there are results with any number of contract violations.
+The representative distribution showed in Figure~\ref{fig:populatioSizeVsResMutationProbability}. Each point on this plot represent a value combination of two parameters \texttt{populationSize}~(R3) and \texttt{resourcesMutationProbability}~(R8). The color of the point is the number of contract violations. In this case, blue color is a small number of contract violations. Red color represents a big number of contract violations. As we can see, there is gradient coloring from the mostly blue on the left size to mostly red on the right size. Such result means that \texttt{populationSize}~(R3) have a bigger influence on the result than \texttt{resourcesMutationProbability}~(R8). The figure also shows that for any value of \texttt{resourcesMutationProbability}~(R8), there are results with any number of contract violations.
 
 \begin{figure}
 	\centering
@@ -261,9 +261,9 @@ The representative distribution showed in Figure~\ref{fig:populatioSizeVsResMuta
 	\label{fig:CrossoverRateVmutationRate}
 \end{figure}
 
-However, most distributions look like the distribution of \texttt{crossoverRate}~(R5) and \texttt{mutationRate}~(R7). It showed in Figure~\ref{fig:CrossoverRateVsutationRate}. As we can see, "good" and "bad" results exists for all values of described parameters. That means that these parameters are not depend on each other.
+However, most distributions look like the distribution of \texttt{crossoverRate}~(R5) and \texttt{mutationRate}~(R7). It showed in Figure~\ref{fig:CrossoverRateVsutationRate}. As we can see, "good" and "bad" results exist for all values of the described parameters. That means that these parameters do not depend on each other.
 
-Distributions of combinations of two parameters showed that some parameters have a greater impact on the result than others. And also there are parameters on the value of which the result does not depend. More examples of such distributions showed in Appendix~\ref{label}.
+Distributions of combinations of two parameters showed that some parameters have a more significant impact on the result than others. Moreover, there are parameters on the value of which the result does not depend. More examples of such distributions showed in Appendix~\ref{label}.
 
 \begin{figure}
 	\subfloat[Name A]{%
@@ -280,9 +280,9 @@ Distributions of combinations of two parameters showed that some parameters have
 	\label{fig:populationSize_gradient}
 \end{figure}
 
-Previously discussed plots shows that results of the genetic solver depends on some parameters such as \texttt{populationSize}~(R3). So we need to analyze how the value of this parameter affects the result. Firstly we discuss the \texttt{populationSize}~(R3) parameter and the second parameter is \texttt{mutationRate}~(R7).
+Previously discussed plots show that the results of the genetic solver depend on some parameters such as \texttt{populationSize}~(R3). So we need to analyze how the value of this parameter affects the result. Firstly we discuss the \texttt{populationSize}~(R3) parameter and the second parameter is \texttt{mutationRate}~(R7).
 
-Figure~\ref{fig:populationSize_gradientBig} shows the distribution of the \texttt{populationSize}~(R3) parameter values and the number of contract violations that this value could give. X-axis is a set of ranges of values for the parameter \texttt{populationSize}~(R3). Each range consists of 100 values. All ranges are sorted. A normalized bar is built for each range. Each bar consists of segments of different heights and colors. The segment color shows the number of contract violations, where black is one violation, and yellow is a large number of violations. The green color of the segment indicates valid results(zero contract violations). The segment height of one color means a percentage of the total number of configurations that have the same parameter value and which give the result with the same number of contact failures.
+Figure~\ref{fig:populationSize_gradientBig} shows the distribution of the \texttt{populationSize}~(R3) parameter values and the number of contract violations that this value could give. The X-axis is a set of ranges of values for the parameter \texttt{populationSize}~(R3). Each range consists of 100 values. All ranges are sorted. A normalized bar is built for each range. Each bar consists of segments of different heights and colors. The segment color shows the number of contract violations, where black is one violation, and yellow is a large number of violations. The green color of the segment indicates valid results(zero contract violations). The segment height of one color means a percentage of the total number of configurations that have the same parameter value and which give the result with the same number of contact failures.
 
 This distribution shows that the left side and the central part of the plot give a smaller number of contract violations because sectors have mainly dark colors and green color. The right side of the distribution contains higher values of the parameter. Moreover, solutions with those values give more contract violations. As can be seen, valid solutions located in the range from 1000 to 2600.
 
@@ -290,7 +290,7 @@ For a more visual image, we construct a similar graph for the smaller problem. T
 It is shown in Figure~\ref{fig:populationSize_gradientSmall}. If we compare Figure~\ref{fig:populationSize_gradientSmall} and Figure~\ref{fig:populationSize_gradientBig}, we can see that they have a similar distribution.
 
 The second  discussed parameter is \texttt{mutationRate}~(R7). The distribution of values of this parameter showed in Figure~\ref{fig:mutationRate_gradient}. For better visual understanding, the distribution is built for a smaller problem described above. 
-As we can see, the percentage of valid results for any described range of values of the \texttt{mutationRate}~(R7) parameter varies from 50 to 60. The distributions of most parameters look like the distribution of the \texttt{mutationRate}~(R7) parameter described here. Such a distribution means that the result of the solver does not matter from the value of the specific parameter. 
+As we can see, the percentage of valid results for any described range of values of the \texttt{mutationRate}~(R7) parameter varies from 50 to 60. The distributions of most parameters look like the distribution described here. Such a distribution means that the result of the genetic solver does not depend on the value of the parameter. 
 
 \begin{figure}
 	\centering
@@ -299,8 +299,19 @@ As we can see, the percentage of valid results for any described range of values
 	\label{fig:mutationRate_gradient}
 \end{figure}
 
-\todoR{I stopped here}
+The two types of distribution of parameter value and number of contract violation were discussed. Distributions for both problems for each parameter presented in Appendix\ref{label}. These plots confirm the conclusions that we made above. Values of some parameters such as \texttt{populationSize}~(R3), \texttt{crossoverRate}~(R5), \texttt{populateSoftwareSolutionAttempts}~(R13) and \texttt{crossoverOnRandomRequestProbability}~(R16) have a higher effect on the result.
+The distribution  of the \texttt{crossoverOnRandomRequestProbability}~(R16) parameter showed in Appendix~\ref{label} confirms conclusions from correlation analysis that lower value gives better result. 
+Some parameters give "good" and "bad" results for all values. That means that we could remove them from the parameter tuning and use constant value. Furthermore, for other parameters, values ranges could be adjusted.
 
+To answer the question of what value of parameters with no obvious advantage in distribution, we construct a similar distribution with the quality of the solution.
+As earlier we presented two distribution for \texttt{populationSize}~(R3) and \texttt{mutationRate}~(R7) parameters for smaller problem for smaller problem.
+
+Figure~\ref{fig:populationSizeObjective} shows the quality distribution for the \texttt{populationSize}~(R3). This distribution differs from the previous one shown in Figure~\ref{fig:populationSize_gradientSmall} that all non-valid configurations are located in one segment that marked as "non-valid" and have a black color. Valid results consist of segments with different high and color. Each segment represents the percentage of the total number of configurations that have the same parameter value and which give the result near the same quality. All colors except black show the deviation of the quality of the solution from optimum in percent. Greed color represents optimal solutions.
+
+As we can see, if a genetic solver gets valid results, the quality of the solution is optimal, or near-optimal. This distribution also confirms conclusions in Section~\ref{sec:evaluation}.
+
+For current analysis the distribution of the \texttt{mutationRate}~(R7) parameter is more interesting and it showed in Figure~\ref{fig:mutationRateObjective}. The distribution of contract violations shows that any value of the parameter could give a valid result. However, the distribution of quality shows that some values of the parameter could give an optimal solution to the problem. Let us compare two ranges of values [0.45, 0.5) and [0.75, 0.8). Both ranges have near the same percentage of valid results of 50\%.
+Nevertheless, the first range could give an optimal solution. The second range could not give such a solution. Moreover, the percentage of near-optimal solutions for the second range is lower.
 
 
 \begin{figure}
@@ -310,6 +321,7 @@ As we can see, the percentage of valid results for any described range of values
 	\label{fig:populationSizeObjective}
 \end{figure}
 
+
 \begin{figure}
 	\centering
 	\includegraphics[width=\textwidth]{images/mutationRateObjective.pdf}
@@ -317,6 +329,4 @@ As we can see, the percentage of valid results for any described range of values
 	\label{fig:mutationRateObjective}
 \end{figure}
 
-As for energy, let's build the distribution of the obtained energy values for the same parameters (Figure~\ref{fig:populationSizeObjective}).
-
-This distribution proves the fact that if the solver found a valid solution, then this solution is optimal, or close to it.
+Last discussed plots shows that validity of the result that described as a number of contract violation could not depend on the value of the parameter. However, the quality of the solution depends on the parameter value. As a conclusion, we could say that we could remove some parameters from the parameter tuning if our goal is to find a valid solution. But if we are looking for the best quality of the solution, it needs all the parameters. This fact shows that multi-objective optimization is a complex question.
