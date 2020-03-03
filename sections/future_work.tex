@@ -1,6 +1,7 @@
 \chapter{Future work}
-\begin{itemize}
-	\item New approaches for parameter tuning
-	\item re-engineering of GA solver, especially genotype and operators  
-	\item other ways to avoid local optimum
-\end{itemize}
+
+The research presented in this thesis shows that parameter tuning could improve genetic solver. However, it is not enough to solve big sized problems. As mentioned in Section\ref{label}, there is a framework limitation of used selector algorithms. There is a possibility that another selection algorithm could improve results, because during implementing different modification BRISE sometimes change it.
+
+Genetic solver without duplicates (WD) is a possible started point for feature research. We show that this modification works slower than other approaches because it compares each new individual with a set of unique individuals in the population. Nevertheless, the WD and WD-T versions of the genetic solver give results with good quality in less number of generation. Better implementation of this approach could improve the results of the genetic solver.
+
+Another started point is parameter control inside the genetic solver. It will change the parameters of the genetic solver on a fly. 
