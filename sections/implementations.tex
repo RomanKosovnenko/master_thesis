@@ -104,8 +104,8 @@ The default value is 0.1 and the range of optimization from 0.0 to 1.0.
 
 
 Within the genetic solver evaluator, two factors reduce the quality of the solution in the event of a contract breach or errors in dependencies in the software tree. These coefficients were not set for external tuning.
-\paragraph{\texttt{ValidityWeight}} - coefficient that shows how each contract violation decreases  the quality of the solution.
-\paragraph{\texttt{SoftwareValidityWeight}} - coefficient that shows how each error in software tree decrease the quality of the solution.\\
+\paragraph{\texttt{ValidityWeight}} - coefficient that shows how each contract violation decreases the quality of the solution.
+\paragraph{\texttt{SoftwareValidityWeight}} - coefficient that shows how each error in the software tree decrease the quality of the solution.\\
 
 The default value for both parameters is 0.5. BRISE tune them in a range from 0.0 to 1.0.
 
@@ -217,7 +217,7 @@ This section showed that the parameters thought out in the algorithm are as impo
 The reason all individuals become the same is due to the creation of offspring. To create new individuals, the selector takes the best individuals. Crossover, takes two individuals from the selector, and performing a gene change, creates two new individuals. If these individuals give a worse solution, then the selector in the new iteration will drop them, and if they are close, they will take them to create new individuals. At a certain point, it will be a situation that the crossover occurs between two identical genotypes, which creates two the same individuals. There is a chase \texttt{1~-~mutationRate} that mutation will not happen, and two identical as parents individuals will be added to the population. It increases the number of identical elements and leads to the collapse of the genetic diversity of the population.
 
 The idea of how to solve this issue is an internally changeable crossover rate. It changes the chance of the crossover depends on the number of the same individuals in a population. 
-The principle of operation is as follows. After each iteration, a part of the unique genotypes in the population is calculated. If the resulting number is smaller than the value of \texttt{PartOfUniqueIndividualsToStopCrossover} parameter, then the probability of a crossover will set as 0.0. And vice versa, the probability of a crossover returns back if the part of the unique genotypes in the population is bigger than the value of \texttt{PartOfUniqueIndividualsToReturnCrossover} parameter.
+The principle of operation is as follows. After each iteration, a part of the unique genotypes in the population is calculated. If the resulting number is smaller than the value of \texttt{PartOfUniqueIndividualsToStopCrossover} parameter, then the probability of a crossover will set as 0.0, and vice versa, the probability of a crossover returns if the part of the unique genotypes in the population is bigger than the value of \texttt{PartOfUniqueIndividualsToReturnCrossover} parameter.
 
 The value for \texttt{PartOfUniqueIndividualsToStopCrossover} is 0.25 and for \texttt{PartOfUniqueIndividualsToReturnCrossover} is 0.75.
 
@@ -265,7 +265,7 @@ The internally changeable crossover rate slightly delay the collapse of the dive
 
 
 The comparison of the results of ICCR and ICCR-T versions with all earlier discussed versions presented as boxplots showed in Figure~\ref{fig:boxplotsolverAdaptiveCrossoverTuning}. The ICCR version gives better results than all untuned versions of the genetic solver. However, the range between max and min number of contract violations in the ICCR version is bigger than in the NP version.
-The ICCR also better the tuned versions such as B-T and WHC-T, but worse than the NP-T version. The ICCR-T version as a NP-T version gives a valid solution, but it is more like exception. The boxplot of ICCR-T version also shows that parameter tuning for internally changeable parameters works not so efficient as for static parameters like in NP version, at least for the discussed problem. 
+The ICCR also better the tuned versions such as B-T and WHC-T, but worse than the NP-T version. The ICCR-T version as an NP-T version gives a valid solution, but it is more like an exception. The boxplot of the ICCR-T version also shows that parameter tuning for internally changeable parameters works not so efficient as for static parameters like in NP version, at least for the discussed problem. 
 
 \begin{figure}
 	\centering
@@ -282,7 +282,7 @@ This section shows that parameter control could improve the results and delay st
 
 Because the changeable crossover rate from the previous section only delays the collapse of the diversity of individuals in the population. We decide to try a more radical solution. We block the possibility of adding to the population a new individual if the population already contains the same individual. It means that at any moment, the population will consist of unique individuals. In this version of the genetic solver, the use of the changeable crossover rate does not make any sense, so it was disabled, and a constant value was used.
 
-The number of unique individuals in the population for the WD version presented in Figure~\ref{fig:UniqIndividualsPerGeneration3}. On each generation after initial population have been created, the number of unique elements in population is not changing.
+The number of unique individuals in the population for the WD version presented in Figure~\ref{fig:UniqIndividualsPerGeneration3}. In each generation, after the initial population has been created, the number of unique elements in the population is not changing.
 
 Untuned version ot the genetic solver with blocked duplicates in the population marked as  \textbf{WD}~\footnote{commit: \href{https://git-st.inf.tu-dresden.de/mquat/mquat2/commit/1d79c50d7932c9216c653bf6d0354d990f6aecbc}{1d79c50d7932c9216c653bf6d0354d990f6aecbc}}~(Without Duplicates)and tuned version~\footnote{commit: \href{https://git-st.inf.tu-dresden.de/mquat/mquat2/commit/24504c77024ac383c77849c5121471e0f06ce913}{24504c77024ac383c77849c5121471e0f06ce913}} marked as \textbf{WD-T}~(Without Duplicates-Tuned).
 
