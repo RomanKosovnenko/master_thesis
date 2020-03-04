@@ -12,12 +12,12 @@ The evaluation was done to find out how all approaches work with different probl
 
 To evaluate the genetic solver, we performed a benchmark. The benchmark set consists of 36 problems. Each problem has different parameters that describe it.
 All parameters are:
-
 \begin{itemize}
-	\item variant - [2, 4] ,
-	\item request - [1, 2, 4],
-	\item depth - [2, 3, 4],
-	\item resources - [50, 100].
+	\item Software variants - [2, 4] ,
+	\item Number of requests - [1, 2, 4],
+	\item Component tree depth - [2, 3, 4],
+	\item  Resources ratio - [50, 100],
+	\item timeout to solve the problem: 5 minutes.
 \end{itemize}
 
 This set was tested with several versions of the genetic solver:
@@ -57,28 +57,29 @@ The benchmark also shows that no one version of the genetic solver solved all pr
 
 \begin{table}
 	\caption{Problem color coding}\label{tab:ProblemsColorCoding}
+	\resizebox{0.8\textwidth}{!}{
 	\begin{minipage}[t]{0.5\linewidth}
 		\begin{tabular}[t]{c | c | c | c | c | c | c | c | c | c |}
 			\rotatebox{90}{Problem Id} & \rotatebox{90}{B} & \rotatebox{90}{B-T} & \rotatebox{90}{WHC-T} & \rotatebox{90}{NP} & \rotatebox{90}{NP-T} & \rotatebox{90}{ICCR} & \rotatebox{90}{ICCR-T} & \rotatebox{90}{WD} & \rotatebox{90}{WD-T} \\
 			\hline            
 			1 & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ \\ 
 			2 & $\square$ & $\square$ & $\blacksquare$ & $\square$ & $\blacksquare$ & $\square$ & $\square$ & $\blacksquare$ & $\blacksquare$  \\
-			3 & $\square$ & $\square$ & $\square$ & $\square$ & $\blacksquare$ & $\square$ & $\square$ & $\blacksquare$ &  \\
+			3 & $\square$ & $\square$ & $\square$ & $\square$ & $\blacksquare$ & $\square$ & $\square$ & $\blacksquare$ & $\square$  \\
 			4 & $\square$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ \\
-			5 & $\square$ & $\square$ & $\square$ & $\square$ & $\blacksquare$ & $\square$ & $\blacksquare$ & $\square$ & \\
-			6 & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & \\
+			5 & $\square$ & $\square$ & $\square$ & $\square$ & $\blacksquare$ & $\square$ & $\blacksquare$ & $\square$ & $\square$ \\
+			6 & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ \\
 			7 & $\square$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\square$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$\\
-			8 & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & \\
-			9 & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & \\
+			8 & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ \\
+			9 & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ \\
 			10 & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ \\
 			11 & $\square$ & $\square$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ \\
-			12 & $\square$ & $\square$ & $\square$ & $\square$ & $\blacksquare$ & $\square$ & $\blacksquare$ & $\blacksquare$ &   \\
+			12 & $\square$ & $\square$ & $\square$ & $\square$ & $\blacksquare$ & $\square$ & $\blacksquare$ & $\blacksquare$ & $\square$  \\
 			13 & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ \\
-			14 & $\square$ & $\square$ & $\square$ & $\square$ & $\blacksquare$ & $\square$ & $\blacksquare$ & $\square$ &   \\
-			15 & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & \\
+			14 & $\square$ & $\square$ & $\square$ & $\square$ & $\blacksquare$ & $\square$ & $\blacksquare$ & $\square$ & $\square$  \\
+			15 & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ \\
 			16 & $\square$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\square$ & $\blacksquare$ & $\square$ & $\blacksquare$ \\
-			17 & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & \\
-			18 & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & \\
+			17 & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ \\
+			18 & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ \\
 			\hline
 		\end{tabular} %
 	\end{minipage}
@@ -90,103 +91,38 @@ The benchmark also shows that no one version of the genetic solver solved all pr
 			\hline            
 			19 & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$\\
 			20 & $\square$ & $\square$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ \\
-			21 & $\square$ & $\square$ & $\square$ & $\square$ & $\blacksquare$ & $\square$ & $\blacksquare$ & $\square$ & \\
+			21 & $\square$ & $\square$ & $\square$ & $\square$ & $\blacksquare$ & $\square$ & $\blacksquare$ & $\square$ & $\square$ \\
 			22 & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\square$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ \\
-			23 & $\square$ & $\square$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\square$ & $\blacksquare$ & $\blacksquare$ &  \\
-			24 & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & \\
+			23 & $\square$ & $\square$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\square$ & $\blacksquare$ & $\blacksquare$ & $\square$ \\
+			24 & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ \\
 			25 & $\square$ & $\square$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\square$ & $\blacksquare$ & $\square$ & $\blacksquare$ \\
-			26 & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & \\
-			27 & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & \\
+			26 & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ \\
+			27 & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ \\
 			28 & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ \\
 			29 & $\square$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ \\
-			30 & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & \\
+			30 & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ \\
 			31 & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ \\
-			32 & $\square$ & $\square$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\square$ & $\blacksquare$ & $\blacksquare$ &  \\ 
-			33 & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & \\
+			32 & $\square$ & $\square$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\square$ & $\blacksquare$ & $\blacksquare$ & $\square$ \\ 
+			33 & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ \\
 			34 & $\square$ & $\blacksquare$ & $\blacksquare$ & $\square$ & $\blacksquare$ & $\square$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ \\
-			35 & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & \\
-			36 & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & \\
+			35 & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ \\
+			36 & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ \\
 			\hline
 		\end{tabular} %
 	\end{minipage}
-	\mbox{$\blacksquare$: solved, $\square$: unsolved}
-\end{table}
-
-\begin{table}
-	\caption{Problem color coding}\label{tab:ProblemsColorCoding}
-	\setlength{\tabcolsep}{0.05cm}
-	\renewcommand{\arraystretch}{0}
-	\begin{tabular}{c | c | c | c | c | c | c | c | c | c}
-		\rotatebox{90}{Problem Id} & \rotatebox{90}{B} & \rotatebox{90}{B-T} & \rotatebox{90}{WHC-T} & \rotatebox{90}{NP} & \rotatebox{90}{NP-T} & \rotatebox{90}{ICCR} & \rotatebox{90}{ICCR-T} & \rotatebox{90}{WD} & \rotatebox{90}{WD-T} \\
-		\hline            
-		1 & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ \\ 
-		2 & $\square$ & $\square$ & $\blacksquare$ & $\square$ & $\blacksquare$ & $\square$ & $\square$ & $\blacksquare$ & $\blacksquare$  \\
-		3 & $\square$ & $\square$ & $\square$ & $\square$ & $\blacksquare$ & $\square$ & $\square$ & $\blacksquare$ &  \\
-		4 & $\square$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ \\
-		5 & $\square$ & $\square$ & $\square$ & $\square$ & $\blacksquare$ & $\square$ & $\blacksquare$ & $\square$ & \\
-		6 & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & \\
-		7 & $\square$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\square$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$\\
-		8 & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & \\
-		9 & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & \\
-		10 & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ \\
-		11 & $\square$ & $\square$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ \\
-		12 & $\square$ & $\square$ & $\square$ & $\square$ & $\blacksquare$ & $\square$ & $\blacksquare$ & $\blacksquare$ &   \\
-		13 & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ \\
-		14 & $\square$ & $\square$ & $\square$ & $\square$ & $\blacksquare$ & $\square$ & $\blacksquare$ & $\square$ &   \\
-		15 & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & \\
-		16 & $\square$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\square$ & $\blacksquare$ & $\square$ & $\blacksquare$ \\
-		17 & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & \\
-		18 & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & \\
-		19 & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$\\
-		20 & $\square$ & $\square$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ \\
-		21 & $\square$ & $\square$ & $\square$ & $\square$ & $\blacksquare$ & $\square$ & $\blacksquare$ & $\square$ & \\
-		22 & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\square$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ \\
-		23 & $\square$ & $\square$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\square$ & $\blacksquare$ & $\blacksquare$ &  \\
-		24 & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & \\
-		25 & $\square$ & $\square$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\square$ & $\blacksquare$ & $\square$ & $\blacksquare$ \\
-		26 & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & \\
-		27 & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & \\
-		28 & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ \\
-		29 & $\square$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ \\
-		30 & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & \\
-		31 & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ \\
-		32 & $\square$ & $\square$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\square$ & $\blacksquare$ & $\blacksquare$ &  \\ 
-		33 & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & \\
-		34 & $\square$ & $\blacksquare$ & $\blacksquare$ & $\square$ & $\blacksquare$ & $\square$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ \\
-		35 & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & \\
-		36 & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & \\
-		\hline
-	\end{tabular}
-	\\[.3em]
-	\mbox{$\blacksquare$: solved, $\square$: unsolved}
-\end{table}
-
-\begin{table}
-	\centering
-	\caption{Problem color coding}\label{tab:ProblemsColorCoding}
-	%\setlength{\tabcolsep}{0.05cm}
-	\resizebox{\textwidth}{!}{
-		\begin{tabular}{ccccccccccccccccccccccccccccccccccccc}
-			Version&1&2&3&4&5&6&7&8&9&10&11&12&13&14&15&16&17&18&19&20&21&22&23&24&25&26&27&28&29&30&31&32&33&34&35&36 \\
-			\hline
-			B&$\blacksquare$&$\square$&$\square$&$\square$&$\square$&$\square$&$\square$&$\square$&$\square$&$\blacksquare$&$\square$&$\square$&$\blacksquare$&$\square$&$\square$&$\square$&$\square$&$\square$&$\blacksquare$&$\square$&$\square$&$\blacksquare$&$\square$&$\square$&$\square$&$\square$&$\square$&$\blacksquare$&$\square$&$\square$&$\blacksquare$&$\square$&$\square$&$\square$&$\square$&$\square$ \\
-			B-T&$\blacksquare$&$\square$&$\square$&$\blacksquare$&$\square$&$\square$&$\blacksquare$&$\square$&$\square$&$\blacksquare$&$\square$&$\square$&$\blacksquare$&$\square$&$\square$&$\blacksquare$&$\square$&$\square$&$\blacksquare$&$\square$&$\square$&$\blacksquare$&$\square$&$\square$&$\square$&$\square$&$\square$&$\blacksquare$&$\blacksquare$&$\square$&$\blacksquare$&$\square$&$\square$&$\blacksquare$&$\square$&$\square$ \\
-			WHC-T&$\blacksquare$&$\blacksquare$&$\square$&$\blacksquare$&$\square$&$\square$&$\blacksquare$&$\square$&$\square$&$\blacksquare$&$\blacksquare$&$\square$&$\blacksquare$&$\square$&$\square$&$\blacksquare$&$\square$&$\square$&$\blacksquare$&$\blacksquare$&$\square$&$\blacksquare$&$\blacksquare$&$\square$&$\blacksquare$&$\square$&$\square$&$\blacksquare$&$\blacksquare$&$\square$&$\blacksquare$&$\blacksquare$&$\square$&$\blacksquare$&$\square$&$\square$ \\
-			NP&$\blacksquare$&$\square$&$\square$&$\blacksquare$&$\square$&$\square$&$\blacksquare$&$\square$&$\square$&$\blacksquare$&$\blacksquare$&$\square$&$\blacksquare$&$\square$&$\square$&$\blacksquare$&$\square$&$\square$&$\blacksquare$&$\blacksquare$&$\square$&$\square$&$\blacksquare$&$\square$&$\blacksquare$&$\square$&$\square$&$\blacksquare$&$\blacksquare$&$\square$&$\blacksquare$&$\blacksquare$&$\square$&$\square$&$\square$&$\square$ \\
-			NP-T&$\blacksquare$&$\blacksquare$&$\blacksquare$&$\blacksquare$&$\blacksquare$&$\square$&$\blacksquare$&$\square$&$\square$&$\blacksquare$&$\blacksquare$&$\blacksquare$&$\blacksquare$&$\blacksquare$&$\square$&$\blacksquare$&$\square$&$\square$&$\blacksquare$&$\blacksquare$&$\blacksquare$&$\blacksquare$&$\blacksquare$&$\square$&$\blacksquare$&$\square$&$\square$&$\blacksquare$&$\blacksquare$&$\square$&$\blacksquare$&$\blacksquare$&$\square$&$\blacksquare$&$\square$&$\square$ \\
-			ICCR&$\blacksquare$&$\square$&$\square$&$\blacksquare$&$\square$&$\square$&$\square$&$\square$&$\square$&$\blacksquare$&$\blacksquare$&$\square$&$\blacksquare$&$\square$&$\square$&$\square$&$\square$&$\square$&$\blacksquare$&$\blacksquare$&$\square$&$\blacksquare$&$\square$&$\square$&$\square$&$\square$&$\square$&$\blacksquare$&$\blacksquare$&$\square$&$\blacksquare$&$\square$&$\square$&$\square$&$\square$&$\square$ \\
-			ICCR-T&$\blacksquare$&$\square$&$\square$&$\blacksquare$&$\blacksquare$&$\square$&$\blacksquare$&$\square$&$\square$&$\blacksquare$&$\blacksquare$&$\blacksquare$&$\blacksquare$&$\blacksquare$&$\square$&$\blacksquare$&$\square$&$\square$&$\blacksquare$&$\blacksquare$&$\blacksquare$&$\blacksquare$&$\blacksquare$&$\square$&$\blacksquare$&$\square$&$\square$&$\blacksquare$&$\blacksquare$&$\square$&$\blacksquare$&$\blacksquare$&$\square$&$\blacksquare$&$\square$&$\square$ \\
-			WD&$\blacksquare$&$\blacksquare$&$\blacksquare$&$\blacksquare$&$\square$&$\square$&$\blacksquare$&$\square$&$\square$&$\blacksquare$&$\blacksquare$&$\blacksquare$&$\blacksquare$&$\square$&$\square$&$\square$&$\square$&$\square$&$\blacksquare$&$\blacksquare$&$\square$&$\blacksquare$&$\blacksquare$&$\square$&$\square$&$\square$&$\square$&$\blacksquare$&$\blacksquare$&$\square$&$\blacksquare$&$\blacksquare$&$\square$&$\blacksquare$&$\square$&$\square$ \\
-			WD-T&$\blacksquare$&$\blacksquare$&$\square$&$\blacksquare$&$\square$&$\square$&$\blacksquare$&$\square$&$\square$&$\blacksquare$&$\blacksquare$&$\square$&$\blacksquare$&$\square$&$\square$&$\blacksquare$&$\square$&$\square$&$\blacksquare$&$\blacksquare$&$\square$&$\blacksquare$&$\square$&$\square$&$\blacksquare$&$\square$&$\square$&$\blacksquare$&$\blacksquare$&$\square$&$\blacksquare$&$\square$&$\square$&$\blacksquare$&$\square$&$\square$ \\
-			
-			\hline
-		\end{tabular}
 	}
 	\mbox{$\blacksquare$: solved, $\square$: unsolved}
 \end{table}
 
 Unsolved tasks are presented in Table~\ref{tab:UnsolvedProblems}. It shows parameters that specified the problem. We can see, there are a few types of unsolved problems are exist. All versions of the genetic solver could not solve the problem that contains two or more requests, and the depth is three or more. The exception for this definition is a problem number 30. It has one request and depth four, but it also has variants four and resources - 100 and genetic solvers could not solve it.
 
+\begin{itemize}
+	\item Software variants - [2, 4] ,
+	\item Number of requests - [1, 2, 4],
+	\item Component tree depth - [2, 3, 4],
+	\item Resources ratio - [50, 100],
+	\item timeout to solve the problem: 5 minutes.
+\end{itemize}
 
 \begin{table}
 	\centering
@@ -194,7 +130,7 @@ Unsolved tasks are presented in Table~\ref{tab:UnsolvedProblems}. It shows param
 	%\resizebox{0.6\textwidth}{!}{
 		\begin{tabular}{c c c c c}
 			\hline
-			Problem Id & variants & requests & depth & resources \\
+			Problem Id & Software variants & umber of requests & Component tree depth & Resources ratio \\
 			\hline            
 			6 & 2 & 2 & 4 & 50 \\
 			8 & 2 & 4 & 3 & 50 \\
@@ -226,21 +162,24 @@ Let us now discuss the quality of the received results. Figure~\ref{fig:EnergyPe
 
 Figure~\ref{fig:EnergyPercentage} also shows that the deviation is increasing for big size problems. To confirm that fact, we take two problems with different sizes~(Figures~\ref{fig:SmallMediumProblemEnergy}). These problems solved by all versions of the genetic solver except the B version. Figure~\ref{fig:SmallProblemEnergy} shows the percentage of deviation from optimum for a small size problem. This problem's parameters are:
 \begin{itemize}
-	\item variants: 2,
-	\item requests: 2,
-	\item depth: 2,
-	\item resources: 50.
-\end{itemize}.
+	\item Software variants: 2,
+	\item Number of requests: 2,
+	\item Component tree depth: 2,
+	\item Resources ratio: 50,
+	\item timeout to solve the problem: 5 minutes.
+\end{itemize}
 
 The quality of results for the problem is near-optimal because the deviation is less than one percent. The NP-T and WD-T versions give an optimal solution for the problem.
 
 Figure~\ref{fig:MediumProblemEnergy} shows the percentage of deviation from optimum for a bigger size problem. This problem's parameters are:
 \begin{itemize}
-	\item variants: 4,
-	\item requests: 1,
-	\item depth: 3,
-	\item resources: 100.
-\end{itemize}.
+	\item Software variants: 4,
+	\item Number of requests: 1,
+	\item Component tree depth: 3,
+	\item Resources ratio: 100,
+	\item timeout to solve the problem: 5 minutes.
+\end{itemize}
+
 
 The quality of results in a case of the bigger problem is much worse. The minimal deviation is 35\% for the NP-T version because the deviation is less than one percent. The NP-T and WD-T versions give an optimal solution for the problem. The WD and WD-T versions give less number of valid solutions, but with better quality. The quality of the solution from other solvers is lower because the percentage of the deviation is more than 100\%. The reason why the quality of solutions is decreasing with a bigger size of the problem could be a higher number of hardware resources. The higher number of resources means that more hardware resources could satisfy the requirements of the software component. The genetic solver could not find best-suited resources for requested components, and as a result, quality is decreasing. 
 
@@ -284,11 +223,11 @@ Another reason that we optimize parameters without knowledge about dependencies 
 
 We start an analysis with search space representation. For this representation, we performed measurements for more than three thousand configurations using BRISE in the Search space exploration mode with the NP version of the genetic solver. This mode was described in Section~\ref{sec:BRISE}. For this type of analysis, we use the same problem as in Chapter~\ref{chapter:Implementation} and it has parameter values:
 \begin{itemize}
-	\item variants: 10,
-	\item requests: 15,
-	\item depth: 2,
-	\item resources: 5,
-	\item timeout: 5 minutes.
+	\item Software variants: 10,
+	\item Number of requests: 15,
+	\item Component tree depth: 2,
+	\item Resources ratio: 5,
+	\item timeout to solve the problem: 5 minutes.
 \end{itemize}
 
 The search space representation for the SPEA2 selector as a parallel coordinates plot showed in Figure~\ref{fig:SearchSpaceViewFull}.
@@ -371,7 +310,15 @@ Figure~\ref{fig:populationSize_gradientBig} shows the distribution of the \textt
 
 This distribution shows that the left side and the central part of the plot give a smaller number of contract violations because sectors have mainly dark colors and green color. The right side of the distribution contains higher values of the parameter. Moreover, solutions with those values give more contract violations. As can be seen, valid solutions located in the range from 1000 to 2600.
 
-For a more visual image, we construct a similar graph for the smaller problem. This problem described with parameters: variants - 2, depth - 2, requests - 2, resources - 5.
+For a more visual image, we construct a similar graph for the smaller problem. This problem described with parameters:
+\begin{itemize}
+	\item Software variants: 2,
+	\item Number of requests: 2,
+	\item Component tree depth: 2,
+	\item Resources ratio: 5,
+	\item timeout to solve the problem: 5 minutes.
+\end{itemize}
+
 It is shown in Figure~\ref{fig:populationSize_gradientSmall}. If we compare Figure~\ref{fig:populationSize_gradientSmall} and Figure~\ref{fig:populationSize_gradientBig}, we can see that they have a similar distribution.
 
 The second  discussed parameter is \texttt{mutationRate}~(R7). The distribution of values of this parameter showed in Figure~\ref{fig:mutationRate_gradient}. For better visual understanding, the distribution is built for a smaller problem described above. 
