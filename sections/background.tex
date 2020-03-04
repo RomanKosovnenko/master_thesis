@@ -5,45 +5,8 @@ This thesis is based on several kinds of research of auto-tuning, evolutionary a
 
 Multi-Quality Auto-Tuning (MQuAT) – is an approach to self-adaptive software, which provides design and operation principles for software systems that automatically provide the best possible utility to the user while producing the least possible cost.
 It is based on the design-time part, which represents a new development method for self-optimizing systems and runtime parts, which concerns operation principles, namely,  novel techniques to runtime self-optimization~\cite{gotz13}.
-
-\subsection{Design principles of MQuAT}
-
-MQuAT presented a new method of developing self-optimized software. In which software is proposed to be constructed from components with specifically defined limits. In addition, components are intended to comprise multiple implementations, each providing the same but differing functionality in their non-functional behavior. Therefore, the design principle is the critical factor for runtime optimization because when there is a different configuration, optimization can be done, and the optimal or almost optimal configuration can be selected. To compare different implementations of the software component, they need to be specified with their non-functional properties (NFP)~\cite{gotz13}.
-A new meta-architecture of the self-optimizing software system was created To highlight this fundamental principle. It called the cool component model~\cite{gotz10}.
-A specialty of MQuAT is the application of QoS contracts to cover non-functional implementation behavior as well as the interrelationships of different components between NFPs. Contracts naturally describe the relationship between provisions and requirements.
-
-\subsection{Operation principles of MQuAT}
-
-The core runtime approach proposed in MQuAT is THE Auto-Tuning Runtime Environment (THEATRE)\cite{gotz10, gotz12}.
-The concept of runtime environment contains three layers: a user, software, and a resource layer. All of them depicted in Figure ~\ref{fig:threelayersmquat}
-
-\begin{figure}
-	\centering
-	\includegraphics[width=\textwidth]{images/ThreeLayersMQuAT}
-	\caption[Three layers of MQuAT]{Three layers of MQuAT}
-	\label{fig:threelayersmquat}
-\end{figure}
-
-The user layer invokes features and identifies their specifications. The  Global  User  Manager  (GUM)  is required to manage the mapping between users and software component implementations and to coordinate the requests. User requests are minimal software system specifications that have to be met to satisfy the user. The general aim of the runtime system is to help the user as effectively as possible about the purposes of the user~\cite{gotz13}.
-
-The software layer contains all software components, and it's implementations. Each component has a Local Quality Manager(LQM), which responsible for controlling the set of components~\cite{gotz13, ahmad18}. Also, there is a single Global Quality Manager (GQM) which carry out the study and preparation phases of the feedback loop, while the LQM is responsible for the implementation process~\cite{gotz13}.
-
-The resources layer comprises physical (e.g., CPU or RAM) as well as virtual resources(e.g., operating system).
-To controlling and monitoring all resources, the Global Resource Manager(GRM) is presented. Each resource has its own Local Resource Manager (LRM), which has in-depth knowledge about its resource and the ability to steer the resource by~\cite{gotz13, ahmad18}.
-
-\subsection{MQuAT combine the design time and runtime}
-
-\begin{figure}
-	\centering
-	\includegraphics[width=\textwidth]{images/CombinedMQuAT}
-	\caption[Combined structure of MQuAT]{Combined structure of MQuAT}
-	\label{fig:CombinedMQuAT}
-\end{figure}
-
-As shown in Figure ~\ref{fig:CombinedMQuAT}, in addition to the actual code, the developer is creating the models and quality contracts. The users interact with the system at runtime and prepare their objectives and requests. 
-In addition to the running components, the runtime system includes a runtime model, representing the current state of the system. The objectives of the user are transformed into objective functions of an optimization program prior to optimization. Depending on the type of optimization technique used, either all users ' objectives are merged into a single objective function, or one objective function is extracted per purpose. Such objective functions and the system's runtime model are used by the runtime optimization method to produce formulations of the optimization problem for the respective technique. Finally, the system determines whether the optimal configuration differs from the actual configuration~\cite{gotz13, ahmad18}.
-
-For more details about MQuAT, please read refer~\cite{gotz13}. For this thesis, we are discussing a solver of the MQuAT problem that is based on MQuAT. Hence, detailed knowledge about MQuAT is not required. 
+MQuAT allows software developers to build and run software systems, which are automatically adjusted to provide the optimal user utility for the minimal cost. Such systems are comprised of multiple variants differing in their non-functional behavior and can analyze the reasons for the trade-offs between the respective non-functional properties (NFPs).  A key characteristic of MQuAT is the use of Quality of Service contracts to cover the inter-dependencies between NFPs,  the distinction between hard- and software, and the use of behavioral models to simulate complex non-functional behavior like \textit{energy consumption}.
+In this thesis, MQuAT is used as a software environment that provides an optimization problem.
 
 
 \section{MQuAT problem}
@@ -64,7 +27,7 @@ The MQuAT problem could be described as a metamodel which consists of:
 
 \begin{figure}
 	\centering
-	\includegraphics[width=\textwidth]{images/HWModel}
+	\includegraphics[width=0.8\textwidth]{images/HWModel}
 	\caption[Hardware meta-model]{Hardware meta-model}
 	\label{fig:HWmodel}
 \end{figure}
@@ -77,7 +40,7 @@ Each component consists of implementations that provide this functionality, requ
 
 \begin{figure}
 	\centering
-	\includegraphics[width=0.75\textwidth]{images/SWModel}
+	\includegraphics[width=0.5\textwidth]{images/SWModel}
 	\caption[Software meta-model]{Software meta-model}
 	\label{fig:SWModel}
 \end{figure}
@@ -86,7 +49,12 @@ Each component consists of implementations that provide this functionality, requ
 
 \paragraph{A Request} represents a user requirement, which specifies which algorithm should be used to execute parameters and requirements. Requests contain their functional requirements by referring to a target software component, limitations on non-functional requirements (e.g., quality).\\
 
-Full problem depicted on Figure~\ref{fig:mquatmodel}
+\paragraph
+Full problem depicted on Figure~\ref{fig:mquatmodel}.
+
+The problem description was changed in \cite{gotz2018JastAdd} and started to use the JastAdd framework\cite{ekman07} based on specified grammar. Aa a result, it gives a possibility of using reference attribute grammars~(RAGs)\cite{hedin2000} that adds computations in model nodes.
+There are relations between component implementation and another software component that this implementation is requiring, between component implementation and HW resource that this implementation is required.
+
 
 \begin{figure}
 	\centering
@@ -94,6 +62,8 @@ Full problem depicted on Figure~\ref{fig:mquatmodel}
 	\caption[MQuAT problem model]{MQuAT problem model}
 	\label{fig:mquatmodel}
 \end{figure}
+
+
 
 There are some constraints that are grouped in Architectural, Request, and Negotiation constraints groups.
 
@@ -115,10 +85,10 @@ There are additional constraints due to problem generation:
 Each MQuAT problem is characterized by four parameters:
 
 \begin{itemize}
-	\item[variants] - the number of implementations for each software component,
-	\item[requests] - the number of requests to run software components, that described by user, 
-	\item[depth] - the depth of the software tree, that describes the dependency of software components,
-	\item[resources] - resource ratio of the minimally required resources.
+	\item[Software variants] - the number of implementations for each software component,
+	\item[Number of requests] - the number of requests to run software components, that described by user, 
+	\item[Component tree depth] - the depth of the software tree, that describes the dependency of software components,
+	\item[Resources ratio] - this parameter describes the number of available hardware resources. The number of HW resources calculated as the multiplication of the number of nodes of the component tree by the number of requests and multiplied by the resource ratio.
 \end{itemize}
 
 \section{The solution of the MQuAT problem}
@@ -148,19 +118,15 @@ A solution is valid if for each user request.
 
 If it is valid and no other solution has a better objective value, then a solution is optimal~\cite{gotz18}.
 
-\section{Genetic algorithm}
+\section{Evolutionary algorithms}
 \label{sec:GeneticAlgorithm}
 
 Evolutionary algorithms are a subset of evolutionary computation and belong to set of modern heuristics-based search method.~\cite{vikhar16}
-This domain contains different types.
-There are
-
-\begin{itemize}
-	\item Genetic algorithm 
-	\item Genetic programming
-	\item Evolutionary programming
-	\item Evolution strategy
-\end{itemize}
+This domain contains different variants, such as:
+	\paragraph{Genetic algorithm~(GA)} - is the most widely known type of EA\cite{eiben03}. The research~\cite{deJong75} presented the description of the simple GA, that has a binary representation~(bit strings), proportional selection and a low probability of mutation. Has a fixed flow. The entire population changes on each generation. On the current moment, more preferable to use the rank-based selection, one point crossover changed to the alternatives. And most important, that developers use not binary representation that increase an understanding of the problem that GA solving.
+	\paragraph{Evolution strategy~(ES)} - that works with vectors representation of a solution. New offspring is generated by adding random values to the elements in the vector. Use self-adaptation for own parameters. ES self-adapt  the mutation step sizes.
+	\paragraph{Evolutionary programming~(EP)} - was developed with the aim to get artificial intelligence\cite{eiben03}. Has the same representation as ES, but do not use the recombination. The selector algorithm selects parents from the union of the population and new offspring.
+	\paragraph{Genetic programming~(GP)} - use as a representation of chromosomes a tree shaped structures. Recombination works by sub-tree exchanging. A particular difference is the work flow. A GP performs either a crossover or a mutation, and a GA performs two operations in sequence.
 
 \begin{figure}
 	\centering
@@ -169,7 +135,7 @@ There are
 	\label{fig:GeneticLoop}
 \end{figure}
 
-The main principle of GA looks like a loop with several steps.
+The main principle of EA looks like a loop with several steps.
 The first step is the creation of an initial population - a set of randomly created individuals; each of them represents one solution. 
 The second step is Evaluation. Calculate the fitness or objective function of the current population.
 If the solution is founded and all requirements for the termination are fulfilled, then we get the final solution. Otherwise, select the best candidates to create a new generation.
@@ -179,20 +145,29 @@ GA is based on different components and operators.
 
 \subsection{Selector}\label{sec:GeneticAlgorithm:Selector}
 
-The selector is one of the most important components of GA. It selects \textit{\textbf{mu}} number of individuals from the population, that used to create new \textit{\textbf{lambda}} number of individuals.
+The selector is one of the most important components of the EA. It selects \textit{\textbf{mu}} number of individuals from the population, that used to create new \textit{\textbf{lambda}} number of individuals.
 
 There are many different selection algorithms.
 
-\begin{itemize}
-	\item NSGA2 (Non-dominated sorting based genetic algorithm)
-	\item SPEA2 (Strength Pareto Evolutionary Algorithm)
-	\item NSGA3\todo{litref}
-	\item SPEA3\todo{litref}
-	\item PDE \todo{litref}
-\end{itemize}
 
-In this thesis, we focus on a selection algorithm only as a parameter of a genetic algorithm and use NSGA2 and SPEA2 due to software constraints of the used framework. 
-\todo{Will add more information about selectors}
+	\paragraph{NSGA-II~(Non-dominated sorting based genetic algorithm)~\cite{deb2000}} - is a multi-objective selection algorithm. It searching for noon-dominated solutions. Figure~\ref{label} demonstrates how it works. 
+	
+	\begin{figure}
+		\centering
+		\includegraphics[width=0.5\textwidth]{images/crossoverVector.png}
+		\caption[Example of the crossover]{Example of the crossover between chromosome that described as a vector of bits}
+		\label{fig:crossoverVector}
+	\end{figure}
+	
+	The step-by-step operation of the algorithm is described below:
+	
+	
+
+	\paragraph{SPEA2~(Strength Pareto Evolutionary Algorithm 2) -
+	\paragraph{NSGA3~\cite{deb14}} - it extends NSGA-II to using references points to handle multi-objective problems and its usage on one- or two-objective problems is discouraged.
+	\paragraph{SPEA3} - presented in~\cite{rudzinski15}. It is a generalization of SPEA2 that consists in the exchange of the selection procedure that aims to determine the the non-dominated solutions with a high spread and balanced distribution. Aa described by researches, it works well with two- and three-objective problems. 
+
+In this thesis, we focus on a selection algorithm only as a parameter of a genetic algorithm and use NSGA-II and SPEA2 due to software constraints of the used framework. 
 
 \subsection{crossover}\label{sec:GeneticAlgorithmCrossover}
 
