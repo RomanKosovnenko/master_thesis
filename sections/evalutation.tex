@@ -47,57 +47,142 @@ Benchmark trying so solve each task, if a solution was valid, genetic solver sta
 	\label{fig:EvaluationNumberOfSolvedProblems}
 \end{figure}
 
-Figure~\ref{fig:EvaluationNumberOfSolvedProblems} results of the benchmark. For each version of the genetic solver, a vertical bar was built. The height of the bar shows the number of solved problems from the benchmark set. The B version solved the least of problems than any other version. Almost in all cases, parameter tuning increases the number of solved problems. It also confirms the answer to \textbf{RQ1}. The comparison of B-T, WHC-T, and NP versions shows that the NP bar is higher than B-T but lower than WHC-T. This comparison confirms the first conclusion from Section~\ref{sec:NP}, that well-designed parameters are important for any algorithm. The combination of parameter engineering and parameter tuning in NP-T gives the best results. The same situation was for one problem in the previous chapter~(Figure~\ref{fig:boxplotsolverNoDuplicates}). The WD-T gives worse results than the untuned version. The possible reasons for such results were discussed in Section~\ref{sec:WD}. The result of the benchmark for the ICCR-T version contradicts the results obtained in the last section because the parameter tuning of the ICCR version gives the biggest improvement. In general, benchmark results for a set of 36 MQuAT problems correspond to the results for one problem.
+Figure~\ref{fig:EvaluationNumberOfSolvedProblems} results of the benchmark. For each version of the genetic solver, a vertical bar was built. The height of the bar shows the number of solved problems from the benchmark set. The B version solved the least of problems than any other version. Almost in all cases, parameter tuning increases the number of solved problems. It also confirms the answer to \textbf{RQ1}. 
+
+The comparison of B-T, WHC-T, and NP versions shows that the NP bar is higher than B-T but lower than WHC-T. This comparison confirms the first conclusion from Section~\ref{sec:NP}, that well-designed parameters are important for any algorithm. The combination of parameter engineering and parameter tuning in NP-T gives the best results. The same situation was for one problem in the previous chapter~(Figure~\ref{fig:boxplotsolverNoDuplicates}). 
+
+The WD-T gives worse results than the untuned version. The possible reason for such results is a high value of the \texttt{meu}~(R6) parameter. The result of the benchmark for the ICCR-T version contradicts the results obtained in the last section because the parameter tuning of the ICCR version gives the biggest improvement. In general, benchmark results for a set of 36 MQuAT problems correspond to the results for one problem.
 
 The benchmark also shows that no one version of the genetic solver solved all problems from the set. Table~\ref{tab:ProblemsColorCoding} shows the results of the benchmark in the context of a solved or unsolved problem. Each row describes the result for a specified problem. The problem numbers contain in column \textit{Problem Id}. Black filled cell means that solver solved the problem. Table~\ref{tab:ProblemsColorCoding} also shows ids of problems that unsolved by all versions of the genetic solver.
 
 \begin{table}
-	\centering
 	\caption{Problem color coding}\label{tab:ProblemsColorCoding}
-	\resizebox*{0.5\textwidth}{\textheight}{
-		\begin{tabular}{c | c | c | c | c | c | c | c | c | c}
-			\hline
+	\begin{minipage}[t]{0.5\linewidth}
+		\begin{tabular}[t]{c | c | c | c | c | c | c | c | c | c |}
 			\rotatebox{90}{Problem Id} & \rotatebox{90}{B} & \rotatebox{90}{B-T} & \rotatebox{90}{WHC-T} & \rotatebox{90}{NP} & \rotatebox{90}{NP-T} & \rotatebox{90}{ICCR} & \rotatebox{90}{ICCR-T} & \rotatebox{90}{WD} & \rotatebox{90}{WD-T} \\
 			\hline            
-			1 & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} \\ 
-			2 &   &   & \cellcolor{black} &   & \cellcolor{black} &   &   & \cellcolor{black} & \cellcolor{black}  \\
-			3 &   &   &   &   & \cellcolor{black} &   &   & \cellcolor{black} &  \\
-			4 &   & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} \\
-			5 &   &   &   &   & \cellcolor{black} &   & \cellcolor{black} &   & \\
-			6 &   &   &   &   &   &   &   &   & \\
-			7 &   & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} &   & \cellcolor{black} & \cellcolor{black} & \cellcolor{black}\\
-			8 &   &   &   &   &   &   &   &   & \\
-			9 &   &   &   &   &   &   &   &   & \\
-			10 & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} \\
-			11 &   &   & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} \\
-			12 &   &   &   &   & \cellcolor{black} &   & \cellcolor{black} & \cellcolor{black} &   \\
-			13 & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} \\
-			14 &   &   &   &   & \cellcolor{black} &   & \cellcolor{black} &   &   \\
-			15 &   &   &   &   &   &   &   &   & \\
-			16 &   & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} &   & \cellcolor{black} &   & \cellcolor{black} \\
-			17 &   &   &   &   &   &   &   &   & \\
-			18 &   &   &   &   &   &   &   &   & \\
-			19 & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} & \cellcolor{black}\\
-			20 &   &   & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} \\
-			21 &   &   &   &   & \cellcolor{black} &   & \cellcolor{black} &   & \\
-			22 & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} &   & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} \\
-			23 &   &   & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} &   & \cellcolor{black} & \cellcolor{black} &  \\
-			24 &   &   &   &   &   &   &   &   & \\
-			25 &   &   & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} &   & \cellcolor{black} &   & \cellcolor{black} \\
-			26 &   &   &   &   &   &   &   &   & \\
-			27 &   &   &   &   &   &   &   &   & \\
-			28 & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} \\
-			29 &   & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} \\
-			30 &   &   &   &   &   &   &   &   & \\
-			31 & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} \\
-			32 &   &   & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} &   & \cellcolor{black} & \cellcolor{black} &  \\ 
-			33 &   &   &   &   &   &   &   &   & \\
-			34 &   & \cellcolor{black} & \cellcolor{black} &   & \cellcolor{black} &   & \cellcolor{black} & \cellcolor{black} & \cellcolor{black} \\
-			35 &   &   &   &   &   &   &   &   & \\
-			36 &   &   &   &   &   &   &   &   & \\
+			1 & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ \\ 
+			2 & $\square$ & $\square$ & $\blacksquare$ & $\square$ & $\blacksquare$ & $\square$ & $\square$ & $\blacksquare$ & $\blacksquare$  \\
+			3 & $\square$ & $\square$ & $\square$ & $\square$ & $\blacksquare$ & $\square$ & $\square$ & $\blacksquare$ &  \\
+			4 & $\square$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ \\
+			5 & $\square$ & $\square$ & $\square$ & $\square$ & $\blacksquare$ & $\square$ & $\blacksquare$ & $\square$ & \\
+			6 & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & \\
+			7 & $\square$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\square$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$\\
+			8 & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & \\
+			9 & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & \\
+			10 & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ \\
+			11 & $\square$ & $\square$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ \\
+			12 & $\square$ & $\square$ & $\square$ & $\square$ & $\blacksquare$ & $\square$ & $\blacksquare$ & $\blacksquare$ &   \\
+			13 & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ \\
+			14 & $\square$ & $\square$ & $\square$ & $\square$ & $\blacksquare$ & $\square$ & $\blacksquare$ & $\square$ &   \\
+			15 & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & \\
+			16 & $\square$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\square$ & $\blacksquare$ & $\square$ & $\blacksquare$ \\
+			17 & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & \\
+			18 & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & \\
+			\hline
+		\end{tabular} %
+	\end{minipage}
+	%\setlength{\tabcolsep}{0.05cm}
+	%\renewcommand{\arraystretch}{0}
+	\begin{minipage}[t]{0.49\linewidth}
+		\begin{tabular}[t]{c | c | c | c | c | c | c | c | c | c}
+			\rotatebox{90}{Problem Id} & \rotatebox{90}{B} & \rotatebox{90}{B-T} & \rotatebox{90}{WHC-T} & \rotatebox{90}{NP} & \rotatebox{90}{NP-T} & \rotatebox{90}{ICCR} & \rotatebox{90}{ICCR-T} & \rotatebox{90}{WD} & \rotatebox{90}{WD-T} \\
+			\hline            
+			19 & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$\\
+			20 & $\square$ & $\square$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ \\
+			21 & $\square$ & $\square$ & $\square$ & $\square$ & $\blacksquare$ & $\square$ & $\blacksquare$ & $\square$ & \\
+			22 & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\square$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ \\
+			23 & $\square$ & $\square$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\square$ & $\blacksquare$ & $\blacksquare$ &  \\
+			24 & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & \\
+			25 & $\square$ & $\square$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\square$ & $\blacksquare$ & $\square$ & $\blacksquare$ \\
+			26 & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & \\
+			27 & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & \\
+			28 & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ \\
+			29 & $\square$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ \\
+			30 & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & \\
+			31 & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ \\
+			32 & $\square$ & $\square$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\square$ & $\blacksquare$ & $\blacksquare$ &  \\ 
+			33 & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & \\
+			34 & $\square$ & $\blacksquare$ & $\blacksquare$ & $\square$ & $\blacksquare$ & $\square$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ \\
+			35 & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & \\
+			36 & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & \\
+			\hline
+		\end{tabular} %
+	\end{minipage}
+	\mbox{$\blacksquare$: solved, $\square$: unsolved}
+\end{table}
+
+\begin{table}
+	\caption{Problem color coding}\label{tab:ProblemsColorCoding}
+	\setlength{\tabcolsep}{0.05cm}
+	\renewcommand{\arraystretch}{0}
+	\begin{tabular}{c | c | c | c | c | c | c | c | c | c}
+		\rotatebox{90}{Problem Id} & \rotatebox{90}{B} & \rotatebox{90}{B-T} & \rotatebox{90}{WHC-T} & \rotatebox{90}{NP} & \rotatebox{90}{NP-T} & \rotatebox{90}{ICCR} & \rotatebox{90}{ICCR-T} & \rotatebox{90}{WD} & \rotatebox{90}{WD-T} \\
+		\hline            
+		1 & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ \\ 
+		2 & $\square$ & $\square$ & $\blacksquare$ & $\square$ & $\blacksquare$ & $\square$ & $\square$ & $\blacksquare$ & $\blacksquare$  \\
+		3 & $\square$ & $\square$ & $\square$ & $\square$ & $\blacksquare$ & $\square$ & $\square$ & $\blacksquare$ &  \\
+		4 & $\square$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ \\
+		5 & $\square$ & $\square$ & $\square$ & $\square$ & $\blacksquare$ & $\square$ & $\blacksquare$ & $\square$ & \\
+		6 & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & \\
+		7 & $\square$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\square$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$\\
+		8 & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & \\
+		9 & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & \\
+		10 & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ \\
+		11 & $\square$ & $\square$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ \\
+		12 & $\square$ & $\square$ & $\square$ & $\square$ & $\blacksquare$ & $\square$ & $\blacksquare$ & $\blacksquare$ &   \\
+		13 & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ \\
+		14 & $\square$ & $\square$ & $\square$ & $\square$ & $\blacksquare$ & $\square$ & $\blacksquare$ & $\square$ &   \\
+		15 & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & \\
+		16 & $\square$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\square$ & $\blacksquare$ & $\square$ & $\blacksquare$ \\
+		17 & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & \\
+		18 & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & \\
+		19 & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$\\
+		20 & $\square$ & $\square$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ \\
+		21 & $\square$ & $\square$ & $\square$ & $\square$ & $\blacksquare$ & $\square$ & $\blacksquare$ & $\square$ & \\
+		22 & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\square$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ \\
+		23 & $\square$ & $\square$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\square$ & $\blacksquare$ & $\blacksquare$ &  \\
+		24 & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & \\
+		25 & $\square$ & $\square$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\square$ & $\blacksquare$ & $\square$ & $\blacksquare$ \\
+		26 & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & \\
+		27 & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & \\
+		28 & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ \\
+		29 & $\square$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ \\
+		30 & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & \\
+		31 & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ \\
+		32 & $\square$ & $\square$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\square$ & $\blacksquare$ & $\blacksquare$ &  \\ 
+		33 & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & \\
+		34 & $\square$ & $\blacksquare$ & $\blacksquare$ & $\square$ & $\blacksquare$ & $\square$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ \\
+		35 & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & \\
+		36 & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & \\
+		\hline
+	\end{tabular}
+	\\[.3em]
+	\mbox{$\blacksquare$: solved, $\square$: unsolved}
+\end{table}
+
+\begin{table}
+	\centering
+	\caption{Problem color coding}\label{tab:ProblemsColorCoding}
+	%\setlength{\tabcolsep}{0.05cm}
+	\resizebox{\textwidth}{!}{
+		\begin{tabular}{ccccccccccccccccccccccccccccccccccccc}
+			Version&1&2&3&4&5&6&7&8&9&10&11&12&13&14&15&16&17&18&19&20&21&22&23&24&25&26&27&28&29&30&31&32&33&34&35&36 \\
+			\hline
+			B&$\blacksquare$&$\square$&$\square$&$\square$&$\square$&$\square$&$\square$&$\square$&$\square$&$\blacksquare$&$\square$&$\square$&$\blacksquare$&$\square$&$\square$&$\square$&$\square$&$\square$&$\blacksquare$&$\square$&$\square$&$\blacksquare$&$\square$&$\square$&$\square$&$\square$&$\square$&$\blacksquare$&$\square$&$\square$&$\blacksquare$&$\square$&$\square$&$\square$&$\square$&$\square$ \\
+			B-T&$\blacksquare$&$\square$&$\square$&$\blacksquare$&$\square$&$\square$&$\blacksquare$&$\square$&$\square$&$\blacksquare$&$\square$&$\square$&$\blacksquare$&$\square$&$\square$&$\blacksquare$&$\square$&$\square$&$\blacksquare$&$\square$&$\square$&$\blacksquare$&$\square$&$\square$&$\square$&$\square$&$\square$&$\blacksquare$&$\blacksquare$&$\square$&$\blacksquare$&$\square$&$\square$&$\blacksquare$&$\square$&$\square$ \\
+			WHC-T&$\blacksquare$&$\blacksquare$&$\square$&$\blacksquare$&$\square$&$\square$&$\blacksquare$&$\square$&$\square$&$\blacksquare$&$\blacksquare$&$\square$&$\blacksquare$&$\square$&$\square$&$\blacksquare$&$\square$&$\square$&$\blacksquare$&$\blacksquare$&$\square$&$\blacksquare$&$\blacksquare$&$\square$&$\blacksquare$&$\square$&$\square$&$\blacksquare$&$\blacksquare$&$\square$&$\blacksquare$&$\blacksquare$&$\square$&$\blacksquare$&$\square$&$\square$ \\
+			NP&$\blacksquare$&$\square$&$\square$&$\blacksquare$&$\square$&$\square$&$\blacksquare$&$\square$&$\square$&$\blacksquare$&$\blacksquare$&$\square$&$\blacksquare$&$\square$&$\square$&$\blacksquare$&$\square$&$\square$&$\blacksquare$&$\blacksquare$&$\square$&$\square$&$\blacksquare$&$\square$&$\blacksquare$&$\square$&$\square$&$\blacksquare$&$\blacksquare$&$\square$&$\blacksquare$&$\blacksquare$&$\square$&$\square$&$\square$&$\square$ \\
+			NP-T&$\blacksquare$&$\blacksquare$&$\blacksquare$&$\blacksquare$&$\blacksquare$&$\square$&$\blacksquare$&$\square$&$\square$&$\blacksquare$&$\blacksquare$&$\blacksquare$&$\blacksquare$&$\blacksquare$&$\square$&$\blacksquare$&$\square$&$\square$&$\blacksquare$&$\blacksquare$&$\blacksquare$&$\blacksquare$&$\blacksquare$&$\square$&$\blacksquare$&$\square$&$\square$&$\blacksquare$&$\blacksquare$&$\square$&$\blacksquare$&$\blacksquare$&$\square$&$\blacksquare$&$\square$&$\square$ \\
+			ICCR&$\blacksquare$&$\square$&$\square$&$\blacksquare$&$\square$&$\square$&$\square$&$\square$&$\square$&$\blacksquare$&$\blacksquare$&$\square$&$\blacksquare$&$\square$&$\square$&$\square$&$\square$&$\square$&$\blacksquare$&$\blacksquare$&$\square$&$\blacksquare$&$\square$&$\square$&$\square$&$\square$&$\square$&$\blacksquare$&$\blacksquare$&$\square$&$\blacksquare$&$\square$&$\square$&$\square$&$\square$&$\square$ \\
+			ICCR-T&$\blacksquare$&$\square$&$\square$&$\blacksquare$&$\blacksquare$&$\square$&$\blacksquare$&$\square$&$\square$&$\blacksquare$&$\blacksquare$&$\blacksquare$&$\blacksquare$&$\blacksquare$&$\square$&$\blacksquare$&$\square$&$\square$&$\blacksquare$&$\blacksquare$&$\blacksquare$&$\blacksquare$&$\blacksquare$&$\square$&$\blacksquare$&$\square$&$\square$&$\blacksquare$&$\blacksquare$&$\square$&$\blacksquare$&$\blacksquare$&$\square$&$\blacksquare$&$\square$&$\square$ \\
+			WD&$\blacksquare$&$\blacksquare$&$\blacksquare$&$\blacksquare$&$\square$&$\square$&$\blacksquare$&$\square$&$\square$&$\blacksquare$&$\blacksquare$&$\blacksquare$&$\blacksquare$&$\square$&$\square$&$\square$&$\square$&$\square$&$\blacksquare$&$\blacksquare$&$\square$&$\blacksquare$&$\blacksquare$&$\square$&$\square$&$\square$&$\square$&$\blacksquare$&$\blacksquare$&$\square$&$\blacksquare$&$\blacksquare$&$\square$&$\blacksquare$&$\square$&$\square$ \\
+			WD-T&$\blacksquare$&$\blacksquare$&$\square$&$\blacksquare$&$\square$&$\square$&$\blacksquare$&$\square$&$\square$&$\blacksquare$&$\blacksquare$&$\square$&$\blacksquare$&$\square$&$\square$&$\blacksquare$&$\square$&$\square$&$\blacksquare$&$\blacksquare$&$\square$&$\blacksquare$&$\square$&$\square$&$\blacksquare$&$\square$&$\square$&$\blacksquare$&$\blacksquare$&$\square$&$\blacksquare$&$\square$&$\square$&$\blacksquare$&$\square$&$\square$ \\
+			
 			\hline
 		\end{tabular}
 	}
+	\mbox{$\blacksquare$: solved, $\square$: unsolved}
 \end{table}
 
 Unsolved tasks are presented in Table~\ref{tab:UnsolvedProblems}. It shows parameters that specified the problem. We can see, there are a few types of unsolved problems are exist. All versions of the genetic solver could not solve the problem that contains two or more requests, and the depth is three or more. The exception for this definition is a problem number 30. It has one request and depth four, but it also has variants four and resources - 100 and genetic solvers could not solve it.
@@ -106,7 +191,7 @@ Unsolved tasks are presented in Table~\ref{tab:UnsolvedProblems}. It shows param
 \begin{table}
 	\centering
 	\caption{Not solved problems}\label{tab:UnsolvedProblems}
-	\resizebox{\textwidth}{!}{
+	%\resizebox{0.6\textwidth}{!}{
 		\begin{tabular}{c c c c c}
 			\hline
 			Problem Id & variants & requests & depth & resources \\
@@ -126,7 +211,7 @@ Unsolved tasks are presented in Table~\ref{tab:UnsolvedProblems}. It shows param
 			36 & 4 & 4 & 4 & 100 \\
 			\hline
 		\end{tabular}
-	}
+	%}
 \end{table}
 
 If a genetic solver could solve some problems, then solutions have a quality.
