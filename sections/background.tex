@@ -1,5 +1,5 @@
 \chapter{Background}
-This thesis is based on several kinds of research of auto-tuning, evolutionary algorithms, and software optimization. This chapter summarizes the important aspects and details of approaches and optimization techniques used in the succeeding chapters.  
+This thesis is based on several kinds of researches: auto-tuning, evolutionary algorithms, and software optimization. In this chapter we summarize the important aspects and details of approaches and optimization techniques, used within the thesis.  
 
 \section{Multi-Quality Auto-Tuning~(MQuAT)}
 
@@ -9,13 +9,14 @@ MQuAT allows software developers to build and run software systems, which are au
 In this thesis, MQuAT is used as a software environment that provides an optimization problem.
 
 
-\section{MQuAT problem}
+\section{MQuAT Problem}
+\label{sec:MQuATProblem}
 
-MQuAT problem was presented in ~\cite{gotz18}, and it consists of two problems:
+MQuAT problem was presented in ~\cite{gotz18}, and could be presented as two problems:
 
 \begin{itemize}
-	\item Resource allocation in which the mapping of software component implementation to hardware resource leads to the least cost
-	\item Variant selection, which provides the best utility by selecting better software implementations.
+	\item \textbf{Resource allocation} in which the mapping of software component implementation to hardware resource leads to the least cost
+	\item \textbf{Variant selection}, which provides the best utility by selecting better software implementations.
 \end{itemize} 
 
 To solve this problem was presented new generic metamodel. Both problems are interrelated by user requests specifying minimum requirements on the provided non-functional properties (i.e., minimum utility) while searching for a selection and mapping both to maximize utility and minimize costs. Correctness denotes that only solutions that \textit{do not violate} the users minimum requirements are considered \textbf{valid}.
@@ -23,7 +24,7 @@ To solve this problem was presented new generic metamodel. Both problems are int
 The problem to be solved is selecting variants of software components and mapping them based on user requests to suitable hardware resources.
 
 The MQuAT problem could be described as a metamodel which consists of:
-\paragraph{Hardware metamodel}, which consists of hierarchically structured resource types and resources as instances of these types. So the hardware model composes static awareness of resources (types) and knowledge of runtime (instances). Certain types of resources can run the software, i.e., they are valid targets for software implementation mapping. The container attribute is used to mark such types. Figure~\ref{fig:HWmodel} depicted Hardware metamodel.
+\paragraph{Hardware metamodel,}which consists of hierarchically structured resource types and resources as instances of these types. So the hardware model composes static awareness of resources (types) and knowledge of runtime (instances). Certain types of resources can run the software, i.e., they are valid targets for software implementation mapping. The container attribute is used to mark such types. Figure~\ref{fig:HWmodel} depicted Hardware metamodel.
 
 \begin{figure}
 	\centering
@@ -35,8 +36,8 @@ The MQuAT problem could be described as a metamodel which consists of:
 
 In addition, a set of properties further characterize resource types. Resources specify then specific values for these properties. As an example, the resource type RAM could be defined with a property amount of memory and marked as a container.
 
-\paragraph{Software metamodel} showed on Figure~\ref{fig:SWModel}. Its main element, called component and represents some functionality.
-Each component consists of implementations that provide this functionality, requiring additional components or resources to complete their work. 
+\paragraph{Software metamodel} showed on Figure~\ref{fig:SWModel}. Its main element, called component that provides some functionality.
+Each component could have different implementations that provide this functionality, requiring additional components or resources to complete their work. 
 
 \begin{figure}
 	\centering
@@ -47,7 +48,7 @@ Each component consists of implementations that provide this functionality, requ
 
 \paragraph{The Objective} specifies how to calculate a solution's objective value, i.e., for which value(s) the problem should be optimized. This selects a property to optimize for, and an objective function to define how to aggregate all values of this property.
 
-\paragraph{A Request} represents a user requirement, which specifies which algorithm should be used to execute parameters and requirements. Requests contain their functional requirements by referring to a target software component, limitations on non-functional requirements (e.g., quality).\\
+\paragraph{A Request} represents a user requirement, which specifies which functionality should be used to execute parameters and requirements. Requests contain their functional requirements by referring to a target software component, limitations on non-functional requirements (e.g., quality).\\
 
 \paragraph
 Full problem depicted on Figure~\ref{fig:mquatmodel}.
@@ -68,9 +69,9 @@ There are relations between component implementation and another software compon
 There are some constraints that are grouped in Architectural, Request, and Negotiation constraints groups.
 
 \begin{itemize}
-	\item Architectural constraints ensure that each request is fulfilled, selecting exactly one implementation per component and deploying no more than one implementation on one resource.
-	\item Request constraints ensure components are selected for each request so as to provide the requested non-functional properties.
-	\item Negotiation constraints ensure non-functional requirements are met depending on the implementation.
+	\item \textbf{Architectural constraints} ensure that each request is fulfilled, selecting exactly one implementation per component and deploying no more than one implementation on one resource.
+	\item \textbf{Request constraints} ensure components are selected for each request so as to provide the requested non-functional properties.
+	\item \textbf{Negotiation constraints} ensure non-functional requirements are met depending on the implementation.
 \end{itemize}
 
 There are additional constraints due to problem generation:
@@ -82,29 +83,29 @@ There are additional constraints due to problem generation:
 	\item fixed branching factor of two.
 \end{itemize}
 
-Each MQuAT problem is characterized by four parameters:
+Each MQuAT Problem is characterized by four parameters:
 
 \begin{itemize}
 	\item[Software variants] - the number of implementations for each software component,
 	\item[Number of requests] - the number of requests to run software components, that described by user, 
-	\item[Component tree depth] - the depth of the software tree, that describes the dependency of software components,
+	\item[Component tree depth] - the depth of the software tree that describes the dependency of software component that user requested,
 	\item[Resources ratio] - this parameter describes the number of available hardware resources. The number of HW resources calculated as the multiplication of the number of nodes of the component tree by the number of requests and multiplied by the resource ratio.
 \end{itemize}
 
-\section{The solution of the MQuAT problem}
+\section{Solution of the MQuAT Problem}
 
-The solution is computed by the MQuAT solver. There are many solvers:
+The Solution is computed by the MQuAT Solver. There are many Solvers:
 
 \begin{itemize}
-	\item Simple solver, which goes step by step from one solution candidate to another.
-	\item ILP solver, which generates integer linear programming (ILP) problem from the MQUAT problem and after that solve it.
-	\item Random solver - tries random solution candidates.
-	\item Simulated Annealing (SA) solver, based on the simulated annealing meta-heuristic~{pukhkaiev19}.
-	\item Genetic solver that uses a genetic algorithm to solve the problem.
+	\item Simple Solver, which goes step by step from one solution candidate to another, enumerating solution candidates.
+	\item ILP Solver, which generates Integer Linear Programming~(ILP) Problem from the MQUAT Problem and solves it.
+	\item Random Solver - tries random solution candidates.
+	\item Simulated Annealing~(SA) Solver - based on the Simulated Annealing meta-heuristic~\cite{pukhkaiev19}.
+	\item Genetic Solver - uses a Evolution Algorithm to solve the problem.
 \end{itemize}
 
-In this thesis, we talk about Genetic solver in detail in the next sections.
-The solution could be represented as a tree structure. An example of the solution shown in Figure ~\ref{fig:SolutionModel}
+In this thesis, we focus on Genetic Solver in detail in the next sections.
+The solution of the MQuAT Problem could be represented as a tree structure. An example of the Solution shown in Figure ~\ref{fig:SolutionModel}
 
 \begin{figure}
 	\centering
@@ -113,22 +114,22 @@ The solution could be represented as a tree structure. An example of the solutio
 	\label{fig:SolutionModel}
 \end{figure}
 
-It contains a list of assignments. Each assignment selects one implementation of the required component and maps it to the resources~\cite{gotz18}.
-A solution is valid if for each user request.
+It contains a list of assignments. Each assignment selects one implementation of the required component and maps it on the resources~\cite{gotz18}.
+The Solution is valid if for each user request following requirements fulfilled:
 
 \begin{enumerate}
-	\item an implementation is deployed for the target component,
-	\item for each component required implementation is deployed,
-	\item all necessary (non-functional) property clauses (including request constraints) are met,
+	\item an implementation is deployed for the target component;
+	\item implementation is deployed for each required component;
+	\item all necessary (non-functional) property clauses (including request constraints) are met;
 	\item at most one implementation for each resource is deployed.
 \end{enumerate}
 
-If it is valid and no other solution has a better objective value, then a solution is optimal~\cite{gotz18}.
+The Solution is optimal if Solution is valid and no other solution has a better objective value~\cite{gotz18}.
 
-\section{Evolutionary algorithms}
+\section{Evolutionary Algorithms}
 \label{sec:GeneticAlgorithm}
 
-Evolutionary algorithms are a subset of evolutionary computation and belong to set of modern heuristics-based search method.~\cite{vikhar16}
+Evolutionary algorithms are a subset of evolutionary computation and belong to set of modern heuristics-based search methods.~\cite{vikhar16}
 This domain contains different variants, such as:
 \paragraph{Genetic algorithm~(GA)} - is the most widely known type of EA\cite{eiben03}. The research~\cite{deJong75} presented the description of the simple GA that has a binary representation~(bit strings), proportional selection, and a low probability of mutation. It has a fixed flow. The entire population changes in each generation. On the current moment, more preferable to use the rank-based selection, one-point crossover changed to the alternatives. And most important, that developers use not a binary representation that increases an understanding of the problem that GA is solving.
 \paragraph{Evolution strategy~(ES)} - that works with vectors representation of a solution. New offspring is generated by adding random values to the elements in the vector. Use self-adaptation for own parameters. ES self-adapt the mutation step sizes.
@@ -142,17 +143,17 @@ This domain contains different variants, such as:
 	\label{fig:GeneticLoop}
 \end{figure}
 
-The main principle of EA looks like a loop with several steps.
+The main principle of EA looks like a loop with iteratively repeated steps.
 The first step is the creation of an initial population - a set of randomly created individuals; each of them represents one solution. 
 The second step is Evaluation. Calculate the fitness or objective function of the current population.
 If the solution is founded and all requirements for the termination are fulfilled, then we get the final solution. Otherwise, select the best candidates to create a new generation.
-In step 4, using recombination and mutation on selected candidates, GA creates a new generation of the population. And after that, evaluate it.
+In step 4, using Recombination and Mutation on selected candidates, GA creates a new generation of the population. And after that, evaluate it.
 
 GA is based on different components and operators.
 
 \subsection{Selector}\label{sec:GeneticAlgorithm:Selector}
 
-The selector is one of the most important components of the EA. It selects \textit{\textbf{mu}} number of individuals from the population, that used to create new \textit{\textbf{lambda}} number of individuals. There are many different selection algorithms.
+The Selector is one of the most important components of the EA. It selects \textit{\textbf{mu}} individuals from the population, that are used to create new \textit{\textbf{lambda}} individuals. There are many different Selection algorithms.
 
 
 \paragraph{NSGA-II~(Non-dominated sorting based genetic algorithm)~\cite{deb2000}} - is a multi-objective selection algorithm. It searching for noon-dominated solutions. Figure~\ref{fig:nsga2} demonstrates how it works. There is a population \texorpdfstring{R\textsubscript{t}}{R t} that consist of two sets. First set is a parent population. It marked as \texorpdfstring{P\textsubscript{t}}{P t}. The second set is new offspring and marked as \texorpdfstring{Q\textsubscript{t}}{Q t}. Combined population \texorpdfstring{R\textsubscript{t}}{R t} is sorted using non-dominated sorting. After that it generate a Pareto front. After sorting, selector selects the new population \texorpdfstring{P\textsubscript{t+1}}{P t+1} of size represented as a parameter by binary tournament selection and use it for the next round of reproduction.
@@ -177,11 +178,11 @@ There are two sets. First one is a current population that marked as \texorpdfst
 \paragraph{NSGA3~\cite{deb14}} - it extends NSGA-II to using reference points to handle multi-objective problems, and its usage on one- or two-objective problems is discouraged.
 \paragraph{SPEA3} - presented in~\cite{rudzinski15}. It is a generalization of SPEA2 that consists of the exchange of the selection procedure that aims to determine the non-dominated solutions with a high spread and balanced distribution. As described in researches, it works well with two- and three-objective problems. //
 
-In this thesis, we focus on a selection algorithm only as a parameter of a genetic algorithm and use NSGA-II and SPEA2 due to software constraints of the used framework. 
+In this thesis, we focus on a Selection algorithm only as a parameter of a genetic algorithm and use NSGA-II and SPEA2 due to software constraints of the used framework. 
 
-\subsection{crossover}\label{sec:GeneticAlgorithmCrossover}
+\subsection{Crossover}\label{sec:GeneticAlgorithmCrossover}
 
-Crossover is an operator of a genetic algorithm that allows the recombination of two individuals by swapping some genes between them.
+Crossover is an operator of an Evolution Algorithm that allows the recombination of two individuals by swapping some genes between them.
 In general, the crossover has several parameters such as
 
 \begin{itemize}
@@ -200,13 +201,9 @@ Secondly, it swaps genes between chromosomes.
 	\label{fig:crossoverVector}
 \end{figure}
 
-\subsection{mutation}\label{sec:GeneticAlgorithmMutation}
+\subsection{Mutation}\label{sec:GeneticAlgorithmMutation}
 
-The mutation is an operator of a genetic algorithm that changes a single gene in a chromosome. As a crossover operator, a mutation has parameters:
-
-\begin{itemize}
-	\item Mutation rate - parameter that describes the probability of mutation.
-\end{itemize}
+The mutation is an operator of an Evolution Algorithm that changes a single gene in a chromosome. As a crossover operator, a mutation has parameter \texttt{Mutation rate}. It describes the probability of mutation.
 
 To perform a mutation on chromosome need to do:
 
@@ -227,22 +224,22 @@ Figure~\ref{fig:MutationVector} presented a simple mutation on the chromosome th
 
 
 
-\section{Genetic solver}\label{sec:GeneticSolver}
-The genetic solver was created to solve the MQuAT problem. It was developed by Jamal Ahmad in ~\cite{ahmad18}. And further improved by Johannes Mey.
+\section{Genetic Solver}\label{sec:GeneticSolver}
+The Genetic Solver was created to solve the MQuAT Problem. It was developed by Jamal Ahmad in~\cite{ahmad18}. And further improved by Johannes Mey.
 
-This solver is based on Opt4J framework~\footnote{http://opt4j.sourceforge.net/download.html}. It's an open-source framework that gives the opportunity to implement a genetic algorithm for custom optimization problem by specifying several modules and classes.
+This Solver is based on Opt4J framework~\footnote{http://opt4j.sourceforge.net/download.html}. It is an open-source framework that gives the opportunity to implement an EA for custom optimization problem.
 
-To solve the custom problem using genetic algorithm, the user needs to create several things:
+To solve the custom problem using genetic algorithm, the user needs to create several classes:
 
 \begin{enumerate}
 	\item Creator is needed to create a random genotype for the initial population.
 	In the genetic solver Creator create the genotype by creating a random solution model and transform it into a Tree Shape Genotype structure.
 	\item Decoder is needed to perform decoding the tree shape genotype into phenotype. The phenotype, in this case, is a Solution Model of MQuAT.
-	\item Evaluator calculates the objective functions of the solution. In the case of genetic solver, the Evaluator calculates two objectives: 
+	\item Evaluator, that calculates the objective functions of the Solution. In the case of genetic solver, the Evaluator calculates two objectives: 
 	
 	\begin{itemize}
-		\item Validity errors - number of violated contracts
-		\item Energy value - energy consumption
+		\item Validity errors - the number of violated contracts
+		\item Energy value - the energy consumption
 	\end{itemize}
 	
 \end{enumerate}
@@ -269,7 +266,7 @@ The example of this genotype shown on Figure~\ref{fig:TreeShapeGenotypeExample}
 
 The first node in this genotype contains the input request. The second node represents the mapping of the user component. In this node, Impl A-1 is selected rather than Impl A-0 of the user component. As shown in Figure~\ref{fig:TreeShapeGenotypeExample}, this implementation is mapped to Hardware-Resources1. Moreover, Impl A-1 also requires software components B and C that have only one Impl B-0 and Impl C-0 implementation and are mapped to Hardware-Resource5 and Hardware-Resource4, respectively.
 
-\subsection{Crossover operator}
+\subsection{Crossover Operator}
 \label{sec:GeneticSolverCrossover}
 
 This operator performs a crossover between two Tree Shaped Genotypes and are performed on software implementation and hardware resource in each tree shape genotype. 
@@ -294,9 +291,9 @@ Figure~\ref{fig:GeneticSolverCrossover} depicted the crossover between two genot
 
 
 
-\subsection{Mutation operator}
+\subsection{Mutation Operator}
 \label{sec:GeneticSolverMutation}
-Mutation operation is used to randomly add new features to the tree-shaped genotype.
+Mutation operation is used to randomly change the node(s) of the Tree Shaped Genotype.
 The mutation occurs for one random request. With some probability that described by parameter \texttt{MutationRate}, it mutates the root node. If a mutation operator mutates the top node of the tree, there is a probability of the resource mutation. This probability described with parameter \texttt{ResourceMutationProbability}. Or it will mutate the implementation of the top node. And change the lower structure for consistency. If mutation will occur not in the root of the genotype, then the process recursively goes down to children.  Figure~\ref{fig:GeneticSolverMutation} depicts the mutation process in which mutation was performed on the resource 
 in the root node.
 
@@ -323,7 +320,7 @@ We can conclude that parameter tuning without automation and without the underst
 As a result, 2 different approaches to choosing parameters were described: Parameter tuning and parameter control~\cite{smit2012parameter,eiben03}.
 \textit{Parameter tuning} finds optimized values of parameters before the run. So all parameters are fixed and do not change during the run. However, \textit{parameter control} sets the values of parameters while EA is running. So the parameter was initially given, but during the run, the parameter value is changing. 
 
-\subsection{Parameter control}
+\subsection{Parameter Control}
 As mentioned before, parameter control could adjust EA parameters on-the-fly. A run of the EA is a dynamic process, and using static parameters could be optimal only for some state, problem, or stage of EA. 
 The simplest example of such technic is Rechenberg's 1/5 success rule~\cite{rechenberg1973evolutionsstrategie}. It describes how to change mutation parameters using information about the number of successful mutations. Commonly such features based on the developed feedback mechanism that contains information about the search process.
 
@@ -335,7 +332,7 @@ Parameter control consist of 3 categories:
 \end{itemize}
 In this thesis, we focused on parameter tuning of EA, but we understand that parameter control is a very important approach that could significantly improve the results.
 
-\subsection{Parameter tuning}\label{sec:parameterTuning}
+\subsection{Parameter Tuning}\label{sec:parameterTuning}
 All parameter tuning methods could be divided into 2 categories: model-free and model-based~\cite{hutter2010}.
 The first category trying to find "good" parameter values that give the best result of EA to be tuned. Examples of such tuners are F-Race~\cite{birattari2010f} and ParamILS~\cite{hutter2009paramils}.
 
@@ -391,8 +388,8 @@ This SPL has two conceptual parts:
 
 Figure~\ref{fig:BRISEarch} shown the high-level architecture of BRISE.
 Configurable part consists of 
-\paragraph{Experiment description} - describes the experiment, parameters that need to tune, the objective of the experiment, and expected values to detect outliers.
-\paragraph{Selector} - selection algorithm that is used to get the combination of parameters from the search space of all possible combinations. BRISE has two selection algorithms out of the box: Sobol sampling~\cite{sobol99} and Fedorov's exchange algorithm~\cite{fedorov13}. 
+\paragraph{Experiment description} - describes the Experiment, parameters that need to tune, the objective of the experiment, and expected values to detect outliers.
+\paragraph{Selector} - Selection Algorithm that is used to get the combination of parameters from the Search Space of all possible parameter combinations. BRISE has one selection algorithm out of the box: Sobol sampling~\cite{sobol99}. 
 \paragraph{Model} - predict new configuration. New Model builds after each iteration of measurement of configuration, and if the model predicts a valid result, this configuration goes to be measured in the next iteration. BRISE has several models out of the box.
 \paragraph{Stop condition} - the component that analyzes the results of the experiment, validates the result, and makes a decision to stop the experiment or continue. There are many different stop conditions that could work as a combination of criteria.
 \paragraph{Repeater} - component of BRISE that decide about the number of measurement for each configuration to get need accuracy of the results. 

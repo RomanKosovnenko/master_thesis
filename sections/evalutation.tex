@@ -4,14 +4,13 @@ In the previous chapter, a few approaches that could improve the genetic solver 
 The best results give a combination of the genetic solver with added probabilities and parameter tuning.
 Other methods like a changeable crossover rate or population without duplicated individuals have less effect on the results.
 
-However, we get valid results only for one problem. What if the problem will be smaller or bigger?
-The evaluation was done to find out how all approaches work with different problem sizes. 
+However, we get valid results only for one problem. But what if we change the complexity of the problem? The evaluation was done to find out how all approaches work with different problem sizes. 
 
 \section{Evaluation}
 \label{sec:evaluation}
 
-To evaluate the genetic solver, we performed a benchmark. The benchmark set consists of 36 problems. Each problem has different parameters that describe it.
-All parameters are:
+To evaluate the genetic solver, we performed set of benchmarks that consist of 36 problems~(see Appendix~\ref{app:ProblemSet}). Each problem has different parameters that describe~(Section~\ref{sec:MQuATProblem}) it:
+
 \begin{itemize}
 	\item Software variants - [2, 4] ,
 	\item Number of requests - [1, 2, 4],
@@ -20,7 +19,7 @@ All parameters are:
 	\item timeout to solve the problem: 5 minutes.
 \end{itemize}
 
-This set was tested with several versions of the genetic solver:
+This set of problems was tested with several versions of the genetic solver:
 
 \begin{itemize}
 	\item basic (B),
@@ -38,7 +37,7 @@ Each version of the genetic solver tries five times to solve each problem.
 
 The benchmark set was run on an Intel Core i7-8700 CPU machine with 64Gb of memory using Fedora Server 29 and OpenJDK 1.8.0 201-b09.
 
-Benchmark trying so solve each task, if a solution was valid, genetic solver start to solve the next problem. If, after five attempts, the genetic solver did not find a valid solution, it proceeded to the next problem.
+The genetic solver tries to solve each Problem. If a solution was valid, genetic solver start to solve the next problem. If, after five attempts, the genetic solver did not find a valid solution, it proceeded to the next problem.
 
 \begin{figure}
 	\centering
@@ -47,13 +46,13 @@ Benchmark trying so solve each task, if a solution was valid, genetic solver sta
 	\label{fig:EvaluationNumberOfSolvedProblems}
 \end{figure}
 
-Figure~\ref{fig:EvaluationNumberOfSolvedProblems} results of the benchmark. For each version of the genetic solver, a vertical bar was built. The height of the bar shows the number of solved problems from the benchmark set. The B version solved the least of problems than any other version. Almost in all cases, parameter tuning increases the number of solved problems. It also confirms the answer to \textbf{RQ1}. 
+Figure~\ref{fig:EvaluationNumberOfSolvedProblems} results of the benchmark. For each version of the genetic solver, a vertical bar was built. The height of the bar shows the number of solved problems from the benchmark set. The B version solved the least number of problems than any other version. Almost in all cases, parameter tuning increases the number of solved problems. It also confirms the answer to \textbf{RQ1}. 
 
 The comparison of B-T, WHC-T, and NP versions shows that the NP bar is higher than B-T but lower than WHC-T. This comparison confirms the first conclusion from Section~\ref{sec:NP}, that well-designed parameters are important for any algorithm. The combination of parameter engineering and parameter tuning in NP-T gives the best results. The same situation was for one problem in the previous chapter~(Figure~\ref{fig:boxplotsolverNoDuplicates}). 
 
-The WD-T gives worse results than the untuned version. The possible reason for such results is a high value of the \texttt{meu}~(R6) parameter. The result of the benchmark for the ICCR-T version contradicts the results obtained in the last section because the parameter tuning of the ICCR version gives the biggest improvement. In general, benchmark results for a set of 36 MQuAT problems correspond to the results for one problem.
+The WD-T gives worse results than the untuned version. The possible reason for such results is a high value of the \texttt{meu}~(R6) parameter. The result of the benchmark for the ICCR-T version contradicts the results obtained in the last section because the parameter tuning of the ICCR version gives the biggest improvement. In general, benchmark results for a set of 36 MQuAT problems correspond to the results for the problem, used during development.
 
-The benchmark also shows that no one version of the genetic solver solved all problems from the set. Table~\ref{tab:ProblemsColorCoding} shows the results of the benchmark in the context of a solved or unsolved problem. Each row describes the result for a specified problem. The problem numbers contain in column \textit{Problem Id}. Black filled cell means that solver solved the problem. Table~\ref{tab:ProblemsColorCoding} also shows ids of problems that unsolved by all versions of the genetic solver.
+The benchmark also shows that no version of the genetic solver solve all problems from the set. Table~\ref{tab:ProblemsColorCoding} shows the results of the benchmark in the context of a solved or unsolved problem. Each row describes the result for a specific problem. The problem numbers contain in column \textit{Problem Id}. Black filled cell means that solver solved the problem. Table~\ref{tab:ProblemsColorCoding} also shows ids of problems that unsolved by all versions of the genetic solver.
 
 \begin{table}
 	\caption{Problem color coding}\label{tab:ProblemsColorCoding}
@@ -114,7 +113,7 @@ The benchmark also shows that no one version of the genetic solver solved all pr
 	\mbox{$\blacksquare$: solved, $\square$: unsolved}
 \end{table}
 
-Unsolved tasks are presented in Table~\ref{tab:UnsolvedProblems}. It shows parameters that specified the problem. We can see, there are a few types of unsolved problems are exist. All versions of the genetic solver could not solve the problem that contains two or more requests, and the depth is three or more. The exception for this definition is a problem number 30. It has one request and depth four, but it also has variants four and resources - 100 and genetic solvers could not solve it.
+Unsolved problems are presented in Table~\ref{tab:UnsolvedProblems}. It shows parameters that specified the problem. We can see, there are a few types of unsolved problems are exist. All versions of the genetic solver could not solve the problem that contains 2 or more requests, and the depth of the tree is 3 or more. The exception is a problem number 30. It has 1 request and depth - 4, but it also has 4 variants and 100 resources and genetic solvers could not solve it.
 
 \begin{itemize}
 	\item Software variants - [2, 4] ,
@@ -181,7 +180,7 @@ Figure~\ref{fig:MediumProblemEnergy} shows the percentage of deviation from opti
 \end{itemize}
 
 
-The quality of results in a case of the bigger problem is much worse. The minimal deviation is 35\% for the NP-T version because the deviation is less than one percent. The NP-T and WD-T versions give an optimal solution for the problem. The WD and WD-T versions give less number of valid solutions, but with better quality. The quality of the solution from other solvers is lower because the percentage of the deviation is more than 100\%. The reason why the quality of solutions is decreasing with a bigger size of the problem could be a higher number of hardware resources. The higher number of resources means that more hardware resources could satisfy the requirements of the software component. The genetic solver could not find best-suited resources for requested components, and as a result, quality is decreasing. 
+The quality of results in a case of the bigger problem is much worse. The minimal deviation is 35\% for the NP-T version because the deviation is less than one percent. The NP-T and WD-T versions give an optimal solution for the problem. The WD and WD-T versions give less number of valid solutions, but with better quality. The reason why the quality of solutions is decreasing with a bigger size of the problem could be a higher number of hardware resources. The higher number of resources means that more hardware resources could satisfy the requirements of the software component. The genetic solver could not find best-suited resources for requested components, and as a result, quality is decreasing. 
 
 
 \begin{figure}
@@ -202,26 +201,26 @@ The quality of results in a case of the bigger problem is much worse. The minima
 \end{figure}
 
 
-This section shows that modification that we made improve the results of the genetic solver. The NP-T version solved three times more problems than the B version. We evaluated the quality of solutions. As a result of the quality evaluation, we make two conclusions. First, modified versions of the genetic solver also improve the quality of the results. Second, the quality is decreasing for a bigger size of the problem.
+This section shows that modification that we made improve the results of the genetic solver. The NP-T version solved three times more problems than the B version. We evaluated the quality of solutions. As a result of the quality evaluation, we make two conclusions. First, the modified versions of the genetic solver also improve the quality of the results. Second, the quality is decreasing for a bigger size problems.
 However, there are problems from the set that could not be solved by the genetic solver.
 
 
 \section{Analysis}
 
 Benchmark showed that a genetic solver could not solve all MQuAT problems from the evaluation set.
-In this section, we presented an analysis of results, reasons why described in Chapter~\ref{chapter:Implementation} approaches, and optimizations have lower efficiency that we need.
+In this section, we present a discussion of results and reasons why described in Chapter~\ref{chapter:Implementation} approaches, and optimizations have lower efficiency that we need.
 
-Firstly, let us discuss the reasons why modifications that we made improve the genetic solver. After that, we will concentrate on the reasons why not all tasks could be solved.
+Firstly, let us discuss the reasons why modifications that we made improve the genetic solver. After that, we will describe the reasons why not all problems could be solved.
 
-There are a few reasons why the genetic solver with our modifications could solve more problems than the B version. First of all, parameter tuning was performed for all versions. Optimized values of parameters give better results, as it showed in the previous section. The second reason are new probabilities that we added in Section~\ref{sec:NP}. These probabilities give a possibility to change the position of the crossover and mutation points randomly, and as a result, the genetic solver gives results that a bit worse than parameter tuning. 
+There are a few reasons why the genetic solver with our modifications could solve more problems than the B version. First of all, parameter tuning was performed for all versions of the genetic solver. Optimized values of parameters give better results, as it showed in the previous section. The second reason are new probabilities that we added in Section~\ref{sec:NP}. These probabilities give a possibility to change the position of the crossover and mutation points randomly, but as a result the genetic solver gives results that a bit worse than parameter tuning. 
 
 Nevertheless, not all tasks were solved. One of the reasons for such a result is parameter tuning. We optimized parameters for a specific problem that we described at the beginning of Chapter~\ref{chapter:Implementation}.
 
-Obtained results could be described with a \textbf{"no free lunch" (NFL) theorem}\cite{wolpert1996, wolpert1997}. It says that if an algorithm works well with a certain class of tasks, then it must pay for it with a deterioration in performance on the set of all remaining problems.
+Obtained results could be explained with a \textbf{"no free lunch" (NFL) theorem}\cite{wolpert1996, wolpert1997}. It states that if an algorithm performing well with a certain class of tasks, then it must pay for it with a deterioration in performance on the set of all remaining problems.
 
 Another reason that we optimize parameters without knowledge about dependencies between them. Parameters that we found or added did not fit well for our goals. Let us analyze earlier discussed parameters.
 
-We start an analysis with search space representation. For this representation, we performed measurements for more than three thousand configurations using BRISE in the Search space exploration mode with the NP version of the genetic solver. This mode was described in Section~\ref{sec:BRISE}. For this type of analysis, we use the same problem as in Chapter~\ref{chapter:Implementation} and it has parameter values:
+We start an analysis with search space representation. For this representation, we performed measurements for more than three thousand configurations using BRISE in the Search space exploration mode with the NP version of the genetic solver. This mode was described in Section~\ref{sec:BRISE}. For this type of analysis, we use the same problem as in Chapter~\ref{chapter:Implementation} and it has following properties:
 \begin{itemize}
 	\item Software variants: 10,
 	\item Number of requests: 15,
@@ -231,7 +230,7 @@ We start an analysis with search space representation. For this representation, 
 \end{itemize}
 
 The search space representation for the SPEA2 selector as a parallel coordinates plot showed in Figure~\ref{fig:SearchSpaceViewFull}.
-Each parameter is represented in the plot as a vertical line that contains all possible values of the parameter. Each configuration that was measured showed on the plot as a line that connects all values that describe itself. The last vertical line and the color shows the number of contract violations that give the configuration. The more dark color means fewer contract violations and vise versa, the lighter color gives a higher number of contract violations.
+Each parameter is represented in the plot as a vertical line that display range of values for the parameter. Each measured configuration showed on the plot as a line that connects parameter values for the Genetic Solver. The last vertical line as well as the color shows the number of contract violations that configuration gave. More dark color means fewer contract violations and vise versa, configuration with lighter color gave a higher number of contract violations.
 
 \begin{figure}
 	\centering
