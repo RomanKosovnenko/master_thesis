@@ -145,27 +145,30 @@ GA is based on different components and operators.
 
 \subsection{Selector}\label{sec:GeneticAlgorithm:Selector}
 
-The selector is one of the most important components of the EA. It selects \textit{\textbf{mu}} number of individuals from the population, that used to create new \textit{\textbf{lambda}} number of individuals.
-
-There are many different selection algorithms.
+The selector is one of the most important components of the EA. It selects \textit{\textbf{mu}} number of individuals from the population, that used to create new \textit{\textbf{lambda}} number of individuals. There are many different selection algorithms.
 
 
-	\paragraph{NSGA-II~(Non-dominated sorting based genetic algorithm)~\cite{deb2000}} - is a multi-objective selection algorithm. It searching for noon-dominated solutions. Figure~\ref{label} demonstrates how it works. 
+	\paragraph{NSGA-II~(Non-dominated sorting based genetic algorithm)~\cite{deb2000}} - is a multi-objective selection algorithm. It searching for noon-dominated solutions. Figure~\ref{fig:nsga2} demonstrates how it works. There is a population \texorpdfstring{R\textsubscript{t}}{R t} that consist of two sets. First set is a parent population. It marked as \texorpdfstring{P\textsubscript{t}}{P t}. The second set is new offspring and marked as \texorpdfstring{Q\textsubscript{t}}{Q t}. Combined population \texorpdfstring{R\textsubscript{t}}{R t} is sorted using non-dominated sorting. After that it generate a Pareto front. After sorting, selector selects the new population \texorpdfstring{P\textsubscript{t+1}}{P t+1} of size represented as a parameter by binary tournament selection and use it for the next round of reproduction.
 	
 	\begin{figure}
 		\centering
-		\includegraphics[width=0.5\textwidth]{images/crossoverVector.png}
-		\caption[Example of the crossover]{Example of the crossover between chromosome that described as a vector of bits}
-		\label{fig:crossoverVector}
+		\includegraphics[width=0.75\textwidth]{images/nsga2.pdf}
+		\caption[NSGA-II]{NSGA-II}
+		\label{fig:nsga2}
 	\end{figure}
 	
-	The step-by-step operation of the algorithm is described below:
+	\paragraph{SPEA2~(Strength Pareto Evolutionary Algorithm)~\cite{zitzler01}} - a multi-objective selection algorithm, that used to find the Pareto optimal solution for multi-objective problems\cite{zhihuan2010}. Figure~\ref{fig:spea2} demonstrate how it works.
+	There are two sets. First one is a current population that marked as \texorpdfstring{R\textsubscript{t}}{R t}. The second is an archive set. It marked as \texorpdfstring{A\textsubscript{t}}{A t}. SPEA2 takes the union of all solutions in \texorpdfstring{R\textsubscript{t}}{R t} and in \texorpdfstring{A\textsubscript{t}}{A t}. The union set marked as \texorpdfstring{U\textsubscript{t}}{U t}. After that it compares the size of \texorpdfstring{U\textsubscript{t}}{U t} and archive size. If \texorpdfstring{U\textsubscript{t}}{U t} is grater than archive size then SPEA2 reduce the union population. If \texorpdfstring{U\textsubscript{t}}{U t} is less  size then SPEA2 extend the population from the dominated solutions. After that, it selects best non-dominated solutions that used in next iteration.
 	
+	\begin{figure}
+		\centering
+		\includegraphics[width=0.9\textwidth]{images/spea2Selector.pdf}
+		\caption[SPEA2]{SPEA2}
+		\label{fig:spea2}
+	\end{figure}
 	
-
-	\paragraph{SPEA2~(Strength Pareto Evolutionary Algorithm 2) -
 	\paragraph{NSGA3~\cite{deb14}} - it extends NSGA-II to using references points to handle multi-objective problems and its usage on one- or two-objective problems is discouraged.
-	\paragraph{SPEA3} - presented in~\cite{rudzinski15}. It is a generalization of SPEA2 that consists in the exchange of the selection procedure that aims to determine the the non-dominated solutions with a high spread and balanced distribution. Aa described by researches, it works well with two- and three-objective problems. 
+	\paragraph{SPEA3} - presented in~\cite{rudzinski15}. It is a generalization of SPEA2 that consists in the exchange of the selection procedure that aims to determine the the non-dominated solutions with a high spread and balanced distribution. Aa described by researches, it works well with two- and three-objective problems. //
 
 In this thesis, we focus on a selection algorithm only as a parameter of a genetic algorithm and use NSGA-II and SPEA2 due to software constraints of the used framework. 
 
@@ -262,9 +265,18 @@ The first node in this genotype contains the input request. The second node repr
 \subsection{Crossover operator}
 \label{sec:GeneticSolverCrossover}
 
-This operator performs a crossover between two Tree Shaped Genotypes and are performed on software implementation and hardware resource in each tree shape genotype. Figure~\ref{fig:GeneticSolverCrossover} depicted the crossover. 
-During this process, there is a check that ensures that the implementation and resources are not the same. If this check showed that comparing nodes are the same, then crossover goes recursively to child nodes and performs the check.
-If the check showed that nodes are not the same, they swap the implementation, the resource, and all lower substructure.
+This operator performs a crossover between two Tree Shaped Genotypes and are performed on software implementation and hardware resource in each tree shape genotype. 
+Crossover process starts on the root of the both tree. Crossover operator compare if the implementation and mapped resource of both nodes are same. If not the same, then with probability described as a parameter \texttt{CrossoverProbability} it swaps the implementations, resources and lower substructure of the tree. It swaps the subtree in order to maintain the consistency. If comparison says that nodes are identical, then it performs the crossover process for each child node. Such recursive algorithm gives a possibility to perform the crossover on a few points of the Tree Shape Genotype as it showed in Figure~\ref{label}. Crossover points have a gray color.
+
+\begin{figure}
+	\centering
+	\includegraphics[width=\textwidth]{images/CrossoverPoints.pdf}
+	\caption[Crossover Points]{Crossover Points}
+	\label{fig:CrossoverPoints}
+\end{figure}
+
+Figure~\ref{fig:GeneticSolverCrossover} depicted the crossover between two genotypes. Each genotype has 3 nodes. The Crossover starts on root nodes. These nodes have the same implementation and resource. As a result, crossover recursively goes down to children. As showed, first child of both genotypes have different implementation and resource and crossover swap them with the probability \texttt{CrossoverProbability}. After that crossover operator performs comparison for the second child.
+
 
 \begin{figure}
 	\centering
@@ -277,8 +289,9 @@ If the check showed that nodes are not the same, they swap the implementation, t
 
 \subsection{Mutation operator}
 \label{sec:GeneticSolverMutation}
-Mutation operation is used to randomly add new features to the tree-shaped genotype. Figure~\ref{fig:GeneticSolverCrossover} depicts the mutation process in which with some probability to mutate current node or recursively go down to children.
-There are two more probabilities that represent a chance of mutation in implementation and resource accordingly. 
+Mutation operation is used to randomly add new features to the tree-shaped genotype.
+Mutation occurs for one random request. With some probability that described by parameter \texttt{MutationRate} it mutate the root node. If mutation operator mutate the top node of the tree, there is a probability to mutate tre resource. This probability described with parameter \texttt{ResourceMutationProbability}. Or it will mutate the implementation of the top node. And change lower structure for consistency. If mutation will occur not in the root of the genotype, then the process recursively goes down to children.  Figure~\ref{fig:GeneticSolverMutation} depicts the mutation process in which mutation was performed on the resource 
+in the root node.
 
 \begin{figure}
 	\centering
