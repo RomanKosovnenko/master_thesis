@@ -1,71 +1,68 @@
 \chapter{Implementation}\label{chapter:Implementation}
 
-In this chapter described several approaches to improve genetic solver to solve more complex problems.
-We will concentrate on solving the problem:
-
+In this chapter we describe several approaches to improve the Genetic Solver by parameter tuning.
+We will concentrate on solving the problem with \textbf{5 minutes} timeout and the following properties:
 \begin{itemize}
-	\item Software variants: 10,
-	\item Number of requests: 15,
-	\item Component tree depth: 2,
-	\item Resources ratio: 5,
-	\item timeout to solve the problem: 5 minutes.
+	\item \textbf{Software variants: 10;}
+	\item \textbf{Number of requests: 15;}
+	\item \textbf{Component tree depth: 2;}
+	\item \textbf{Resources ratio: 5;}
 \end{itemize}
+on the an Intel Core i7-8700 CPU machine with 64Gb of memory using Fedora Server 29 and OpenJDK 1.8.0 201-b09 for \textbf{5 times}.
 
-Due to the problem, the basic version of the genetic solver could not solve this problem at all. We do all this work to, firstly, achieve valid results, and then get an optimal or near-optimal solution. 
-All measurements here and later were done five times.
+We do all this work to, firstly, achieve valid results in terms of contract violations, and then get an optimal or near-optimal solution in terms of energy consumption. 
 
-
-We mark basic~\footnote{As a basic version taked version from 24.09.2019, commit: \href{https://git-st.inf.tu-dresden.de/mquat/mquat2/commit/57845c126c30a1ea59cb35eb16af0bd37930dda9}{57845c126c30a1ea59cb35eb16af0bd37930dda9}} version of the genetic solver as \textbf{B} (Basic).
+We mark base~\footnote{As a base version taked version at the master branch from 24.09.2019, commit: \href{https://git-st.inf.tu-dresden.de/mquat/mquat2/commit/57845c126c30a1ea59cb35eb16af0bd37930dda9}{57845c126c30a1ea59cb35eb16af0bd37930dda9}} version of the genetic solver as \textbf{B} (Base).
 
 
 \begin{figure}
 	\centering
 	\includegraphics[width=\textwidth]{images/BoxPlotSolverBasic}
-	\caption[Boxplot with a number of contract violations for the basic version of genetic solver]{Boxplot with a number of contract violations for the basic version of genetic solver}
+	\caption[Boxplot of contract violations for the base version of genetic solver]{Boxplot of contract violations for the base version of genetic solver}
 	\label{fig:boxplotsolverbasic}
 \end{figure}
 
 
-Figure~\ref{fig:boxplotsolverbasic} shown the boxplot of the number of contract violations in the basic version of the genetic solver. This plot shows that \textbf{B} solver solves this task with the number of contract violations in a range from 13 to 22. As a result, there are no valid solutions for the current problem.
+Figure~\ref{fig:boxplotsolverbasic} shown the boxplot of the number of contract violations in the base~(\textbf{B}) version of the Genetic Solver. This plot shows that  the base~(\textbf{B}) version solves this task with the number of contract violations in a range from 13 to 22. As a result, there are no valid solutions for the current problem.
 
 
 
 
-\section{Parameters that need tuning}
+\section{First parameter tuning}
 
-The first step to improve the genetic solver was a parameter optimization. To get a set of optimized values of parameters need to perform a few essential steps.
+The first step to improve the genetic solver was a parameter tuning. To get a set of optimized parameter values it is needed to perform a few essential steps:
 
 \begin{enumerate}
-	\item Analysis of genetic solver to find out all parameters that could be changed externally. These parameters will be hyperparameters that BRISE will tune.
+	\item Analysis of genetic solver to find all parameters that could be changed externally. They will be hyperparameters that BRISE will tune.
 	\item Adapt BRISE to work with the genetic solver.
 	\item Prepare Experiment description for BRISE.
-	\item Run BRISE to get the optimal configuration.
+	\item Run BRISE to get the near-optimal configuration of the Genetic Solver.
 \end{enumerate}
 
-Step 1 involves the analysis of the solver for the presence of parameters that can be changed externally. After deep-diving into the code of the genetic solver, the list of parameters was prepared. Each parameter has a name, short name that consist of capital \textbf{R} and the order number of parameters, the default value that was used in the genetic solver and a range of values for continues parameters or list of values for categorical parameters. The possible value we show with square brackets near the short name. There are:
-\paragraph{\texttt{selectorType}~(R1)~[NSGA2, SPEA2]} - type of the selector algorithm that was mentioned in section~\ref{sec:GeneticAlgorithm:Selector}. It is a categorical parameter that has only two values (NSGA2 and SPEA2) due to the technical limitation of the used framework. Default value is \textit{NSGAII}.
-\paragraph{\texttt{Number of generation}~(R2)} - number of generations that performed by the genetic solver, working as a termination condition, in this thesis we use only timeout termination, so this parameter set as a huge value,
+\textbf{Step 1} involves the analysis of the solver for the presence of parameters that can be changed externally. After diving into the code of the genetic solver, the list of parameters was prepared. Each parameter has a name, short name that consist of capital \textbf{R} and the order number of parameters, the default value that was used in the genetic solver and a range of values for continues parameters or list of values for categorical parameters. The possible value we show with square brackets near the short name. There are:
+\paragraph{\texttt{SelectorType}~(R1)~[NSGA2, SPEA2]} - type of the selector algorithm, mentioned in section~\ref{sec:GeneticAlgorithm:Selector}. Default value is \textit{NSGAII};
+\paragraph{\texttt{Generations}~(R2)} - number of generations that performed by the genetic solver, working as a termination condition, in this thesis we use only timeout termination, so we leave this parameter with a huge value;
 \paragraph{\texttt{PopulationSize}~(R3)~[100-5000]} - The parameter, that describes the number of individuals in a population. Default value is \textbf{500}. \\
 
-Adaptation of the genetic solver to work in BRISE consists of preparing the executable file of the genetic solver and implementing a method for the worker component, which calls the executable file and returns the results with a number of contract violations and energy consumption.
+Adaptation of the genetic solver to work in BRISE consists of preparing the executable file of the genetic solver and implementing a method for the worker, which encapsulate execution of the Genetic Solver with specified parameters and returns the results with a number of contract violations and energy consumption.
 
-Step number 3 means that a user creates the experiment description file. This file describes parameters that need to optimize and BRISE components, such as selector, repeater, model, and stop condition. The description of the parameters consists of a list of parameters. Each element of this list describes one hyperparameter that will be optimized. Each hyperparameter is described by a name, a range of values, or a set of values, the default value.
+\textbf{Step 3} means that a user describes hyperparameters that need to optimize and BRISE components configuration such as selector, repeater, model, and stop condition, list of hyperparameters described by a name, a range of values, or a set of values, the default value.
 
-For parameter tuning of the genetic solver, we use Sobol sampling as a selector algorithm to get the new configuration of hyperparameters, student repeater with a minimal number of measurements - 3 and max number - 6. BRISE uses Bayesian Optimization (BO) as a prediction model.
-To stop BRISE, we use a combination of time-based stop condition with timeout - 12 hours and guarantee stop condition, which guarantees a better result than a result with the default set of parameters. The experiment description file is presented in appendix\todoR{ref to the appendix with experiment description}.
+For parameter tuning of the genetic solver, we use Sobol sampling as a selector algorithm to get the new configuration of hyperparameters, student repeater with a minimal number of measurements - 3 and max number - 6. BRISE uses Bayesian Optimization~(BO) as a prediction model.
+To stop BRISE, we use a combination of time-based stop condition with timeout - 12 hours and guarantee stop condition, which ensures that a better result than a result with the default set of parameters. The experiment description file is presented in appendix\todoR{ref to the appendix with experiment description}.
 
-Due to the technics of getting the default value of parameters described in Section~\ref{sec:Parameter Tuning Strategies}, we use values that used in the \textbf{B} version of the genetic solver. The main reason for this that BRISE uses a guarantee stop condition. Furthermore, values in the \textbf{B} solver were achieved empirically by developers. The default values are presented in Table~\ref{tab:Parameters_B-T}. Also, there are a few parameters that have a hard-coded value, and we do not tune them. We will discuss them in the next section, but their names and values also presented in Table~\ref{tab:Parameters_B-T}. These parameters have a gray color fill. 
+We use parameter values of the base~(\textbf{B}) version of the Genetic Solver as a default configuration for BRISE. Such decision makes it possible to use a guarantee stop condition. The default parameter values are presented in Table~\ref{tab:Parameters_B-T}. Also, there are a few parameters in gray-colored filling that have a hard-coded value, but we will discuss them in the next section. 
 
-We mark current version~\footnote{commit: \href{https://git-st.inf.tu-dresden.de/mquat/mquat2/commit/e103f52b3333900d61c6218a1f2ca811bca10289}{e103f52b3333900d61c6218a1f2ca811bca10289}} of the genetic solver as \textbf{B-T}(Basic-Tuned).
+We mark current version~\footnote{commit: \href{https://git-st.inf.tu-dresden.de/mquat/mquat2/commit/e103f52b3333900d61c6218a1f2ca811bca10289}{e103f52b3333900d61c6218a1f2ca811bca10289}} of the genetic solver as \textbf{B-T}(Base-Tuned).
 
 
 \begin{table}
 	\centering
-	\caption{Parameters of B and B-T versions of the genetic solver}\label{tab:Parameters_B-T}
+	\caption{Parameters of B and B-T versions of the Genetic Solver}\label{tab:Parameters_B-T}
 	\resizebox{\textwidth}{!}{
 		\begin{tabular}{c c c a a a a a a a a a a}
 			\hline
-			\rotatebox{0}{Genetic solver} & \rotatebox{0}{\texttt{R1}} & \rotatebox{0}{\texttt{R3}} & \rotatebox{0}{\texttt{R4}} & \rotatebox{0}{\texttt{R5}} & \rotatebox{0}{\texttt{R6}} & \rotatebox{0}{\texttt{R7}} & \rotatebox{0}{\texttt{R8}}  & \rotatebox{0}{\texttt{R9}}  & \rotatebox{0}{\texttt{R10}} & \rotatebox{0}{\texttt{R11}} & \rotatebox{0}{\texttt{R12}} & \rotatebox{0}{\texttt{R13}} \\
+			\rotatebox{0}{Genetic Solver} & \rotatebox{0}{\texttt{R1}} & \rotatebox{0}{\texttt{R3}} & \rotatebox{0}{\texttt{R4}} & \rotatebox{0}{\texttt{R5}} & \rotatebox{0}{\texttt{R6}} & \rotatebox{0}{\texttt{R7}} & \rotatebox{0}{\texttt{R8}}  & \rotatebox{0}{\texttt{R9}}  & \rotatebox{0}{\texttt{R10}} & \rotatebox{0}{\texttt{R11}} & \rotatebox{0}{\texttt{R12}} & \rotatebox{0}{\texttt{R13}} \\
 			\hline            
 			B & NSGA2 & 500 & 0.1 & 0.95 & 0.1 & 0.45 & 0.5 & 0.8 & 0.5 & 0.5 & 50 & 100 \\
 			B-T & NSGA2 & 1533 & 0.1 & 0.95 & 0.1 & 0.45 & 0.5 & 0.8 & 0.5 & 0.5 & 50 & 100 \\
@@ -74,31 +71,31 @@ We mark current version~\footnote{commit: \href{https://git-st.inf.tu-dresden.de
 	}
 \end{table}
 
-The optimal configuration of parameters found by the BRISE is presented in the Table~\ref{tab:Parameters_B-T}. As showed, BRISE gives a set of parameters with a bigger number of population size~(R3).
-
 \begin{figure}
 	\centering
 	\includegraphics[width=\textwidth]{images/BoxPlotSolverBasicTuning}
-	\caption[Boxplot with a number of contract violations for the basic version of genetic solver and with tuned parameters]{}
+	\caption[Boxplot with a number of contract violations for the base version of the Genetic Solver with tuned parameters]{Boxplot with a number of contract violations for the base version of the Genetic Solver with tuned parameters}
 	\label{fig:boxplotsolverbasictuning}
 \end{figure}
 
-The results of solving the earlier described problem as a boxplot showed in Figure~\ref{fig:boxplotsolverbasictuning}. In the Figure~\ref{fig:boxplotsolverbasictuning} also showed a comparison between B and B-T versions.  The \textbf{B-T} version of the genetic solver gives a better result compared with the \textbf{B} version. The minimal number of contract violations in the \textbf{B-T} version is almost two times fewer than in B version. 
+The result of hyperparameter optimization is presented in the Table~\ref{tab:Parameters_B-T}. As showed, BRISE gives a set of parameters with a bigger number of population size~(R3).
+
+The results of solving the earlier described problem as a boxplot showed in Figure~\ref{fig:boxplotsolverbasictuning}. In the Figure~\ref{fig:boxplotsolverbasictuning} also showed a comparison between the base~(\textbf{B}) and its tuned~(\textbf{B-T}) version of the genetic solver. The \textbf{B-T} version of the genetic solver gives a better result compared with the \textbf{B} version. The minimal number of contract violations in the \textbf{B-T} version is almost 2 times fewer than in B version. 
 
 Received results answer the \textbf{RQ1}. Parameter tuning improves results, and it has a positive effect on the genetic solver, but results are still not valid. 
 
 \section{More parameters}
 
-In the previous section, we showed that not all parameters of the genetic solver exposed for external tuning. To make them changeable externally, we use \texttt{GoogleGuiceDependencyInjection}\footnote{\url{https://github.com/google/guice}} to change the values of these parameters during the solver call. Let us discuss these parameters:
-\paragraph{\texttt{lambda}~(R4)~[0.0-1.0]} - as mentioned in Section~\ref{sec:GeneticAlgorithm:Selecto}, it describes the number of new offspring per generation. We use this parameter as a part of the population size. The default value is 0.1.
-\paragraph{\texttt{CrossoverRate}~(R5)~[0.0-1.0]} - as mentioned in section~\ref{sec:GeneticAlgorithmCrossover}, it describes the probability of two individuals to exchange their genes. The default value is 0.95.
+In the previous section, we showed that not all parameters of the genetic solver exposed for tuning. To make them changeable externally, we use \texttt{GoogleGuiceDependencyInjection}\footnote{\url{https://github.com/google/guice}} tool to change the values of these parameters during the solver call. Let us discuss these parameters:
+\paragraph{\texttt{lambda}~(R4)~[0.0-1.0]} - as mentioned in Section~\ref{sec:GeneticAlgorithm:Selecto}, it is the number of new offspring per generation. We use this parameter as a part of the population size. The default value is 0.1.
+\paragraph{\texttt{CrossoverRate}~(R5)~[0.0-1.0]} - as mentioned in section~\ref{sec:GeneticAlgorithmCrossover}, it describes the probability of two individuals to gene exchange. The default value is 0.95.
 \paragraph{\texttt{mu}~(R6)~[0.0-1.0]} - as mentioned in section~\ref{sec:GeneticAlgorithm:Selector}, it describes the number of parents, selected by the selector to create new individuals. We use this parameter as a part of the population size. The default value is 0.1.
-\paragraph{\texttt{MutationRate}~(R7)~[0.0-1.0]} - as mentioned in section~\ref{sec:GeneticAlgorithmMutation}, it describes the probability of the individual to mutate. BRISE will tune this parameter with default value 0.45 from the B version of the genetic solver.
+\paragraph{\texttt{MutationRate}~(R7)~[0.0-1.0]} - as mentioned in section~\ref{sec:GeneticAlgorithmMutation}, it describes the probability of the individual to mutate. BRISE will tune this parameter with default value 0.45 from the base~(\textbf{B}) version of the genetic solver.
 \paragraph{\texttt{ResourceMutationProbability}~(R8)~[0.0-1.0]} - the likelihood that during the mutation, the assigned resource will mutate. BRISE will tune this parameter with default value 0.5 from the B version of the genetic solver.
-\paragraph{\texttt{CrossoverProbability}~(R9)~[0.0-1.0]} - it describes the probability of doing crossover that checks in the crossover operator. The default value of this parameter is 0.8. This parameter was removed in later versions of the genetic solver because it duplicates the functionality of \texttt{CrossoverRate}~(R5). This fact answers on \textbf{RQ1}. It is one bad design choice that we want to find, according to \textbf{RQ2}.\\ 
+\paragraph{\texttt{CrossoverProbability}~(R9)~[0.0-1.0]} - it describes the probability of doing crossover that checks in the crossover operator. The default value of this parameter is 0.8. This parameter was removed in later versions of the genetic solver because it duplicates the functionality of \texttt{CrossoverRate}~(R5). This fact answers on \textbf{RQ2}. It is one bad design choice that we want to find, according to \textbf{RQ2}.\\ 
 
 
-Within the genetic solver evaluator, two factors reduce the quality of the solution in the event of a contract breach or errors in dependencies in the software tree. These coefficients were not set for external tuning. The default value for all parameters is 0.5.
+Within the genetic solver evaluator, two factors penalize the quality of the solution in the case of a contract breach or errors in dependencies in the software tree. These coefficients were not set for external tuning. The default value for all parameters is 0.5.
 \paragraph{\texttt{ValidityWeight}~(R10)~[0.0-1.0]} - coefficient that shows how each contract violation decreases the quality of the solution.
 \paragraph{\texttt{SoftwareValidityWeight}~(R11)~[0.0-1.0]} - coefficient that shows how each error in the software tree decrease the quality of the solution.\\
 
@@ -107,7 +104,7 @@ This method has two features that are necessary to obtain better individuals at 
 \paragraph{\texttt{RandomSoftwareAssignmentAttempts}~(R12)~[1-1000]} - max number of attempts to set a valid software tree to the individual on the creation phase. The default value is 50.
 \paragraph{\texttt{populateSoftwareSolutionAttempts}~(R13)~[1-1000]} -  max number of attempts to assign software components and resources to get a valid individual on the creation phase. The default value is 100.\\
 
-We mark current version~\footnote{commit: \href{https://git-st.inf.tu-dresden.de/mquat/mquat2/commit/e1db4a941622f9a6609ffcfb5d05df9e7abaffc2}{e1db4a941622f9a6609ffcfb5d05df9e7abaffc2}} of the genetic solver as \textbf{WHC-T}(Without Hard-Code-Tuned).
+We mark this version~\footnote{commit: \href{https://git-st.inf.tu-dresden.de/mquat/mquat2/commit/e1db4a941622f9a6609ffcfb5d05df9e7abaffc2}{e1db4a941622f9a6609ffcfb5d05df9e7abaffc2}} of the genetic solver as \textbf{WHC-T}(Without Hard-Code-Tuned).
 
 After optimization, we use an optimized set of values of hyperparameters from BRISE, showed in Table~\ref{tab:Parameters_NHC-T}, as parameters for the \textbf{WHC-T} version genetic solver. As shown with more parameters, BRISE suggests using the \textit{SPEA2} selector algorithm, but the value of the \texttt{CrossoverRate}~(R5) is not changed.
 
@@ -125,7 +122,7 @@ After optimization, we use an optimized set of values of hyperparameters from BR
 	}
 \end{table}
 
-Results of the WHC-T version of the genetic solver presented as boxplot in comparison with earlier versions showed in Figure~\ref{fig:boxplotsolverNoHardcodedTuning}. This boxplot shows that the WHC-T version of the genetic solver is better in comparison to B-T. The max number of contract violations in WHC-T is \textbf{seven}. This number is equal to a minimum number of contract violations from the B-T version. The minimal number of violations is \textbf{three}, which means that solutions are still \textbf{not valid} for the current problem. 
+Results of the WHC-T version of the genetic solver presented as boxplot in comparison with earlier versions~(\textbf{B}, \textbf{B-T}) showed in Figure~\ref{fig:boxplotsolverNoHardcodedTuning}. This boxplot shows that the WHC-T version of the genetic solver is better in comparison to B-T. The max number of contract violations in WHC-T is \textbf{7}. This number is equal to a minimum number of contract violations from the B-T version. The minimal number of violations is \textbf{3}, which means that solutions are still \textbf{not valid} for the current problem. 
 
 \begin{figure}
 	\centering
@@ -134,16 +131,16 @@ Results of the WHC-T version of the genetic solver presented as boxplot in compa
 	\label{fig:boxplotsolverNoHardcodedTuning}
 \end{figure}
 
-This section shows how correctly selected parameter values affect the result of the algorithm. For the described problem without complex changes in the algorithm, we got a result that, in the worst-case, gave a solution that is almost twice as good as the best solution in the B version of the genetic solver. However, parameter optimization is not enough to obtain valid solutions for the tasks described at the beginning of this chapter. 
+This section shows how correctly selected parameter values affect the result of the algorithm in terms of solution validity. For the described problem without complex changes in the algorithm, we got a result which in the worst-case, gave a solution that is almost twice as good as the best solution in the B version of the genetic solver. However, parameter optimization is not enough to obtain valid solutions for the tasks described at the beginning of this chapter. 
 
-\section{Even more parameters}\label{sec:NP}
+\section{New Parameters}\label{sec:NP}
 
-Since parameter tuning from the previous steps could not give valid results, we decide to use another approach called parameter engineering.
-Detailed analysis of crossover and mutation operators showed that crossover point and mutation points are coarse-grained. The principle how these points defines described in Section~\ref{sec:GeneticAlgorithmCrossover} and Section~\ref{sec:GeneticAlgorithmMutation}.
+Since the parameter tuning from the previous steps do not give us valid results, we decided to use a parameter engineering approach.
+Detailed analysis of crossover and mutation operators showed that the crossover point and the mutation points are coarse-grained. The principle how these points defines described in Section~\ref{sec:GeneticAlgorithmCrossover} and Section~\ref{sec:GeneticAlgorithmMutation}.
 
-We add a few more probabilities to crossover and mutation operators. These probabilities allow changing the location of crossover/mutation points in different ways of the Tree Shape Genotype.
+We add a few more parameters to crossover and mutation operators. These are probabilities, that allow change of the crossover/mutation points location in different ways in the Tree Shape Genotype.
 There are:
-\paragraph{\texttt{CrossoverOnRandomChildProbability}~(R14)~[0.0-1.0]} - the chance that crossover will occur on the random child or both children otherwise.
+\paragraph{\texttt{CrossoverOnRandomChildProbability}~(R14)~[0.0-1.0]} - the chance that crossover will occur on the random child or both children otherwise~(since the MQuAT problem constraints described in Section~\ref{sec:MQuATProblem}).
 \paragraph{\texttt{CrossoverOnRandomLevelProbability}~(R15)~[0.0-1.0]} - the probability that describes a chance to do a crossover on random level of the tree, 
 \paragraph{\texttt{CrossoverOnRandomRequestProbability}~(R16)~[0.0-1.0]} - the chance to do a crossover on random request,
 \paragraph{\texttt{MutationOnRandomChildProbability}~(R17)~[0.0-1.0]} - the probability that describes a chance of mutation on a random child,
@@ -175,7 +172,7 @@ The set of parameters used during development is presented in Table~\ref{tab:Par
 	}
 \end{table}
 
-The result of the NP version of the genetic solver presented as boxplot in comparison with earlier versions showed in Figure~\ref{fig:boxplotsolverNewParameters}. If we compare the B and the NP versions, then both versions have non-optimized parameter values. The NP version has a minimal number if contract violations equal 3. It is three times less violations than in the best case if the B version. Moreover, this version of the genetic solver has results comparable to the results after parameter tuning in the WHC-T version. As a result, better-designed parameters could also improve the target system. 
+The result of the \textbf{NP} version of the genetic solver presented as boxplot in comparison with earlier versions~(\textbf{B}, \textbf{B-T}, \textbf{WHC-T}) showed in Figure~\ref{fig:boxplotsolverNewParameters}. If we compare the \textbf{B} and the \textbf{NP} versions, then both versions have non-optimized parameter values. The NP version has a minimal number of contract violations equal 3. It is \textbf{3} times less violations than in the best case if the \textbf{B} version. Moreover, this version of the genetic solver has results comparable to the results after parameter tuning in the \textbf{WHC-T} version. We can conclude, that better-designed parameters could also improve the target system. 
 
 \begin{figure}
 	\centering
@@ -184,7 +181,7 @@ The result of the NP version of the genetic solver presented as boxplot in compa
 	\label{fig:boxplotsolverNewParameters}
 \end{figure}
 
-After adding new parameters, we started BRISE to optimize all parameters. The optimized set of parameters presented in Table~\ref{tab:Parameters_NP-T}. We marked the NP version with optimized set of parameters as \textbf{NP-T}(New Probabilities-Tuned)~\footnote{commit: \href{https://git-st.inf.tu-dresden.de/mquat/mquat2/commit/e103f52b3333900d61c6218a1f2ca811bca10289}{e103f52b3333900d61c6218a1f2ca811bca10289}}. As showed, parameter tuning with described parameters returns \textit{NSGA2} as a selector. Moreover, BRISE decide that optimized values of parameters located in the middle of the values range.
+After adding new parameters, we started BRISE to optimize all parameters. The optimized set of parameters presented in Table~\ref{tab:Parameters_NP-T}. We marked the \textbf{NP} version with optimized set of parameters as \textbf{NP-T}(New Probabilities-Tuned)~\footnote{commit: \href{https://git-st.inf.tu-dresden.de/mquat/mquat2/commit/e103f52b3333900d61c6218a1f2ca811bca10289}{e103f52b3333900d61c6218a1f2ca811bca10289}}. As showed, parameter tuning with described parameters returns \textit{NSGA2} as a selector. Moreover, BRISE decide that optimized values of parameters located in the middle of the values range.
 
 \begin{figure}
 	\centering
@@ -193,18 +190,18 @@ After adding new parameters, we started BRISE to optimize all parameters. The op
 	\label{fig:boxplotsolverNewParametersTuning}
 \end{figure}
 
-Boxplots in Figure~\ref{fig:boxplotsolverNewParametersTuning} shows the comparisons of the NP-T version of the genetic solver to earlier discussed versions. As shown, the combined approach of parameter engendering and parameter tuning gives a zero number of contract violations. It means that the NP-T version has a \textbf{valid} solution for the MQuAT problem described at the beginning of this chapter. Even the worth-case of the NP-T version with two contract violations is better than all versions presented in previous sections.  
+Boxplots in Figure~\ref{fig:boxplotsolverNewParametersTuning} shows the comparisons of the NP-T version of the genetic solver to earlier discussed versions~(\textbf{B}, \textbf{B-T}, \textbf{WHC-T}, \textbf{NT}). As shown, the combined approach of parameter engendering and parameter tuning gives a zero number of contract violations. It means that the \textbf{NP-T} version has a \textbf{valid} solution for the MQuAT problem described at the beginning of this chapter. Even the worth-case of the \textbf{NP-T} version with 2 contract violations is better than all versions presented in previous sections. \\ 
 
-This section showed that the parameters thought out in the algorithm are as important as the values of these parameters. If the algorithm is not designed correctly, the tuning parameter may improve the results, but this may not be enough. It is worth noting that not all solutions of this version gave a valid solution. The reason for this is the local optimum. All versions of the genetic solver that were previously discussed cannot get out of the local optimum.  It could not get out because, at a certain moment, the majority of the individual in the population becomes the same.
+This section showed that the parameters thought out in the algorithm are as important as the values of these parameters. If the algorithm is not designed correctly, the tuning parameter may improve the results, but this may not be enough. But not all solutions of the \textbf{NP-T} version are valid. The reason for this is that All versions of the genetic solver that were previously discussed trap into the local optimum.  It could not get out because, at a certain moment, the majority of the individuals in the population becomes the same, and any newly created individual in most cases has worse value of the objective function. But we try to solve it.
 
-\section{Simple parameter control parameters}
+\section{Simple parameter control}
 
-The reason all individuals become the same is due to the creation of offspring. To create new individuals, the selector takes the best individuals. Crossover, takes two individuals from the selector, and performing a gene change, creates two new individuals. If these individuals give a worse solution, then the selector in the new iteration will drop them, and if they are close, they will take them to create new individuals. At a certain point, it will be a situation that the crossover occurs between two identical genotypes, which creates two the same individuals. There is a chase \texttt{1~-~mutationRate} that mutation will not happen, and two identical as parents individuals will be added to the population. It increases the number of identical elements and leads to the collapse of the genetic diversity of the population.
+The reason all individuals become the same is due to the creation of offspring. To create a new individual, the selector takes the best individuals. Crossover, takes two individuals from the selector, and performs a gene exchange, creating two new individuals. If these individuals give a worse solution, then the selector in the new iteration will drop them, but if they are better, it will takes them to create new individuals. At a certain point, there will be a situation that the crossover occurs between two identical genotypes, which creates two identical to parents individuals. There is a case \texttt{1~-~mutationRate} that mutation will not happen, and two identical as parents individuals will be added to the population. It increases the number of identical elements and leads to the collapse of the genetic diversity of the population.
 
-The idea of how to solve this issue is an internally changeable crossover rate. It changes the chance of the crossover depends on the number of the same individuals in a population. 
-The principle of operation is as follows. After each iteration, a part of the unique genotypes in the population is calculated. If the resulting number is smaller than the value of \texttt{PartOfUniqueIndividualsToStopCrossover}~(R19)~[0.0-1.0] parameter, then the probability of a crossover will set as 0.0, and vice versa, the probability of a crossover returns if the part of the unique genotypes in the population is bigger than the value of \texttt{PartOfUniqueIndividualsToReturnCrossover}~(R20)~[0.0-1.0] parameter.
+The idea of solving this issue is in internally changeable crossover rate. It changes the chance of the crossover depending on the number of identical individuals in a population. 
+The principle of operation is as follows. After each iteration, the ratio of unique genotypes in the population is calculated. If the resulting number is smaller than the value of \texttt{PartOfUniqueIndividualsToStopCrossover}~(R19)~[0.0-1.0] parameter, then the probability of a crossover will set as 0.0, and vice versa, the probability of a crossover returns if the ratio of unique genotypes in the population is bigger than the value of \texttt{PartOfUniqueIndividualsToReturnCrossover}~(R20)~[0.0-1.0] parameter.
 
-The value for \texttt{PartOfUniqueIndividualsToStopCrossover} is 0.25 and for \texttt{PartOfUniqueIndividualsToReturnCrossover} is 0.75.
+The value for \texttt{PartOfUniqueIndividualsToStopCrossover} is 0.25 and\linebreak for \texttt{PartOfUniqueIndividualsToReturnCrossover} is 0.75.
 
 The version of the genetic solver with internally changeable crossover rate marked as \textbf{ICCR}(Internally Changeable Crossover Rate)~\footnote{commit: \href{https://git-st.inf.tu-dresden.de/mquat/mquat2/commit/c89422c6e46a5f4e8bc09205df7713ad8fe6907c}{c89422c6e46a5f4e8bc09205df7713ad8fe6907c}} and tuned version~\footnote{commit: \href{https://git-st.inf.tu-dresden.de/mquat/mquat2/commit/128a6f2f844edd70d0e8ee616f09ac897cb86f4e}{128a6f2f844edd70d0e8ee616f09ac897cb86f4e}} was marked as \textbf{ICCR-T}(Internally Changeable Crossover Rate-Tuned).
 
@@ -244,27 +241,29 @@ The parameter sets used for both versions presented in Table~\ref{tab:Parameters
 The internally changeable crossover rate slightly delay the collapse of the diversity of individuals in the population. Figure~\ref{fig:UniqIndividualsPerGeneration3} shows the deterioration in population diversity for a constant crossover rate and an internally changeable crossover rate.
 
 
-The comparison of the results of ICCR and ICCR-T versions with all earlier discussed versions presented as boxplots showed in Figure~\ref{fig:boxplotsolverAdaptiveCrossoverTuning}. The ICCR version gives better results than all untuned versions of the genetic solver. However, the range between max and min number of contract violations in the ICCR version is bigger than in the NP version.
-The ICCR also better the tuned versions such as B-T and WHC-T, but worse than the NP-T version. The ICCR-T version as an NP-T version gives a valid solution, but it is more like an exception. The boxplot of the ICCR-T version also shows that parameter tuning for internally changeable parameters works not so efficient as for static parameters like in NP version, at least for the discussed problem. 
+The comparison of the results of \textbf{ICCR} and \textbf{ICCR-T} versions with all earlier discussed versions presented as boxplots showed in Figure~\ref{fig:boxplotsolverAdaptiveCrossoverTuning}. The \textbf{ICCR} version gives better results than all untuned versions of the genetic solver. However, the range between max and min number of contract violations in the \textbf{ICCR} version is bigger than in the \textbf{NP} version.
+The \textbf{ICCR} also better than tuned versions such as \textbf{B-T} and \textbf{WHC-T}, but worse than the \textbf{NP-T} version. The \textbf{ICCR-T} version as an \textbf{NP-T} version gives a valid solution, but in more like an exception case. The boxplot of the \textbf{ICCR-T} version also shows that parameter tuning for internally changeable parameters works not so efficient as for static parameters like in \textbf{NP} version, at least for the discussed problem. 
 
 \begin{figure}
 	\centering
 	\includegraphics[width=\textwidth]{images/BoxPlotSolverAdaptiveCrossoverTuning.pdf}
-	\caption[Boxplot with a number of contract violations for the genetic solver with adaptive crossover rate in comparison with previous versions]{Boxplot with a number of contract violations for the genetic solver with adaptive crossover rate in comparison with previous versions}
+	\caption[Boxplot with a number of contract violations for the genetic solver with internally changeable crossover rate in comparison with previously discussed versions]{Boxplot with a number of contract violations for the genetic solver with internally changeable crossover rate in comparison with previously discussed versions}
 	\label{fig:boxplotsolverAdaptiveCrossoverTuning}
 \end{figure}
 
 
-This section shows that parameter control could improve the results and delay stuck in a local optimum. However, parameter tuning for static parameters does not work so well on parameters that changing their values during the work.                     
+This section shows that parameter control could improve the results and postpone stuck in a local optimum. However, parameter tuning for static parameters does not work so well on parameters that changing their values during the run-time.                     
 
 \section{Unique genotypes in a population}
 \label{sec:WD}
 
-Because the changeable crossover rate from the previous section only delays the collapse of the diversity of individuals in the population. We decide to try a more radical solution. We block the possibility of adding to the population a new individual if the population already contains the same individual. It means that at any moment, the population will consist of unique individuals. In this version of the genetic solver, the use of the changeable crossover rate does not make any sense, so it was disabled, and a constant value was used.
+Since the changeable crossover rate from the previous section only delays the collapse of the diversity of individuals in the population, we try a more radical solution. We block the possibility of adding to the population a new individual if the population already contains the same individual. It means that at any moment, the population will consist of unique individuals. In this version of the genetic solver, the use of the changeable crossover rate does not make any sense, so it was disabled, and a constant value was used.
+
+Untuned version ot the genetic solver with blocked duplicates in the population marked as  \textbf{WD}~\footnote{commit: \href{https://git-st.inf.tu-dresden.de/mquat/mquat2/commit/1d79c50d7932c9216c653bf6d0354d990f6aecbc}{1d79c50d7932c9216c653bf6d0354d990f6aecbc}}~(Without Duplicates) and tuned version~\footnote{commit: \href{https://git-st.inf.tu-dresden.de/mquat/mquat2/commit/24504c77024ac383c77849c5121471e0f06ce913}{24504c77024ac383c77849c5121471e0f06ce913}} marked as \textbf{WD-T}~(Without Duplicates-Tuned).
 
 The number of unique individuals in the population for the WD version presented in Figure~\ref{fig:UniqIndividualsPerGeneration3}. In each generation, after the initial population has been created, the number of unique elements in the population is not changing.
 
-Untuned version ot the genetic solver with blocked duplicates in the population marked as  \textbf{WD}~\footnote{commit: \href{https://git-st.inf.tu-dresden.de/mquat/mquat2/commit/1d79c50d7932c9216c653bf6d0354d990f6aecbc}{1d79c50d7932c9216c653bf6d0354d990f6aecbc}}~(Without Duplicates)and tuned version~\footnote{commit: \href{https://git-st.inf.tu-dresden.de/mquat/mquat2/commit/24504c77024ac383c77849c5121471e0f06ce913}{24504c77024ac383c77849c5121471e0f06ce913}} marked as \textbf{WD-T}~(Without Duplicates-Tuned).
+
 
 Parameters for both versions presented in Table~\ref{tab:Parameters_WD-T}.
 
@@ -296,7 +295,7 @@ Parameters for both versions presented in Table~\ref{tab:Parameters_WD-T}.
 	\label{fig:boxplotsolverNoDuplicates}
 \end{figure} 
 
-Figure~\ref{fig:boxplotsolverNoDuplicates} shows the results of this approach without tuning and with tuned parameters. Presented results show that the WD version of the genetic solver gives better results only in comparison to the B version and not always. The WD-T version gives better results with less range between min and max number of contract violations than WD. But it much worse than NP-T.
+Figure~\ref{fig:boxplotsolverNoDuplicates} shows the results of this approach with and without parameter tuning. Obtained results show that the WD version of the genetic solver gives better results only in comparison to the B version and not always. The WD-T version gives better results with less range between min and max number of contract violations than WD. But it much worse than NP-T.
 
 There are two main reasons why the results of this approach are much worse than previous versions. The first one is a calculation speed. It is slower than in previous versions. As a result, the number of created generations is lower. For the NP version, this number is 15177. For the WD version, this number is 2605, more than five times less according to our tests.
 
