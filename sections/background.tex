@@ -1,4 +1,5 @@
 \chapter{Background}
+\label{chapter:background}
 This thesis is based on several kinds of researches: auto-tuning, evolutionary algorithms, and software optimization. In this chapter we summarize the important aspects and details of approaches and optimization techniques, used within the thesis.  
 
 \section{Multi-Quality Auto-Tuning~(MQuAT)}
@@ -305,7 +306,8 @@ The drawbacks of this approach are:
 	\item If parameters are numerical or continuous. The optimal value may not be in the tested values.
 \end{itemize}
 
-We can conclude that parameter tuning without automation and without the understanding of the process is not working.
+We can conclude that parameter tuning without automation and without the understanding of the process is not working. Tuning an algorithm requires a lot of computer power,
+while some people argue that this is a waste of time~\cite{smit2009comparing}.
 
 As a result, 2 different approaches to choosing parameters were described: Parameter tuning and parameter control~\cite{smit2012parameter,eiben03}.
 \textit{Parameter tuning} finds optimized values of parameters before the run. So all parameters are fixed and do not change during the run. However, \textit{parameter control} sets the values of parameters while EA is running. So the parameter was initially given, but during the run, the parameter value is changing. 
@@ -343,18 +345,19 @@ The first category trying to find "good" parameter values that give the best res
 \end{itemize}
 
 
-The second type is a more complex solution. Such tuners build a model that predicts the results of EA for given parameter values. As a result, different models or heuristics are used to reduce the number of tests. The model builds based on data about parameters and results that parameters give. The examples of model-based tuners are: Sequential Parameter Optimization~(SPO)~\cite{bartz2004analysis}, REVAC~\cite{nannen2007efficient} and BRISE~\cite{pukhkaiev2016, pukhkaiev19}.
+The second type is a more complex solution. Such tuners build a model that predicts the results of EA for given parameter values. As a result, different models or heuristics are used to reduce the number of tests. The model builds based on data about parameters and results that parameters give. The examples of model-based tuners are: Sequential Parameter Optimization~(SPO)~\cite{bartz2004analysis}, Bonesa~\cite{smit2012parameter, bartz2005sequential} REVAC~\cite{nannen2007efficient} and BRISE~\cite{pukhkaiev2016, pukhkaiev19}.
 
-\paragraph{REVAC} - the Relevance Estimation and Value Calibration of EA. Works as an estimation of distribution algorithm~\cite{pelikan2002, montero2012state}. It represents each parameter as a set of values. The REVAC starts for each parameter the search process that uses the uniform distribution of values. It also performs a transformation of parameter sets to reduce the range of values and perform a predefined number of runs. The REVAC has parameters:
+\paragraph{REVAC} - the Relevance Estimation and Value Calibration of EA. Works as an estimation of distribution algorithm~\cite{pelikan2002, montero2012state}. It represents each parameter as a set of values. The REVAC starts for each parameter the search process that uses the uniform distribution of values. It also performs a transformation of parameter sets to reduce the range of values and perform a predefined number of runs. This tuner appropriate for ordered parameters. The REVAC has parameters:
 \begin{itemize}
 	\item the number of elements in a set,
 	\item step sizes of set modifications,
 	\item the max number of iterations.
 \end{itemize} 
 
-\paragraph{BRISE} - the software product line (SPL) for parameter tuning. The work concept consists of a combination of local search and model prediction. It starts with the selection algorithm, which selects a new set of parameters. After that, the model rebuilds on each iteration and predicts the best parameter values. The BRISE is a more generic approach and used not only for EA. It has many parameters that describe its components.
+\paragraph{BRISE} - the software product line (SPL) for parameter tuning. The work concept consists of a combination of local search and model prediction. It starts with the selection algorithm, which selects a new set of parameters. After that, the model rebuilds on each iteration and predicts the best parameter values. The BRISE is a more generic approach and used not only for EA. It has many parameters that describe its components. \\
 
-\paragraph{}
+The experimental comparison in~\cite{smit2009comparing} shows that no matter what tuner is used, it gives a better EA than relying on intuition and the usual parameter setting conventions.
+
 In conclusion, there are many tuners that could help get optimized parameter values for EA. They have different methodologies to tune parameters such as models or selectors to select parameter values from several places of the search space. This overview shows that we could use all types of tuners. 
 
 Due to the fact that a genetic solver requires a big amount of time to solve the task, we decide to use one of the model-based tuners. We will use a model-based tuner. And BRISE is more generic than others. 

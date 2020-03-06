@@ -1,21 +1,28 @@
 \chapter{Introduction}\label{intro}
 
-Many optimization problems could be solved using evolutionary programming (e.g. Genetic Algorithm). 
+
+Many optimization problems could be solved using evolutionary programming (e.g., Genetic Algorithm). 
 
 \section{Motivation}
 - 
 
 
 \section{Objective}
-The objective of this thesis is to improve a previously developed genetic optimization approach by carefully tuning its parameters. The research objective is to identify and/or introduce parameters that can significantly influence the quality of the obtained solution, improve performance and increase scalability of the genetic optimization approach. To reach this goal we need to answer two research questions:
+The goal of this thesis is to improve a previously developed genetic optimization approach using parameter tuning.
+The research objective is to identify and/or introduce parameters that can improve the genetic optimization approach in terms of its performance and scalability and the quality of the obtained solution. We need to answer the following research questions in order to reach the research objective: 
 \begin{itemize}
-	\item \textbf{RQ1}: Does the parameter tuning improve the results and what effect does it give?
+	\item \textbf{RQ1}: Does the parameter tuning improve the results, and what effect does it give?
 	\item \textbf{RQ2}: Were there any bad design choices in the genetic solver? Is there any way to improve it?
 \end{itemize}
 
+To answer these questions, we are using several methods that improve the genetic optimization approach. Moreover, we evaluate it on each stage. 
+
 \section{Solution}
 
+The described modifications of the genetic optimization approach use parameter tuning to obtain the optimized parameter values. Some of them introduce new parameters that influence the results in terms of scalability and quality or help to avoid trapping in a local optimum.
 
-  	
+The evaluation shows that the presented solution gives a twofold increase in terms of the number of valid solutions.
+
+
 \section{Overview}
-This thesis is organized as follows: In Chapter 2, we extend not advanced in field of problem solving and optimizations reader by background knowledge and defines scope of thesis. Chapter 3 describes related work in defined scope. In Chapter 4 one will find the concept description of dynamic heuristics selection. Chapter 5 contains more detailed information about approach implementation and  embedding it to BRISE. The evaluation results and analysis could be found in Chapter 6. Finally, Chapter 7 concludes the thesis and Chapter 8 describe the future work.
+This thesis is organized as follows: In Chapter~\ref{chapter:background}, we extend not advanced in the field of software selection and hardware resource allocation problem, evolutionary algorithms, and parameter tuning reader by background knowledge and defines the scope of the thesis. Chapter~\ref{chapter:Implementation} describes an iterative approach to improving the genetic approach. The evaluation results and analysis could be found in Chapter~\ref{chapter:evaluationAnalysis}. Finally, Chapter~\ref{chapter:conclusion} concludes the thesis and Chapter~\ref{chapter:futureWork} describe the future work.
