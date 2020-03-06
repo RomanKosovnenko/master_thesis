@@ -19,13 +19,13 @@ MQuAT problem was presented in ~\cite{gotz18}, and could be presented as two pro
 	\item \textbf{Variant selection}, which provides the best utility by selecting better software implementations.
 \end{itemize} 
 
-To solve this problem was presented new generic metamodel. Both problems are interrelated by user requests specifying minimum requirements on the provided non-functional properties (i.e., minimum utility) while searching for a selection and mapping both to maximize utility and minimize costs. Correctness denotes that only solutions that \textit{do not violate} the users minimum requirements are considered \textbf{valid}.
+To solve this problem a new generic metamodel was presented. Both problems are interrelated by user requests specifying minimum requirements on the provided non-functional properties (i.e., minimum utility) while searching for a selection and mapping both to maximize utility and minimize costs. Correctness denotes that only solutions that \textit{do not violate} the user's minimum requirements are considered \textbf{valid}.
 
 The problem to be solved is selecting variants of software components and mapping them based on user requests to suitable hardware resources.
 
 The MQuAT problem could be described as a metamodel which consists of:
-\paragraph{Hardware metamodel,}which consists of hierarchically structured resource types and resources as instances of these types. So the hardware model composes static awareness of resources (types) and knowledge of runtime (instances). Certain types of resources can run the software, i.e., they are valid targets for software implementation mapping. The container attribute is used to mark such types. Figure~\ref{fig:HWmodel} depicted Hardware metamodel.
-
+\paragraph{Hardware metamodel,}which consists of hierarchically structured resource types and resources as instances of these types. So the hardware model composes static resource types and runtime resource instances knowledge. Certain types of resources can run the software, i.e., they are valid targets for software implementation mapping. The container attribute is used to mark such types. Figure~\ref{fig:HWmodel} depicted Hardware metamodel.
+\todo{just a formatting note: shouldn't the fig. captions be centered?}
 \begin{figure}
 	\centering
 	\includegraphics[width=0.8\textwidth]{images/HWModel.pdf}
@@ -34,9 +34,9 @@ The MQuAT problem could be described as a metamodel which consists of:
 \end{figure}
 
 
-In addition, a set of properties further characterize resource types. Resources specify then specific values for these properties. As an example, the resource type RAM could be defined with a property amount of memory and marked as a container.
+In addition, a set of properties further characterizes resource types. Resources specify then concrete values for these properties. As an example, the resource type RAM could be defined with a property amount of memory and marked as a container.
 
-\paragraph{Software metamodel} showed on Figure~\ref{fig:SWModel}. Its main element, called component that provides some functionality.
+\paragraph{Software metamodel} showed on Figure~\ref{fig:SWModel}. Its main element, called component, provides some functionality, required by the user.
 Each component could have different implementations that provide this functionality, requiring additional components or resources to complete their work. 
 
 \begin{figure}
@@ -48,13 +48,13 @@ Each component could have different implementations that provide this functional
 
 \paragraph{The Objective} specifies how to calculate a solution's objective value, i.e., for which value(s) the problem should be optimized. This selects a property to optimize for, and an objective function to define how to aggregate all values of this property.
 
-\paragraph{A Request} represents a user requirement, which specifies which functionality should be used to execute parameters and requirements. Requests contain their functional requirements by referring to a target software component, limitations on non-functional requirements (e.g., quality).\\
+\paragraph{The Request} represents a user requirement, which specifies which functionality should be used to execute parameters and requirements. Requests contain their functional requirements by referring to a target software component, limitations on non-functional requirements (e.g., quality).\\
 
-\paragraph
+\\
 Full problem depicted on Figure~\ref{fig:mquatmodel}.
 
-The problem description was changed in \cite{gotz2018JastAdd} and started to use the JastAdd framework\cite{ekman07} based on specified grammar. Aa a result, it gives a possibility of using reference attribute grammars~(RAGs)\cite{hedin2000} that adds computations in model nodes.
-There are relations between component implementation and another software component that this implementation is requiring, between component implementation and HW resource that this implementation is required.
+The problem description uses the JastAdd framework\cite{ekman07} based on specified grammar~\cite{gotz2018JastAdd}. Aa a result, it gives a possibility of using reference attribute grammars~(RAGs)\cite{hedin2000} that adds computations in model nodes.
+\todo{this phrase is hardly readable.. Could you rephrase it somehow?}There are relations between component implementation and another software component that this implementation is requiring, between component implementation and HW resource that this implementation is required.
 
 
 \begin{figure}
@@ -80,16 +80,16 @@ There are additional constraints due to problem generation:
 	\item structures for the software and hardware components are fixed to ensure comparability,
 	\item \texttt{computeNode} that represents a regular computer hardware consist of one or more CPUs, RAM memory, disk, and a networking interface,
 	\item software model has a simple tree structure,
-	\item fixed branching factor of two.
+	\item fixed branching factor of two. \todo{for the first-time-reader it is unclear, which "branching factor" do you mean. I would add a short clarification in parentheses}
 \end{itemize}
 
 Each MQuAT Problem is characterized by four parameters:
 
 \begin{itemize}
-	\item[Software variants] - the number of implementations for each software component,
-	\item[Number of requests] - the number of requests to run software components, that described by user, 
-	\item[Component tree depth] - the depth of the software tree that describes the dependency of software component that user requested,
-	\item[Resources ratio] - this parameter describes the number of available hardware resources. The number of HW resources calculated as the multiplication of the number of nodes of the component tree by the number of requests and multiplied by the resource ratio.
+	\item \textbf{Software variants} - the number of implementations for each software component,
+	\item \textbf{Number of requests} - the number of requests to run software components, that described by user, 
+	\item \textbf{Component tree depth} - the depth of the software tree that describes the dependency of software component that user requested,
+	\item \textbf{Resources ratio} - this parameter describes the number of available hardware resources. The number of HW resources calculated as the multiplication of the number of nodes of the component tree by the number of requests and multiplied by the resource ratio.
 \end{itemize}
 
 \section{Solution of the MQuAT Problem}
@@ -105,7 +105,8 @@ The Solution is computed by the MQuAT Solver. There are many Solvers:
 \end{itemize}
 
 In this thesis, we focus on Genetic Solver in detail in the next sections.
-The solution of the MQuAT Problem could be represented as a tree structure. An example of the Solution shown in Figure ~\ref{fig:SolutionModel}
+The solution of the MQuAT Problem could be represented as a tree structure. An example of the Solution shown in Figure ~\ref{fig:SolutionModel}. It contains a list of assignments. Each assignment selects one implementation of the required component and maps it on the resources~\cite{gotz18}.
+
 
 \begin{figure}
 	\centering
@@ -114,9 +115,8 @@ The solution of the MQuAT Problem could be represented as a tree structure. An e
 	\label{fig:SolutionModel}
 \end{figure}
 
-It contains a list of assignments. Each assignment selects one implementation of the required component and maps it on the resources~\cite{gotz18}.
-The Solution is valid if for each user request following requirements fulfilled:
 
+The Solution is valid if for each user request following requirements fulfilled:
 \begin{enumerate}
 	\item an implementation is deployed for the target component;
 	\item implementation is deployed for each required component;
@@ -129,11 +129,11 @@ The Solution is optimal if Solution is valid and no other solution has a better 
 \section{Evolutionary Algorithms}
 \label{sec:GeneticAlgorithm}
 
-Evolutionary algorithms are a subset of evolutionary computation and belong to set of modern heuristics-based search methods.~\cite{vikhar16}
+Evolutionary algorithms (EA) are a subset of evolutionary computation and belong to set of modern heuristics-based search methods.~\cite{vikhar16}
 This domain contains different variants, such as:
-\paragraph{Genetic algorithm~(GA)} - is the most widely known type of EA\cite{eiben03}. The research~\cite{deJong75} presented the description of the simple GA that has a binary representation~(bit strings), proportional selection, and a low probability of mutation. It has a fixed flow. The entire population changes in each generation. On the current moment, more preferable to use the rank-based selection, one-point crossover changed to the alternatives. And most important, that developers use not a binary representation that increases an understanding of the problem that GA is solving.
+\paragraph{Genetic algorithm~(GA)} - is the most widely known type of EA\cite{eiben03}. The research~\cite{deJong75} presented the description of the simple GA that has a binary representation~(bit strings), proportional selection, and a low probability of mutation. It has a fixed flow. The entire population changes in each generation. Currently, more preferable to use the rank-based selection, one-point crossover changed to the alternatives. And most important, that developers use not a binary representation that increases an understanding of the problem that GA is solving.
 \paragraph{Evolution strategy~(ES)} - that works with vectors representation of a solution. New offspring is generated by adding random values to the elements in the vector. Use self-adaptation for own parameters. ES self-adapt the mutation step sizes.
-\paragraph{Evolutionary programming~(EP)} - was developed with the aim to get artificial intelligence\cite{eiben03}. It has the same representation as ES, but do not use the recombination. The selector algorithm selects parents from the union of the population and new offspring.
+\paragraph{Evolutionary programming~(EP)} - was developed with the aim to get artificial intelligence~\cite{eiben03}. It has the same representation as ES, but do not use the recombination. The selector algorithm selects parents from the union of the population and new offspring.
 \paragraph{Genetic programming~(GP)} - use as a representation of chromosomes tree-shaped structures. Recombination works by sub-tree exchanging. A particular difference is in the workflow. A GP performs either a crossover or a mutation, and a GA performs two operations in sequence.
 
 \begin{figure}
@@ -156,7 +156,7 @@ GA is based on different components and operators.
 The Selector is one of the most important components of the EA. It selects \textit{\textbf{mu}} individuals from the population, that are used to create new \textit{\textbf{lambda}} individuals. There are many different Selection algorithms.
 
 
-\paragraph{NSGA-II~(Non-dominated sorting based genetic algorithm)~\cite{deb2000}} - is a multi-objective selection algorithm. It searching for noon-dominated solutions. Figure~\ref{fig:nsga2} demonstrates how it works. There is a population \texorpdfstring{R\textsubscript{t}}{R t} that consist of two sets. First set is a parent population. It marked as \texorpdfstring{P\textsubscript{t}}{P t}. The second set is new offspring and marked as \texorpdfstring{Q\textsubscript{t}}{Q t}. Combined population \texorpdfstring{R\textsubscript{t}}{R t} is sorted using non-dominated sorting. After that it generate a Pareto front. After sorting, selector selects the new population \texorpdfstring{P\textsubscript{t+1}}{P t+1} of size represented as a parameter by binary tournament selection and use it for the next round of reproduction.
+\paragraph{NSGA-II~(Non-dominated sorting based genetic algorithm)~\cite{deb2000}} - is a multi-objective selection algorithm. It searching for non-dominated solutions. Figure~\ref{fig:nsga2} demonstrates how it works. There is a population \texorpdfstring{R\textsubscript{t}}{R t} that consist of two sets. First set is a parent population. It is marked as \texorpdfstring{P\textsubscript{t}}{P t}. The second set is new offspring and denoted as \texorpdfstring{Q\textsubscript{t}}{Q t}. Combined population \texorpdfstring{R\textsubscript{t}}{R t} is sorted using non-dominated sorting. After that it generates a Pareto front. After sorting, selector selects the new population \texorpdfstring{P\textsubscript{t+1}}{P t+1} of size represented as a parameter by binary tournament selection and use it for the next round of reproduction.
 
 \begin{figure}
 	\centering
@@ -166,7 +166,7 @@ The Selector is one of the most important components of the EA. It selects \text
 \end{figure}
 
 \paragraph{SPEA2~(Strength Pareto Evolutionary Algorithm)~\cite{zitzler01}} - a multi-objective selection algorithm, that used to find the Pareto optimal solution for multi-objective problems\cite{zhihuan2010}. Figure~\ref{fig:spea2} demonstrate how it works.
-There are two sets. First one is a current population that marked as \texorpdfstring{R\textsubscript{t}}{R t}. The second is an archive set. It marked as \texorpdfstring{A\textsubscript{t}}{A t}. SPEA2 takes the union of all solutions in \texorpdfstring{R\textsubscript{t}}{R t} and in \texorpdfstring{A\textsubscript{t}}{A t}. The union set marked as \texorpdfstring{U\textsubscript{t}}{U t}. After that it compares the size of \texorpdfstring{U\textsubscript{t}}{U t} and archive size. If \texorpdfstring{U\textsubscript{t}}{U t} is grater than archive size then SPEA2 reduce the union population. If \texorpdfstring{U\textsubscript{t}}{U t} is less  size then SPEA2 extend the population from the dominated solutions. After that, it selects best non-dominated solutions that used in next iteration.
+There are two sets. First one is a current population that denoted as \texorpdfstring{R\textsubscript{t}}{R t}. The second is an archive set. It is marked as \texorpdfstring{A\textsubscript{t}}{A t}. SPEA2 takes the union of all solutions in \texorpdfstring{R\textsubscript{t}}{R t} and in \texorpdfstring{A\textsubscript{t}}{A t}. The union set is marked as \texorpdfstring{U\textsubscript{t}}{U t}. After that it compares the size of \texorpdfstring{U\textsubscript{t}}{U t} and archive size. If \texorpdfstring{U\textsubscript{t}}{U t} is grater than archive size then SPEA2 reduce the union population. If \texorpdfstring{U\textsubscript{t}}{U t} is less  size then SPEA2 extend the population from the dominated solutions. After that, it selects best non-dominated solutions that used in next iteration.
 
 \begin{figure}
 	\centering
@@ -176,7 +176,7 @@ There are two sets. First one is a current population that marked as \texorpdfst
 \end{figure}
 
 \paragraph{NSGA3~\cite{deb14}} - it extends NSGA-II to using reference points to handle multi-objective problems, and its usage on one- or two-objective problems is discouraged.
-\paragraph{SPEA3} - presented in~\cite{rudzinski15}. It is a generalization of SPEA2 that consists of the exchange of the selection procedure that aims to determine the non-dominated solutions with a high spread and balanced distribution. As described in researches, it works well with two- and three-objective problems. //
+\paragraph{SPEA3} - presented in~\cite{rudzinski15}. It is a generalization of SPEA2 that consists of the exchange of the selection procedure that aims to determine the non-dominated solutions with a high spread and balanced distribution. As described in researches, it works well with two- and three-objective problems. \\
 
 In this thesis, we focus on a Selection algorithm only as a parameter of a genetic algorithm and use NSGA-II and SPEA2 due to software constraints of the used framework. 
 
@@ -203,9 +203,9 @@ Secondly, it swaps genes between chromosomes.
 
 \subsection{Mutation}\label{sec:GeneticAlgorithmMutation}
 
-The mutation is an operator of an Evolution Algorithm that changes a single gene in a chromosome. As a crossover operator, a mutation has parameter \texttt{Mutation rate}. It describes the probability of mutation.
+The mutation is an operator of an Evolution Algorithm that changes a single gene in a chromosome. Similarly to the crossover, a mutation has parameter \texttt{Mutation rate}. It describes the probability of mutation.
 
-To perform a mutation on chromosome need to do:
+To perform a mutation on chromosome it is needed to:
 
 \begin{enumerate}
 	\item Randomly select gene which mutates
@@ -219,7 +219,7 @@ To perform a mutation on chromosome need to do:
 	\label{fig:MutationVector}
 \end{figure}
 
-Figure~\ref{fig:MutationVector} presented a simple mutation on the chromosome that described as a vector of bits.
+Figure~\ref{fig:MutationVector} presented a simple mutation on the chromosome that is described as a vector of bits.
 
 
 
@@ -244,7 +244,7 @@ To solve the custom problem using genetic algorithm, the user needs to create se
 	
 \end{enumerate}
 
-If your genotype can't be described as a vector, then you first need to implement:
+If genotype can not be described as a vector, then it is needed to implement:
 
 \begin{enumerate}
 	\item Genotype
@@ -270,7 +270,7 @@ The first node in this genotype contains the input request. The second node repr
 \label{sec:GeneticSolverCrossover}
 
 This operator performs a crossover between two Tree Shaped Genotypes and are performed on software implementation and hardware resource in each tree shape genotype. 
-The crossover process starts on the root of both trees. Crossover operator compares if the implementation and mapped resources of both nodes are the same. If not the same, then with probability described as a parameter \texttt{CrossoverProbability}, it swaps the implementations, resources, and lower substructure of the tree. It swaps the subtree in order to maintain consistency. If comparison says that nodes are identical, then it performs the crossover process for each child node. Such a recursive algorithm gives a possibility to perform the crossover on a few points of the Tree Shape Genotype, as it showed in Figure~\ref{label}. Crossover points have a gray color.
+The crossover process starts on the root of both trees. Crossover operator compares if the implementation and mapped resources of both nodes are the same. If not the same, then with probability described as a parameter \texttt{CrossoverProbability}, it swaps the implementations, resources, and lower substructure of the tree. It swaps the subtree in order to maintain consistency. If comparison says that nodes are identical, then it performs the crossover process for each child node. Such a recursive algorithm gives a possibility to perform the crossover on a few points of the Tree Shape Genotype, as it showed in Figure~\ref{CrossoverPoints}. Crossover points have a gray color.
 
 \begin{figure}
 	\centering
@@ -294,7 +294,7 @@ Figure~\ref{fig:GeneticSolverCrossover} depicted the crossover between two genot
 \subsection{Mutation Operator}
 \label{sec:GeneticSolverMutation}
 Mutation operation is used to randomly change the node(s) of the Tree Shaped Genotype.
-The mutation occurs for one random request. With some probability that described by parameter \texttt{MutationRate}, it mutates the root node. If a mutation operator mutates the top node of the tree, there is a probability of the resource mutation. This probability described with parameter \texttt{ResourceMutationProbability}. Or it will mutate the implementation of the top node. And change the lower structure for consistency. If mutation will occur not in the root of the genotype, then the process recursively goes down to children.  Figure~\ref{fig:GeneticSolverMutation} depicts the mutation process in which mutation was performed on the resource 
+The mutation occurs for one random request. With some probability that described by parameter \texttt{MutationRate}, it mutates the root node. If a mutation operator mutates the top node of the tree, there is a probability of the resource mutation. This probability described with parameter \texttt{ResourceMutationProbability}. Or it will mutate the implementation of the top node. And change the lower structure for consistency. If mutation occurs not in the root of the genotype, then the process recursively goes down to children.  Figure~\ref{fig:GeneticSolverMutation} depicts the mutation process in which mutation was performed on the resource 
 in the root node.
 
 \begin{figure}
@@ -304,9 +304,9 @@ in the root node.
 	\label{fig:GeneticSolverMutation}
 \end{figure}
 
-\section{Parameter Tuning Strategies for EA}\label{sec:Parameter Tuning Strategies}
+\section{Parameter Tuning Strategies for Evolutionary Algorithms}\label{sec:Parameter Tuning Strategies}
 
-There are many parameters used by EA to solve the optimization problem. And we believe that "good" parameter values could improve EA. Their many different approaches exist. 
+There are many parameters used by EA to solve the optimization problem. And we believe that "good" parameter values could improve EA. There are different approaches exist. 
 The first approach of the parameter tuning adheres to select the values of parameters by some conventions, ad-hoc choices, or by experimental comparison on a limited scale. Such a tuning strategy based on assumptions about user-preferences and the influence of parameter values~\cite{eiben03,eiben11}. For example, the developer tries to tune 4 parameters and 10 values for each of them.
 The drawbacks of this approach are:
 \begin{itemize}
@@ -336,7 +336,7 @@ In this thesis, we focused on parameter tuning of EA, but we understand that par
 All parameter tuning methods could be divided into 2 categories: model-free and model-based~\cite{hutter2010}.
 The first category trying to find "good" parameter values that give the best result of EA to be tuned. Examples of such tuners are F-Race~\cite{birattari2010f} and ParamILS~\cite{hutter2009paramils}.
 
-\paragraph{F-Race} is a racing method that was adapted to fine-tune stochastic search methods~\cite{montero2012state}. To compare sets of parameter values, it uses Friedman two-way analysis\cite{theodorsson87} of variance by ranks. This method does not require any additional hypothesis about the search space. It works until complete all search space, or when a defined number of configuration is analyzed. The F-Race has parameters:
+\paragraph{F-Race} is a racing method that was adapted to fine-tune stochastic search methods~\cite{montero2012state}. To compare sets of parameter values, it uses Friedman two-way analysis\cite{theodorsson87} of variance by ranks. This method does not require any additional hypothesis about the search space. It works until complete all search space, or when a defined number of configuration is analyzed. The F-Race has the following parameters:
 \begin{itemize}
 	\item initial number of runs without calibrations,
 	\item the confidence level,
@@ -344,7 +344,7 @@ The first category trying to find "good" parameter values that give the best res
 	\item the ranges of all parameters.
 \end{itemize}
 
-\paragraph{ParamILS} - The Parameter Iterated Local Search is performing parameter tuning as an iterated local search algorithm. It starts the optimization process with default parameter values and goes further. It moves from the default set to the neighborhood. On each iteration, it takes a few sets of parameter values and performs a local search to find out the best configuration. The ParamILS has parameters:
+\paragraph{ParamILS} - The Parameter Iterated Local Search is performing parameter tuning as an iterated local search algorithm. It starts the optimization process with default parameter values and goes further. It moves from the default set to the neighborhood. On each iteration, it takes a few sets of parameter values and performs a local search to find out the best configuration. The ParamILS has the following parameters:
 \begin{itemize}
 	\item the number of configurations for the first iteration,
 	\item the number of tested configuration per iteration,
@@ -355,14 +355,14 @@ The first category trying to find "good" parameter values that give the best res
 
 The second type is a more complex solution. Such tuners build a model that predicts the results of EA for given parameter values. As a result, different models or heuristics are used to reduce the number of tests. The model builds based on data about parameters and results that parameters give. The examples of model-based tuners are: Sequential Parameter Optimization~(SPO)~\cite{bartz2004analysis}, REVAC~\cite{nannen2007efficient} and BRISE~\cite{pukhkaiev2016, pukhkaiev19}.
 
-\paragraph{REVAC} - the Relevance Estimation and Value Calibration of EA. Works as an estimation of distribution algorithm~\cite{pelikan2002, montero2012state}. It represents each parameter as a set of values. The REVAC starts for each parameter the search process that used the uniform distribution of values. It also performs a transformation of parameter sets to reduce the range of values and perform a predefined number of runs. The REVAC has parameters:
+\paragraph{REVAC} - the Relevance Estimation and Value Calibration of EA. Works as an estimation of distribution algorithm~\cite{pelikan2002, montero2012state}. It represents each parameter as a set of values. The REVAC starts for each parameter the search process that uses the uniform distribution of values. It also performs a transformation of parameter sets to reduce the range of values and perform a predefined number of runs. The REVAC has parameters:
 \begin{itemize}
 	\item the number of elements in a set,
 	\item step sizes of set modifications,
 	\item the max number of iterations.
 \end{itemize} 
 
-\paragraph{BRISE} - the software product line (SPL) for parameter tuning. The work concept consists of a combination of local search and model prediction. It starts with the selection algorithm, which selects a new set of parameters. After that, the model rebuilds on each iteration and predicts the best parameter values. Due to the fact that BRISE is a more generic approach and used not only for EA, but it also has many more parameters that describe its components.
+\paragraph{BRISE} - the software product line (SPL) for parameter tuning. The work concept consists of a combination of local search and model prediction. It starts with the selection algorithm, which selects a new set of parameters. After that, the model rebuilds on each iteration and predicts the best parameter values. The BRISE is a more generic approach and used not only for EA. It has many parameters that describe its components.
 
 \paragraph{}
 In conclusion, there are many tuners that could help get optimized parameter values for EA. They have different methodologies to tune parameters such as models or selectors to select parameter values from several places of the search space. This overview shows that we could use all types of tuners. 
@@ -386,31 +386,31 @@ This SPL has two conceptual parts:
 	\label{fig:BRISEarch}
 \end{figure}
 
-Figure~\ref{fig:BRISEarch} shown the high-level architecture of BRISE.
-Configurable part consists of 
-\paragraph{Experiment description} - describes the Experiment, parameters that need to tune, the objective of the experiment, and expected values to detect outliers.
-\paragraph{Selector} - Selection Algorithm that is used to get the combination of parameters from the Search Space of all possible parameter combinations. BRISE has one selection algorithm out of the box: Sobol sampling~\cite{sobol99}. 
-\paragraph{Model} - predict new configuration. New Model builds after each iteration of measurement of configuration, and if the model predicts a valid result, this configuration goes to be measured in the next iteration. BRISE has several models out of the box.
+Figure~\ref{fig:BRISEarch} showns the high-level architecture of BRISE.
+Configurable part consists of:
+\paragraph{Experiment description} - describes the Experiment, parameters to be tuned, the objective of the experiment, and expected values to detect outliers.
+\paragraph{Selector} - Selection Algorithm that is used to get the combination of parameters from the Search Space of all possible parameter combinations. BRISE has two selection algorithms out of the box: Sobol sampling~\cite{sobol99} and the uniform distribution. 
+\paragraph{Model} - predicts parameter values. New Model builds after each iteration of measurement of configuration, and if the model predicts a valid result, this configuration goes to be measured in the next iteration. BRISE has several models out of the box.
 \paragraph{Stop condition} - the component that analyzes the results of the experiment, validates the result, and makes a decision to stop the experiment or continue. There are many different stop conditions that could work as a combination of criteria.
-\paragraph{Repeater} - component of BRISE that decide about the number of measurement for each configuration to get need accuracy of the results. 
+\paragraph{Repeater} - component of BRISE that decides about the number of measurement for each configuration to get desired accuracy of the results. 
 \paragraph{Worker} - contains the process that BRISE needs to tune. Run this process with different configurations and returns the metric of this configuration to use it in the next model build.
 All components from the configurable part could be extended by users to achieve their goals.
 
 BRISE has two modes: \textit{Search space exploration} and \textit{Hyperparameter tuning}.
-The first mode is used to get information about the search space of hyperparameters. In this mode, there are no predictions cause BRISE uses the selector to cover the search space. As a result of using BRISE without predictions, the model component is disabled.
+The first mode is used to get information about the search space of hyperparameters. In this mode, there are no predictions because BRISE uses the selector to cover the search space. As a result of using BRISE without predictions, the model component is disabled.
 
 The second mode is used to find the optimized values for hyperparameters. All components of the main node are used in this mode.
 
 The main principle of how BRISE works in both modes is the same, but 
 Search space exploration mode has one exception.
 
-The user prepares a target system that will be running in workers and measure the result for the specified configuration of hyperparameters.
+The user prepares a target system. Workers call it with specified hyperparameter values and return the results to the BRISE.
 After that user describes the experiment description - JSON file that contains all information about hyperparameters, their ranges and default values, result structure, expected ranges for result values, and the max time needed to run one task.
 
-The user input of BRISE is an experiment description that in BRISE transforms into the experiment object after that BRISE starts working.
+The user input of BRISE is an experiment description that in BRISE is transformed into the experiment object, after that BRISE starts working.
 
 It starts with the measurement of the default configuration. When the default configuration had been measured, the selector gives a set of new configurations to be measured. After measurements, workers return the results to the main node. The repeater checks the result and decides to measure this configuration one more time, or results have needed accuracy. 
 
-On the next step model component tries to build the model and validate itself. If a model is valid, then it predicts a new configuration. If the model is not valid, BRISE gets a new configuration from the selector. BRISE sends it to worker service to measure and get the result. If SPL is working in Search space exploration mode, the model build step is skipped, and new configuration always received from the selector. 
+On the next step model component tries to build the model and validate it. If a model is valid, then it predicts a new configuration. If the model is not valid, BRISE gets a new configuration from the selector. BRISE sends it to worker service to measure and get the result. If SPL is working in Search space exploration mode, the model build step is skipped, and new configuration is always received from the selector. 
 
-These measurements are performing until stop condition criteria in stop condition components are met.
+These measurements are being performed until stop condition criteria in stop condition components are met.
