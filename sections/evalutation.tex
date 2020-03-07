@@ -56,65 +56,6 @@ The \textbf{WD-T} gives worse results than the untuned version. The possible rea
 
 The benchmark also shows that no version of the genetic solver solve all problems from the set. Table~\ref{tab:ProblemsColorCoding} shows the results of the benchmark in the context of a solved or unsolved problem. Each row describes the result for a specific problem. The column \textit{Problem Id} contains problem numbers. Black filled cell means that solver solved the problem. Table~\ref{tab:ProblemsColorCoding} also shows ids of problems that were not solved by all versions of the genetic solver.
 
-\begin{table}
-	\caption{Problem solving status by specific solver}\label{tab:ProblemsColorCoding}
-	\resizebox{0.8\textwidth}{!}{
-	\begin{minipage}[t]{0.5\linewidth}
-		\begin{tabular}[t]{c | c | c | c | c | c | c | c | c | c |}
-			\rotatebox{90}{Problem Id} & \rotatebox{90}{B} & \rotatebox{90}{B-T} & \rotatebox{90}{WHC-T} & \rotatebox{90}{NP} & \rotatebox{90}{NP-T} & \rotatebox{90}{ICCR} & \rotatebox{90}{ICCR-T} & \rotatebox{90}{WD} & \rotatebox{90}{WD-T} \\
-			\hline            
-			1 & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ \\ 
-			2 & $\square$ & $\square$ & $\blacksquare$ & $\square$ & $\blacksquare$ & $\square$ & $\square$ & $\blacksquare$ & $\blacksquare$  \\
-			3 & $\square$ & $\square$ & $\square$ & $\square$ & $\blacksquare$ & $\square$ & $\square$ & $\blacksquare$ & $\square$  \\
-			4 & $\square$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ \\
-			5 & $\square$ & $\square$ & $\square$ & $\square$ & $\blacksquare$ & $\square$ & $\blacksquare$ & $\square$ & $\square$ \\
-			6 & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ \\
-			7 & $\square$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\square$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$\\
-			8 & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ \\
-			9 & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ \\
-			10 & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ \\
-			11 & $\square$ & $\square$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ \\
-			12 & $\square$ & $\square$ & $\square$ & $\square$ & $\blacksquare$ & $\square$ & $\blacksquare$ & $\blacksquare$ & $\square$  \\
-			13 & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ \\
-			14 & $\square$ & $\square$ & $\square$ & $\square$ & $\blacksquare$ & $\square$ & $\blacksquare$ & $\square$ & $\square$  \\
-			15 & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ \\
-			16 & $\square$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\square$ & $\blacksquare$ & $\square$ & $\blacksquare$ \\
-			17 & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ \\
-			18 & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ \\
-			\hline
-		\end{tabular} %
-	\end{minipage}
-	%\setlength{\tabcolsep}{0.05cm}
-	%\renewcommand{\arraystretch}{0}
-	\begin{minipage}[t]{0.49\linewidth}
-		\begin{tabular}[t]{c | c | c | c | c | c | c | c | c | c}
-			\rotatebox{90}{Problem Id} & \rotatebox{90}{B} & \rotatebox{90}{B-T} & \rotatebox{90}{WHC-T} & \rotatebox{90}{NP} & \rotatebox{90}{NP-T} & \rotatebox{90}{ICCR} & \rotatebox{90}{ICCR-T} & \rotatebox{90}{WD} & \rotatebox{90}{WD-T} \\
-			\hline            
-			19 & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$\\
-			20 & $\square$ & $\square$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ \\
-			21 & $\square$ & $\square$ & $\square$ & $\square$ & $\blacksquare$ & $\square$ & $\blacksquare$ & $\square$ & $\square$ \\
-			22 & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\square$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ \\
-			23 & $\square$ & $\square$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\square$ & $\blacksquare$ & $\blacksquare$ & $\square$ \\
-			24 & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ \\
-			25 & $\square$ & $\square$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\square$ & $\blacksquare$ & $\square$ & $\blacksquare$ \\
-			26 & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ \\
-			27 & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ \\
-			28 & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ \\
-			29 & $\square$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ \\
-			30 & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ \\
-			31 & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ \\
-			32 & $\square$ & $\square$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ & $\square$ & $\blacksquare$ & $\blacksquare$ & $\square$ \\ 
-			33 & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ \\
-			34 & $\square$ & $\blacksquare$ & $\blacksquare$ & $\square$ & $\blacksquare$ & $\square$ & $\blacksquare$ & $\blacksquare$ & $\blacksquare$ \\
-			35 & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ \\
-			36 & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ & $\square$ \\
-			\hline
-		\end{tabular} %
-	\end{minipage}
-	}
-	\mbox{$\blacksquare$: solved, $\square$: unsolved}
-\end{table}
-
 Unsolved problems are presented in Table~\ref{tab:UnsolvedProblems}. It shows parameters that specified the problem. We can see, there exist a few types of unsolved problems. All versions of the genetic solver could not solve the problem that contains 2 or more requests, and the depth of the tree is 3 or more. The exception is a problem number 30. It has 1 request and depth - 4, but it also has 4 variants and 100 resources and genetic solvers could not solve it.
 
 \begin{itemize}
