@@ -10,10 +10,10 @@ However, we get valid results only for one problem. But what if we change the co
 \section{Evaluation}
 \label{sec:evaluation}
 
-To evaluate the genetic solver, we performed set of benchmarks that consist of 36 problems~(see Appendix~\ref{app:ProblemSet}). Each problem has different parameters that describe~(Section~\ref{sec:MQuATProblem}) it:
+To evaluate the genetic solver, we performed set of benchmarks that consist of 36 problems~(see Appendix~\ref{appendix:ProblemSet}). Each problem has different parameters that describe~(Section~\ref{sec:MQuATProblem}) it:
 
 \begin{itemize}
-	\item Software variants - [2, 4] ,
+	\item Software variants — [2, 4],
 	\item Number of requests - [1, 2, 4],
 	\item Component tree depth - [2, 3, 4],
 	\item  Resources ratio - [50, 100].
@@ -22,9 +22,9 @@ To evaluate the genetic solver, we performed set of benchmarks that consist of 3
 This set of problems was tested with several versions of the genetic solver:
 
 \begin{itemize}
-	\item basic (B),
+	\item base (B),
 	\item basic with tuned parameters (B-T),
-	\item without hard-coded parameters and tuning (WHC-T) 
+	\item without hard-coded parameters and tuning (WHC-T),
 	\item with added parameters (NP),
 	\item with added parameters and tuning (NP-T),
 	\item with internally changeable crossover rate (ICCR),
@@ -54,15 +54,15 @@ The comparison of \textbf{B-T}, \textbf{WHC-T}, and \textbf{NP} versions shows t
 
 The \textbf{WD-T} gives worse results than the untuned version. The possible reason for such results is a high value of the \texttt{mu}~(R6) parameter. The result of the benchmark for the \textbf{ICCR-T} version contradicts the results obtained in the last section because the parameter tuning of the \textbf{ICCR} version gives the biggest improvement. In general, benchmark results for a set of 36 MQuAT problems correspond to the results for the problem, used during development.
 
-The benchmark also shows that no version of the genetic solver solve all problems from the set. Table~\ref{tab:ProblemsColorCoding} shows the results of the benchmark in the context of a solved or unsolved problem. Each row describes the result for a specific problem. The column \textit{Problem Id} contains problem numbers. Black filled cell means that solver solved the problem. Table~\ref{tab:ProblemsColorCoding} also shows ids of problems that were not solved by all versions of the genetic solver.
+The benchmark also shows that no version of the genetic solver solve all problems from the set~(See~\ref{}). Table~\ref{tab:ProblemsColorCoding} shows the results of the benchmark in the context of a solved or unsolved problem. Each row describes the result for a specific problem. The column \textit{Problem Id} contains problem numbers. Black filled cell means that solver solved the problem. Table~\ref{tab:ProblemsColorCoding} also shows ids of problems that were not solved by all versions of the genetic solver.
 
-Unsolved problems are presented in Table~\ref{tab:UnsolvedProblems}. It shows parameters that specified the problem. We can see, there exist a few types of unsolved problems. All versions of the genetic solver could not solve the problem that contains 2 or more requests, and the depth of the tree is 3 or more. The exception is a problem number 30. It has 1 request and depth - 4, but it also has 4 variants and 100 resources and genetic solvers could not solve it.
+Unsolved problems are presented in Table~\ref{tab:UnsolvedProblems}. It shows parameters that specified the problem. We can see, there exist a few types of unsolved problems. All versions of the genetic solver could not solve the problem that contains 2 or more requests, and the depth of the tree is 3 or more. The exception is a problem number 30. It has 1 request and depth — 4, but it also has 4 variants and 100 resources and genetic solvers could not solve it.
 
 \begin{itemize}
-	\item Software variants - [2, 4] ,
-	\item Number of requests - [1, 2, 4],
-	\item Component tree depth - [2, 3, 4],
-	\item Resources ratio - [50, 100],
+	\item Software variants — [2, 4],
+	\item Number of requests — [1, 2, 4],
+	\item Component tree depth — [2, 3, 4],
+	\item Resources ratio — [50, 100],
 	\item timeout to solve the problem: 5 minutes.
 \end{itemize}
 
@@ -157,7 +157,7 @@ Firstly, let us discuss the reasons why modifications that we made improve the g
 
 There are a few reasons why the genetic solver with our modifications could solve more problems than the \textbf{B} version. 
 
-First of all, parameter tuning was performed for all versions of the genetic solver. Optimized values of parameters tuned to give a better results, as it showed in the previous section. 
+First, parameter tuning was performed for all versions of the genetic solver. Optimized values of parameters tuned to give a better results, as it showed in the previous section. 
 
 The second reason is in new probabilities that we added in Section~\ref{sec:NP}. These probabilities give a possibility to change the position of the crossover and mutation points randomly, but as a result the genetic solver gives results that a bit worse than parameter tuning. 
 
@@ -204,7 +204,7 @@ If we filter out all configurations that gave not valid results, we get the sear
 	\label{fig:CorrelationAnalysis}
 \end{figure}
 
-Since Figure~\ref{fig:SearchSpaceViewFull} and Figure~\ref{fig:SearchSpaceValid} show that the search space view could not give any conclusions about dependencies between parameters or between parameters and the number of contract violations, we perform another method of analysis - correlation analysis.
+Since Figure~\ref{fig:SearchSpaceViewFull} and Figure~\ref{fig:SearchSpaceValid} show that the search space view could not give any conclusions about dependencies between parameters or between parameters and the number of contract violations, we perform another method of analysis — correlation analysis.
 
 We performed the correlation analysis of parameters to understand how they relay on each other. The results showed in Figure~\ref{fig:CorrelationAnalysis} as a correlation matrix where the intensity of the correlation is the color of the cell. The more intense color means stronger correlation. Each row and column in this matrix represent the parameter of the genetic algorithm. We display only an upper triangle of the matrix because it is symmetric. The last column of the matrix represents the correlation between parameters of the genetic solver (NP version) and a number of contract violations~(CVs). There are two types of correlation. Direct correlation showed with red color and an inverse correlation with blue color. In the case of correlation to CVs, direct correlation means that a bigger value o parameter gives a bigger number of contract violations. Inverse correlation, in the same case, means that the bigger value of parameter gives a smaller number of contract violations. Grey color shows that there is no correlation.
 
@@ -233,7 +233,7 @@ The representative distribution showed in Figure~\ref{fig:populatioSizeVsResMuta
 
 However, most distributions look like the distribution of \texttt{crossoverRate}~(R5) and \texttt{mutationRate}~(R7). It showed in Figure~\ref{fig:CrossoverRateVsutationRate}. As we can see, "good" and "bad" results scatter over all values of the described parameters. That means that these parameters do not depend on each other.
 
-Distributions of combinations of two parameters showed that some parameters have a more significant impact on the result than others. Moreover, there are parameters on the value of which the result does not depend. More examples of such distributions showed in Appendix~\ref{label}.
+Distributions of combinations of two parameters showed that some parameters have a more significant impact on the result than others. Moreover, there are parameters on the value of which the result does not depend. More examples of such distributions showed in Appendix~\ref{appendix:Distributions1}.
 
 \begin{figure}
 	\subfloat[Name A]{%
@@ -250,9 +250,9 @@ Distributions of combinations of two parameters showed that some parameters have
 	\label{fig:populationSize_gradient}
 \end{figure}
 
-Previously discussed plots show that the results quality of the genetic solver highly depends on a parameters such a \texttt{populationSize}~(R3). So we need to analyze how the value of this parameter affects the result. Firstly we discuss the \texttt{populationSize}~(R3) parameter and later the \texttt{mutationRate}~(R7) parameter.
+Previously discussed plots show that the results quality of the genetic solver highly depends on parameters such a \texttt{populationSize}~(R3). So we need to analyze how the value of this parameter affects the result. Firstly we discuss the \texttt{populationSize}~(R3) parameter and later the \texttt{mutationRate}~(R7) parameter.
 
-Figure~\ref{fig:populationSize_gradientBig} shows the distribution of the \texttt{populationSize}~(R3) parameter values and the number of contract violations that this value could give. The X-axis is a set of ranges of values for the parameter \texttt{populationSize}~(R3). Each range consists of 100 values. All ranges are sorted. A normalized bar was built for each range. Each bar consists of segments of different heights and colors. The segment color shows the number of contract violations, where dark is few violation, and yellow is a large number of violations. The green color of the segment indicates valid results (zero contract violations). The segment height of one color means a percentage of the total number of configurations that have the same parameter value and which give the result with the same number of contact failures.
+Figure~\ref{fig:populationSize_gradientBig} shows the distribution of the \texttt{populationSize}~(R3) parameter values and the number of contract violations that this value could give. The X-axis is a set of ranges of values for the parameter \texttt{populationSize}~(R3). Each range consists of 100 values. All ranges are sorted. A normalized bar was built for each range. Each bar consists of segments of different heights and colors. The segment color shows the number of contract violations, where dark is few violations, and yellow is many violations. The green color of the segment indicates valid results (zero contract violations). The segment height of one color means a percentage of the total number of configurations that have the same parameter value and which give the result with the same number of contact failures.
 
 This distribution shows that the left side and the central part of the plot give a smaller number of contract violations because sectors have mainly dark colors and green color. The right side of the distribution contains higher values of the parameter. Moreover, solutions with those values give more contract violations. As can be seen, valid solutions located in the range from 1000 to 2600.
 
@@ -278,7 +278,7 @@ As we can see, the percentage of valid results for any described range of values
 \end{figure}
 
 The two types of distribution of parameter values and number of contract violations were discussed. Distributions for both problems for each parameter presented in Appendix\ref{label}. These plots confirm the conclusions that we made above. Values of some parameters such as \texttt{populationSize}~(R3), \texttt{crossoverRate}~(R5),\linebreak \texttt{po\-pu\-la\-te\-Soft\-wa\-re\-So\-lu\-tion\-Attempts}~(R13) and \texttt{cross\-over\-On\-Ran\-dom\-Re\-qu\-est\-Pro\-ba\-bi\-li\-ty}~(R16) have a higher influence on the result.
-The distribution  of the \texttt{cross\-over\-On\-Ran\-dom\-Re\-quest\-Pro\-ba\-bi\-lity}~(R16) parameter, showed in Appendix~\ref{label}, confirms our conclusions from correlation analysis that lower value gives better result. 
+The distribution  of the \texttt{cross\-over\-On\-Ran\-dom\-Re\-quest\-Pro\-ba\-bi\-lity}~(R16) parameter, showed in Appendix~\ref{appendix:Distributions2}, confirms our conclusions from correlation analysis that lower value gives better result. 
 Some parameters give "good" and "bad" results for all values. That means that we could remove them from the parameter tuning and use constant value. Furthermore, for other parameters, values ranges could be adjusted.
 
 To answer the question of what value of parameters with no obvious advantage in distribution, we construct a similar distribution with the quality of the solution.

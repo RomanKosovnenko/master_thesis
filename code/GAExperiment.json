@@ -1,0 +1,58 @@
+{
+  "DomainDescription":{
+    "HyperparameterNames"      : [
+      "selectorType",
+      "populationSize", 
+      "lambda", 
+      "crossoverRate", 
+      "mu", 
+      "mutationRate", 
+      "resourcesMutationProbability", 
+      "crossoverProbability",
+      "evaluatorValidityWeight",
+      "evaluatorSoftwareValidityWeight",
+      "randomSoftwareAssignmentAttempts",
+      "populateSoftwareSolutionAttempts"
+    ],
+    "DataFile"          : "./Resources/GA/GAExperimentData.json"
+  },
+  "TaskConfiguration":{
+    "TaskName"          : "genetic",
+    "Scenario":{
+      "numTopLevelComponents": 1,
+      "avgNumImplSubComponents": 0,
+      "implSubComponentStdDerivation": 0,
+      "avgNumCompSubComponents": 2,
+      "compSubComponentStdDerivation": 0,
+      "componentDepth": 2,
+      "numImplementations": 10,
+      "excessComputeResourceRatio": 5,
+      "numRequests": 15,
+      "numCpus": 1,
+      "seed": 0,
+      "timeoutValue": 1,
+      "timeoutUnit": "MINUTES",
+      "generations": 1000000000
+    },
+    "TaskParameters"   : [
+      "selectorType",
+      "populationSize", 
+      "lambda", 
+      "crossoverRate", 
+      "mu", 
+      "mutationRate", 
+      "resourcesMutationProbability", 
+      "crossoverProbability",
+      "evaluatorValidityWeight",
+      "evaluatorSoftwareValidityWeight",
+      "randomSoftwareAssignmentAttempts",
+      "populateSoftwareSolutionAttempts"
+    ],
+    "ResultStructure"  : ["Validity", "Generation"],
+    "ResultDataTypes"  : ["int", "int"],
+    "ExpectedValuesRange": [[0, "inf"], [-2, "inf"]],
+    "RepeaterDecisionFunction"  : "student_deviation",
+    "MaxTasksPerConfiguration": 6,
+    "MaxTimeToRunTask": 1800
+  }
+}
