@@ -1,10 +1,15 @@
 \chapter{Introduction}\label{intro}
 
+Many optimization problems could be solved using evolutionary computing~(EC). The evolutionary algorithms~(EAs) are part of it. These algorithms are wide-used due to ability to solve the optimization problems without additional understanding of the problem. All algorithms in this class are based on variants operators and parameters. This thesis describes parameter tuning and parameter analysis of genetic optimization approach of solving a problem of software variant selection and hardware resource allocation.  
 
-Many optimization problems could be solved using evolutionary programming (e.g., Genetic Algorithm). 
+This chapter describes the motivation for parameter tuning and analysis of genetic optimization approach and marks out research questions to be answered in this thesis. It additionally outlines a solution and contains an overview of the thesis structure.
 
 \section{Motivation}
-- 
+Researchers and developers of EA know that good parameter value could improve the results of the algorithm. But searching for optimized parameter values is another problem. It is one of the persisting challenges of the EC field~cite{smit2010parameter}. The main problem is that specific EA contains unique design choices that presented in form of operators or it's parameters. 
+
+There exist many approaches and recommendation about what values are preferable~\cite{de2007parameter, sipper2018investigating}. But in experimental researches~\cite{de2007parameter, shahookar1990genetic, gockel1997influencing}, these recommendations does not work. 
+
+As a result, parameter values need to be tuned for specified problem or class of problems. In our case, this problem is a problem of software variant selection and hardware resource allocation. 
 
 
 \section{Objective}
