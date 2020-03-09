@@ -164,7 +164,7 @@ The experimental comparison in~\cite{smit2009comparing} shows that no matter wha
 
 In conclusion, there are many tuners that could help get optimized parameter values for EA. They have different methodologies to tune parameters such as models or selectors to select parameter values from several places of the search space. This overview shows that we could use all types of tuners. 
 
-Due to the fact that a genetic solver requires a big amount of time to solve the task, we decide to use one of the model-based tuners. We will use a model-based tuner. And BRISE is more generic than others.
+Due to the fact that a genetic solver requires a big amount of time to solve the task, we decide to use one of the model-based tuners and BRISE is more generic than others.
 
 
 \section{BRISE}\label{sec:BRISE}
@@ -407,6 +407,48 @@ in the root node.
 \end{figure}
 
 \section{Parameter Tuning Strategies for Evolutionary Algorithms}\label{sec:Parameter Tuning Strategies}
- 
+As discussed above, one of the crucial tasks of EA is parameter tuning. A lot of variant of parameters relating to the generation, the population and operators~\cite{sipper2018investigating}. There exist different commonly used rules and researches of setting the parameter values of EA.
 
+The examples of such rules are:
+\begin{itemize}
+	\item mutation rate should be low;
+	\item use uniform crossover;
+	\item high crossover rate.
+\end{itemize}
+
+It is not surprising that users of evolutionary algorithms began to ask such questions:
+\begin{itemize}
+	\item Are there optimal settings for the parameters of an EA in general~\cite{de2007parameter}?
+	\item Are there optimal settings for the parameters of an EA for a particular
+	class of fitness landscapes?
+	\item How do changes in a parameter affect the performance of an EA?
+\end{itemize}
+
+As a result of these questions, in~\cite{de2007parameter} described generic recommendations for EA parameter values.
+The value of population size highly depend on the landscape of optimization problem. If EA do not use a parameter control, then the value of population size must be based on existing studies or via manual tuning over multiple runs. It is recommended to use uniform crossover. 
+
+In~\cite{shahookar1990genetic} researchers looking for best parameters to solve the problem of VLSI~(Very Large Scale Integration) layout. To find optimized values of crossover rate and mutation rate they used a meta-GA~\cite{clune2005investigations}. As a result,~\cite{shahookar1990genetic} contribute that crossover rate should be in the range 0.2—0.4 and the mutation rate in the range 0.005—0.05.
+
+In another work by~\cite{wu1995genetic} described meta-GA that optimize parameters for the nonlinear constrained mixed discrete-integer optimization problems. The results showed that solution not depend on the value of crossover rate.
+Recommended value for mutation rate is in a range 0.01-0.2. It is higher than in the previously discussed research.
+
+Parameter analysis for the Sequencing Problems in~\cite{gockel1997influencing} shows, that a mutation
+rate of 15\% produces the optimal results independently of the population size
+
+The experimental analysis of several problems presented in~\cite{sipper2018investigating} describe own recommendations for parameter values: 
+
+\begin{itemize}
+	\item Population size need not be maximal;
+	\item Generation count need not be maximal;
+	\item At most, population size and generation count should not both be very
+	low;
+	\item Crossover rate can be high, low, or intermediate;
+	\item Mutation rate can be high, low, or intermediate.
+\end{itemize}
+
+These recommendations partially contradict other approaches and rules.  
+
+Some researches~\cite{smit2009comparing, arcuri2013parameter} made conclusions that even "common used" parameter values can  give a good result, so parameter tuning does not need.
+
+From the preceding, we can conclude that generally accepted norms of parameter values can give a relatively good result, but in order to get better results, it is necessary to analyze and tune the parameters for a specific problem or a specific class of problems.
 
