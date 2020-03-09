@@ -13,29 +13,29 @@ However, we get valid results only for one problem. But what if we change the co
 To evaluate the genetic solver, we performed set of benchmarks that consist of 36 problems~(see Appendix~\ref{appendix:ProblemSet}). Each problem has different parameters that describe~(Section~\ref{sec:MQuATProblem}) it:
 
 \begin{itemize}
-	\item Software variants — [2, 4],
-	\item Number of requests - [1, 2, 4],
-	\item Component tree depth - [2, 3, 4],
+	\item Software variants — [2, 4];
+	\item Number of requests - [1, 2, 4];
+	\item Component tree depth - [2, 3, 4];
 	\item  Resources ratio - [50, 100].
 \end{itemize}
 
 This set of problems was tested with several versions of the genetic solver:
 
 \begin{itemize}
-	\item base (B),
-	\item basic with tuned parameters (B-T),
-	\item without hard-coded parameters and tuning (WHC-T),
-	\item with added parameters (NP),
-	\item with added parameters and tuning (NP-T),
-	\item with internally changeable crossover rate (ICCR),
-	\item with internally changeable crossover rate and tuning (ICCR-T),
-	\item without duplicates in the population (WD),
+	\item base (B);
+	\item basic with tuned parameters (B-T);
+	\item without hard-coded parameters and tuning (WHC-T);
+	\item with added parameters (NP);
+	\item with added parameters and tuning (NP-T);
+	\item with internally changeable crossover rate (ICCR);
+	\item with internally changeable crossover rate and tuning (ICCR-T);
+	\item without duplicates in the population (WD);
 	\item without duplicates in the population and tuning (WD-T).
 \end{itemize}
 
 Each version of the genetic solver tries five times to solve each problem with 5 minutes timeout .
 
-The benchmark was done on an Intel Core i7-8700 CPU machine with 64Gb of memory using Fedora Server 29 and OpenJDK 1.8.0 201-b09.
+The benchmark was done on the Intel Core i7-8700 CPU machine with 64Gb of memory using Fedora Server 29 and OpenJDK 1.8.0 201-b09.
 
 The genetic solver tries to solve each Problem. If a solution was valid, genetic solver start to solve the next problem. If, after five attempts, the genetic solver did not find a valid solution, it proceeded to the next problem.
 
@@ -59,10 +59,10 @@ The benchmark also shows that no version of the genetic solver solve all problem
 Unsolved problems are presented in Table~\ref{tab:UnsolvedProblems}. It shows parameters that specified the problem. We can see, there exist a few types of unsolved problems. All versions of the genetic solver could not solve the problem that contains 2 or more requests, and the depth of the tree is 3 or more. The exception is a problem number 30. It has 1 request and depth — 4, but it also has 4 variants and 100 resources and genetic solvers could not solve it.
 
 \begin{itemize}
-	\item Software variants — [2, 4],
-	\item Number of requests — [1, 2, 4],
-	\item Component tree depth — [2, 3, 4],
-	\item Resources ratio — [50, 100],
+	\item Software variants — [2, 4];
+	\item Number of requests — [1, 2, 4];
+	\item Component tree depth — [2, 3, 4];
+	\item Resources ratio — [50, 100];
 	\item timeout to solve the problem: 5 minutes.
 \end{itemize}
 
@@ -98,16 +98,16 @@ Let us now discuss the quality of the received results. Figure~\ref{fig:EnergyPe
 \begin{figure}
 	\centering
 	\includegraphics[width=\textwidth]{images/EnergyPercentage.pdf}
-	\caption[]{}
+	\caption[The deviation from the optimum of solved by all solvers problems]{The deviation from the optimum of solved by all solvers problems}
 	\label{fig:EnergyPercentage}
 \end{figure}
 
 Figure~\ref{fig:EnergyPercentage} also shows that the deviation is increasing for big size problems. To confirm that fact, we take two problems with different sizes~(Figures~\ref{fig:SmallMediumProblemEnergy}). These problems were solved by all versions of the genetic solver except the B version. Figure~\ref{fig:SmallProblemEnergy} shows the percentage of deviation from optimum for a small size problem. This problem's parameters are:
 \begin{itemize}
-	\item Software variants: 2,
-	\item Number of requests: 2,
-	\item Component tree depth: 2,
-	\item Resources ratio: 50,
+	\item Software variants: 2;
+	\item Number of requests: 2;
+	\item Component tree depth: 2;
+	\item Resources ratio: 50;
 	\item timeout to solve the problem: 5 minutes.
 \end{itemize}
 
@@ -115,10 +115,10 @@ The quality of results for the problem is near-optimal because the deviation is 
 
 Figure~\ref{fig:MediumProblemEnergy} shows the percentage of deviation from optimum for a bigger size problem. This problem's parameters are:
 \begin{itemize}
-	\item Software variants: 4,
-	\item Number of requests: 1,
-	\item Component tree depth: 3,
-	\item Resources ratio: 100,
+	\item Software variants: 4;
+	\item Number of requests: 1;
+	\item Component tree depth: 3;
+	\item Resources ratio: 100;
 	\item timeout to solve the problem: 5 minutes.
 \end{itemize}
 
@@ -130,16 +130,16 @@ The quality of results in a case of the bigger problem is much worse. The minima
 	\centering
 	\begin{subfigure}{0.45\textwidth}
 		\includegraphics[width=\textwidth]{images/EnergyDeviationSmallProblem.pdf}
-		\caption{$y=x$}
+		\caption{Small sized problem}
 		\label{fig:SmallProblemEnergy}
 	\end{subfigure}
 	\hfill
 	\begin{subfigure}{0.45\textwidth}
 		\includegraphics[width=\textwidth]{images/EnergyDeviationMediumProblem.pdf}
-		\caption{$y=x$}
+		\caption{Big sized problem}
 		\label{fig:MediumProblemEnergy}
 	\end{subfigure}    
-	\caption{Three simple graphs}
+	\caption[The deviation from the optimum for small and big sized problem]{The deviation from the optimum for small and big sized problem}
 	\label{fig:SmallMediumProblemEnergy}    
 \end{figure}
 
@@ -167,12 +167,14 @@ Obtained results could be explained with a \textbf{"no free lunch" (NFL) theorem
 
 Another reason that we optimize parameters without knowledge about dependencies between them. Parameters that we found or added did not fit well for our goals. Let us analyze earlier discussed parameters.
 
+\subsection{Search Space Representation}
+
 We start an analysis from the search space representation. For this representation, we performed measurements for more than three thousand configurations using BRISE in the Search space exploration mode with the NP version of the genetic solver. This mode was described in Section~\ref{sec:BRISE}. For this type of analysis, we use the same problem as in Chapter~\ref{chapter:Implementation} and it has following properties:
 \begin{itemize}
-	\item Software variants: 10,
-	\item Number of requests: 15,
-	\item Component tree depth: 2,
-	\item Resources ratio: 5,
+	\item Software variants: 10;
+	\item Number of requests: 15;
+	\item Component tree depth: 2;
+	\item Resources ratio: 5;
 	\item timeout to solve the problem: 5 minutes.
 \end{itemize}
 
@@ -182,7 +184,7 @@ Each parameter is represented in the plot as a vertical line that display range 
 \begin{figure}
 	\centering
 	\includegraphics[width=\textwidth]{images/SPEA2.pdf}
-	\caption[]]{}
+	\caption[Search space representation]{Search space representation}
 	\label{fig:SearchSpaceViewFull}
 \end{figure}
 
@@ -191,7 +193,7 @@ Figure~\ref{fig:SearchSpaceViewFull} shows that all values of parameters could g
 \begin{figure}
 	\centering
 	\includegraphics[width=\textwidth]{images/SPEA2_Zero_validity.html.pdf}
-	\caption[]]{}
+	\caption[Search space representation of valid results]{Search space representation of valid results}
 	\label{fig:SearchSpaceValid}
 \end{figure}
 
@@ -200,11 +202,13 @@ If we filter out all configurations that gave not valid results, we get the sear
 \begin{figure}
 	\centering
 	\includegraphics[width=\textwidth]{images/CorrelationAnalysis.pdf}
-	\caption[]]{}
+	\caption[Correlation analysis matrix]{Correlation analysis matrix}
 	\label{fig:CorrelationAnalysis}
 \end{figure}
 
 Since Figure~\ref{fig:SearchSpaceViewFull} and Figure~\ref{fig:SearchSpaceValid} show that the search space view could not give any conclusions about dependencies between parameters or between parameters and the number of contract violations, we perform another method of analysis — correlation analysis.
+
+\subsection{Correlation Analysis}
 
 We performed the correlation analysis of parameters to understand how they relay on each other. The results showed in Figure~\ref{fig:CorrelationAnalysis} as a correlation matrix where the intensity of the correlation is the color of the cell. The more intense color means stronger correlation. Each row and column in this matrix represent the parameter of the genetic algorithm. We display only an upper triangle of the matrix because it is symmetric. The last column of the matrix represents the correlation between parameters of the genetic solver (NP version) and a number of contract violations~(CVs). There are two types of correlation. Direct correlation showed with red color and an inverse correlation with blue color. In the case of correlation to CVs, direct correlation means that a bigger value o parameter gives a bigger number of contract violations. Inverse correlation, in the same case, means that the bigger value of parameter gives a smaller number of contract violations. Grey color shows that there is no correlation.
 
@@ -213,12 +217,14 @@ The analysis showed that the \texttt{CrossoverRate} parameter needs to have big 
 
 Correlation analysis showed that some parameters have dependencies. Nevertheless, we do not know yet how they depend.
 
+\subsection{Parameter Pairs Distributions}
+
 For further investigation of dependencies, we constructed plots that show the distribution of parameter pairs. We will discuss only two distribution. The first plot will show one particular distribution, and the second plot represents how most of the constructed distributions look like.
 
 \begin{figure}
 	\centering
 	\includegraphics[width=\textwidth]{images/populatioSizeVsResMutationProbability.pdf}
-	\caption[]]{}
+	\caption[Parameter pair distribution of \texttt{populatioSize}~(R3) and \texttt{re\-so\-ur\-ces\-Mu\-ta\-ti\-on\-Pro\-ba\-bi\-li\-ty}~(R8)]{Parameter pair distribution of \texttt{populatioSize}~(R3) and \texttt{re\-so\-ur\-ces\-Mu\-ta\-ti\-on\-Pro\-ba\-bi\-li\-ty}~(R8)}
 	\label{fig:populatioSizeVsResMutationProbability}
 \end{figure}
 
@@ -227,7 +233,7 @@ The representative distribution showed in Figure~\ref{fig:populatioSizeVsResMuta
 \begin{figure}
 	\centering
 	\includegraphics[width=\textwidth]{images/CrossoverRateVsutationRate.pdf}
-	\caption[]]{}
+	\caption[Parameter pair distribution of \texttt{CrossoverRate}~(R5) and \texttt{mutationRate}~(R7)]{Parameter pair distribution of \texttt{CrossoverRate}~(R5) and \texttt{mutationRate}~(R7)}
 	\label{fig:CrossoverRateVmutationRate}
 \end{figure}
 
@@ -235,20 +241,24 @@ However, most distributions look like the distribution of \texttt{crossoverRate}
 
 Distributions of combinations of two parameters showed that some parameters have a more significant impact on the result than others. Moreover, there are parameters on the value of which the result does not depend. More examples of such distributions showed in Appendix~\ref{appendix:Distributions1}.
 
+\subsection{Parameter Values Distributions in Terms of Contract Violations}
+
 \begin{figure}
-	\subfloat[Name A]{%
-		\includegraphics[clip,width=\textwidth]{images/populationSize_gradientBig.png}%
+	\subfloat[Bigger sized problem]{%
+		\includegraphics[clip,width=\textwidth]{images/populationSize_gradientBig.pdf}%
 		\label{fig:populationSize_gradientBig}
 	}
 	
-	\subfloat[Name b]{%
-		\includegraphics[clip,width=\textwidth]{images/populationSize_gradientSmall.png}%
+	\subfloat[Smaller sized problem]{%
+		\includegraphics[clip,width=\textwidth]{images/populationSize_gradientSmall.pdf}%
 		\label{fig:populationSize_gradientSmall}
 	}
 	
-	\caption{main caption}
+	\caption[\texttt{populationSize}~(R3) parameter values distribution of two problems in terms of contract violations]{\texttt{populationSize}~(R3) parameter values distribution of two problems in terms of contract violations}
 	\label{fig:populationSize_gradient}
 \end{figure}
+
+
 
 Previously discussed plots show that the results quality of the genetic solver highly depends on parameters such a \texttt{populationSize}~(R3). So we need to analyze how the value of this parameter affects the result. Firstly we discuss the \texttt{populationSize}~(R3) parameter and later the \texttt{mutationRate}~(R7) parameter.
 
@@ -256,12 +266,12 @@ Figure~\ref{fig:populationSize_gradientBig} shows the distribution of the \textt
 
 This distribution shows that the left side and the central part of the plot give a smaller number of contract violations because sectors have mainly dark colors and green color. The right side of the distribution contains higher values of the parameter. Moreover, solutions with those values give more contract violations. As can be seen, valid solutions located in the range from 1000 to 2600.
 
-To highlight it visually, we construct a similar graph for the smaller problem. This problem described with parameters:
+To highlight it visually, we construct a similar plot for the smaller problem. This problem described with parameters:
 \begin{itemize}
-	\item Software variants: 2,
-	\item Number of requests: 2,
-	\item Component tree depth: 2,
-	\item Resources ratio: 5,
+	\item Software variants: 2;
+	\item Number of requests: 2;
+	\item Component tree depth: 2;
+	\item Resources ratio: 5;
 	\item timeout to solve the problem: 5 minutes.
 \end{itemize}
 
@@ -272,15 +282,16 @@ As we can see, the percentage of valid results for any described range of values
 
 \begin{figure}
 	\centering
-	\includegraphics[width=\textwidth]{images/mutationRate_gradient_500dpi.png}
-	\caption[]]{}
+	\includegraphics[width=\textwidth]{images/mutationRate_gradient_500dpi.pdf}
+	\caption[\texttt{mutationRate}~(R7) parameter values distribution]{\texttt{mutationRate}~(R7) parameter values distribution in terms of contract violations}
 	\label{fig:mutationRate_gradient}
 \end{figure}
 
-The two types of distribution of parameter values and number of contract violations were discussed. Distributions for both problems for each parameter presented in Appendix\ref{label}. These plots confirm the conclusions that we made above. Values of some parameters such as \texttt{populationSize}~(R3), \texttt{crossoverRate}~(R5),\linebreak \texttt{po\-pu\-la\-te\-Soft\-wa\-re\-So\-lu\-tion\-Attempts}~(R13) and \texttt{cross\-over\-On\-Ran\-dom\-Re\-qu\-est\-Pro\-ba\-bi\-li\-ty}~(R16) have a higher influence on the result.
+The two types of distribution of parameter values and number of contract violations were discussed. Distributions for both problems for each parameter presented in Appendix\ref{appendix:Distributions3}. These plots confirm the conclusions that we made above. Values of some parameters such as \texttt{populationSize}~(R3), \texttt{crossoverRate}~(R5),\linebreak \texttt{po\-pu\-la\-te\-Soft\-wa\-re\-So\-lu\-tion\-Attempts}~(R13) and \texttt{cross\-over\-On\-Ran\-dom\-Re\-qu\-est\-Pro\-ba\-bi\-li\-ty}~(R16) have a higher influence on the result.
 The distribution  of the \texttt{cross\-over\-On\-Ran\-dom\-Re\-quest\-Pro\-ba\-bi\-lity}~(R16) parameter, showed in Appendix~\ref{appendix:Distributions2}, confirms our conclusions from correlation analysis that lower value gives better result. 
 Some parameters give "good" and "bad" results for all values. That means that we could remove them from the parameter tuning and use constant value. Furthermore, for other parameters, values ranges could be adjusted.
 
+\subsection{Parameter Values Distributions in Terms of Quality}
 To answer the question of what value of parameters with no obvious advantage in distribution, we construct a similar distribution with the quality of the solution.
 In the previous analysis, we present two distribution for \texttt{populationSize}~(R3) and \texttt{mutationRate}~(R7) parameters for smaller problem for smaller problem.
 
@@ -295,7 +306,7 @@ Nevertheless, the first range could give an optimal solution. The second range c
 \begin{figure}
 	\centering
 	\includegraphics[width=\textwidth]{images/populationSizeObjective.pdf}
-	\caption[]]{}
+	\caption[\texttt{populationSize}~(R3) parameter values distribution in terms of contract violations] {\texttt{populationSize}~(R3) parameter values distribution in terms of quality deviation}
 	\label{fig:populationSizeObjective}
 \end{figure}
 
@@ -303,7 +314,7 @@ Nevertheless, the first range could give an optimal solution. The second range c
 \begin{figure}
 	\centering
 	\includegraphics[width=\textwidth]{images/mutationRateObjective.pdf}
-	\caption[]]{}
+	\caption[\texttt{mutationRate}~(R7) parameter values distribution in terms of quality deviation]{\texttt{mutationRate}~(R7) parameter values distribution in terms of quality deviation}
 	\label{fig:mutationRateObjective}
 \end{figure}
 
