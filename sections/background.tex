@@ -203,7 +203,7 @@ The main principle of how BRISE works in both modes is the same, but
 Search space exploration mode has one exception.
 
 The user prepares a target system. Workers call it with specified hyperparameter values and return the results to the BRISE.
-After that user describes the experiment description — JSON file that contains all information about hyperparameters, their ranges and default values, result structure, expected ranges for result values, and the max time needed to run one task~(See Appendix~\ref{appendix:ExperimentDescription}.
+After that user describes the experiment description. It is a JSON file that contains all information about hyperparameters, their ranges and default values, result structure, expected ranges for result values, and the max time needed to run one task~(See Appendix~\ref{appendix:ExperimentDescription}.
 
 The user input of BRISE is an experiment description that in BRISE transforms into the experiment object after that BRISE starts working.
 
@@ -307,9 +307,9 @@ The Solution of MQuaT problem is computed by the MQuAT Solver. There are many So
 \begin{itemize}
 	\item \textbf{Simple Solver}, which goes step by step from one solution candidate to another, enumerating solution candidates;
 	\item \textbf{ILP Solver}~\cite{gotz18}, which generates Integer Linear Programming~(ILP) Problem from the MQuAT Problem and solves it;
-	\item \textbf{Random Solver} — tries random solution candidates;
-	\item \textbf{Simulated Annealing~(SA) Solver}~\cite{pukhkaiev19} — based on the Simulated Annealing meta-heuristic;
-	\item \textbf{Genetic Solver}~\cite{ahmad18} — uses an Evolution Algorithm to solve the problem.
+	\item \textbf{Random Solver}, which tries random solution candidates;
+	\item \textbf{Simulated Annealing~(SA) Solver}~\cite{pukhkaiev19} is based on the Simulated Annealing meta-heuristic;
+	\item \textbf{Genetic Solver}~\cite{ahmad18}, which uses an Evolution Algorithm to solve the problem.
 \end{itemize}
 
 In this thesis, we focus on the Genetic Solver in detail in the next sections. The solution of the MQuAT Problem represents a tree structure. An example of the Solution shown in Figure ~\ref{fig:SolutionModel}. It contains a list of assignments. Each assignment selects one implementation of the required component and maps it on the resources~\cite{gotz18}.
@@ -343,9 +343,9 @@ This Solver is based on Opt4J framework\footnote{http://opt4j.sourceforge.net}. 
 Several classes created to solve the MQuAT Problem using EA. There are:
 
 \begin{enumerate}
-	\item Genotype — is a custom developed genotype that represents tree shaped structure of the solution;
-	\item Crossover operator — describes the algorithm of the crossover for custom genotype;
-	\item Mutation operator — describes the algorithm of the mutation for custom genotype;
+	\item Genotype is a custom developed genotype that represents tree shaped structure of the solution;
+	\item Crossover operator describes the algorithm of the crossover for custom genotype;
+	\item Mutation operator describes the algorithm of the mutation for custom genotype;
 	\item Creator is needed to create a random genotype for the initial population;
 	In the genetic solver Creator creates the genotype by generating a random solution model and transform it into a Tree Shape Genotype structure;
 	\item Decoder is needed to perform decoding the tree shape genotype into phenotype. The phenotype, in this case, is a Solution Model of MQuAT;

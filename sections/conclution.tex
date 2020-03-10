@@ -1,20 +1,21 @@
 \chapter{Conclusion}
 \label{chapter:conclusion}
-In this thesis, we aimed to improve a previously developed genetic solver by tuning its parameters. To achieve the goal, we analyzed the problem that the genetic solver tries to solve and how it solves the problem. The analysis of parameter tuning techniques for genetic algorithms was performed. The results of the analysis show that the parameters of the genetic algorithm could be tuned empirically by the user. However, some automatic approaches help with parameter tuning. These approaches are distinguished by the presence of a model that predicts new parameter values. The first type is trying to find the best configuration manually from the landscape of all values. The second type, which relies on prediction models, after building the model predicts configurations that will give a better result of the genetic algorithm. It was decided to use the BRISE framework for parameter tuning of the Genetic Solver algorithm.
 
-The parameter tuning was performed in iterations described in Chapter 3. We analyzed the parameters of the genetic solver that exposed for external change and searched for the optimal parameters using the BRISE framework.
+In this thesis, we aim to improve a previously developed genetic solver by tuning its parameters. To achieve the goal, we analyzed the problem that the genetic solver tries to solve and how it solves the problem. We performed the analysis of parameter tuning techniques for evolutionary algorithms. The results of the analysis showed that the parameters of the genetic algorithm could be tuned empirically by the user. However, some automatic approaches help with parameter tuning. These approaches are distinguished by the presence of a model that predicts new parameter values. The first type is trying to find the best configuration manually from the landscape of all values. The second type, which relies on prediction models, after building the model predicts configurations that will give a better result of the genetic algorithm. It was decided to use the BRISE framework for parameter tuning of the Genetic Solver algorithm.
+
+In Chapter~\ref{chapter:Implementation}, we iterative performed the parameter tuning. We analyzed the parameters of the genetic solver that exposed for external change and searched for the optimal parameters using the BRISE framework.
 The first iteration of parameter tuning was made on a single parameter. It showed that parameter tuning has a positive effect on the solver's final performance, at least for one specific problem. It is an answer for the RQ1.
-We exposed the parameters that had a hard-coded value for tuning. We created five new parameters describing the probabilities that moves crossover and mutation points, and also deleted one parameter that completely duplicated functions of the other parameter. That gave us an answer for the RQ2 that the genetic solver contains poor design decisions that can affect the results.
+We exposed the parameters that had a hard-coded value for tuning. We created five new parameters describing the probabilities that move crossover and mutation points and also deleted one parameter that completely duplicated functions of the other parameter. That gave us an answer for the RQ2 that the genetic solver contains poor design decisions that can affect the results.
 Within the development process, we also tried to solve the issue of getting trapped at a local optimum.  For this, we use a changeable crossover rate and ban the possibility to add a solution that is already in the population.
-All modifications and parameter values that were found were tuned and tested on the described in Chapter~\ref{chapter:Implementation} Problem.
-All the described modifications improve the result for a specific Problem. It means that we completed the goal of this work for a specific Problem.
+We tested all modifications and parameter values on the problem described in Chapter~\ref{chapter:Implementation}
+All the described modifications improve the result for a specific problem. It means that we completed the goal of this work for a specific problem.
 
 We performed a benchmark to verify that optimized values of parameters and developed new parameters scale onto other Problem instances. The benchmarks set consists of 36 tasks with different complexity. 
 
-The results of evaluation are described in Section~\ref{sec:evaluation}.
+The results of the evaluation are described in Section~\ref{sec:evaluation}.
 Benchmark showed that parameter values, optimized for a particular Problem, gave a better result for the whole set of problems. This fact means we have fulfilled our goal. There is also an exception that will be described in the next chapter and is a matter for further research.
 
-The benchmark results show that the quality of the solution found deteriorates with the increasing complexity of the Problem.
+The benchmark results show that the quality of the solution found deteriorates with the increasing complexity of the problem.
 
 A detailed analysis of optimized parameters was also performed. We conclude that the parameters do not have distinct dependencies and that not all parameters have the same importance for the genetic solver. Such parameters as the populationSize and crossoverRate have a more considerable influence on obtaining a valid result. At the same time, the quality of the final solution depends on the totality of all parameters.
 
