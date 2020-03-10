@@ -122,14 +122,16 @@ After optimization, we use an optimized set of values of hyperparameters from BR
 	}
 \end{table}
 
-Figure~\ref{fig:boxplotsolverNoHardcodedTuning} depicts the results of the WHC-T version of the genetic solver as a box-plot in comparison with earlier versions~(\textbf{B}, \textbf{B-T}). This box-plot shows that the WHC-T version of the genetic solver is better in comparison to B-T. The max number of contract violations in WHC-T is \textbf{7}. This number is equal to a minimum number of contract violations from the B-T version. But solutions are still \textbf{not valid} for the current problem. 
-
 \begin{figure}
 	\centering
 	\includegraphics[width=\textwidth]{images/BoxPlotSolverNoHardcodedTuning.pdf}
-	\caption[Box-plot with a number of contract violations for the genetic solver without hardcoded parameters in comparison with previous versions]{Box-plot with a number of contract violations for the genetic solver without hard-coded parameters in comparison with previous versions}
+	\caption[Box-plot with a number of contract violations for the genetic solver without hard-coded parameters in comparison with previous versions]{Box-plot with a number of contract violations for the genetic solver without hard-coded parameters in comparison with previous versions}
 	\label{fig:boxplotsolverNoHardcodedTuning}
 \end{figure}
+
+Figure~\ref{fig:boxplotsolverNoHardcodedTuning} depicts the results of the WHC-T version of the genetic solver as a box-plot in comparison with earlier versions~(\textbf{B}, \textbf{B-T}). This box-plot shows that the WHC-T version of the genetic solver is better in comparison to B-T. The max number of contract violations in WHC-T is \textbf{7}. This number is equal to a minimum number of contract violations from the B-T version. But solutions are still \textbf{not valid} for the current problem. 
+
+
 
 This section shows how correctly selected parameter values affect the result of the algorithm in terms of solution validity. For the described problem without complex changes in the algorithm, we get a result which, in the worst-case, gives a solution that is almost twice as good as the best solution in the B version of the genetic solver. However, parameter optimization is not enough to obtain valid solutions for the Problem described at the beginning of this chapter. 
 

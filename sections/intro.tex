@@ -1,5 +1,5 @@
 \chapter{Introduction}\label{intro}
-The optimization problem occurs in all aspects of our life and has a complex classification. There exist different methods to solve optimization problems. One of them is the evolutionary computing~(EC) approach. The evolutionary algorithms~(EAs) are part of EC. EAs could solve many optimization problems. It is especially good when the user does know additional information about the problem. All algorithms of EAs are based on variants of operators and parameters. It means that parameter values could influence the solution of the optimization problem. This thesis describes parameter tuning and parameter analysis of the genetic optimization approach of solving a problem of software variant selection and hardware resource allocation.  
+The optimization problem occurs in all aspects of our life. There exist different methods to solve optimization problems. One of them is the evolutionary computing~(EC) approach. The evolutionary algorithms~(EAs) are part of EC. EAs could solve many optimization problems. It is especially useful when the user does know additional information about the problem. All algorithms of EAs are based on variants of operators and parameters. It means that parameter values could influence the solution of the optimization problem. This thesis describes parameter tuning and parameter analysis of the genetic optimization approach of solving a problem of software variant selection and hardware resource allocation.  
 
 This chapter describes the motivation for parameter tuning and analysis of the genetic optimization approach and marks out research questions to be answered in this thesis. It additionally outlines a solution and contains an overview of the thesis structure.
 
@@ -8,10 +8,9 @@ Researchers and developers know that good parameter values could improve the res
 
 There exist many recommendations about what values are preferable~\cite{de2007parameter, sipper2018investigating}.  But in experimental researches~\cite{de2007parameter, shahookar1990genetic, gockel1997influencing}, these recommendations does not work. 
 
-As a result, parameters need to be tuned. EAs have two approaches for parameter setting: parameter tuning and parameter control. Parameter control could change the parameter value during the EA work. Parameter tuning finds optimized values before EA starts to solve the optimization problem. In our case, this problem is a problem of software variant selection and hardware resource allocation. 
+As a result, parameters need to be tuned. EAs have two approaches for parameter setting: parameter tuning and parameter control. Parameter control could change the parameter value during the EA work. Parameter tuning finds optimized values before EA starts.
 
-Due to fact, that genetic approach solves not all problems of the mentioned problem type, as ILP~\cite{gotz18} approach does.
-This thesis aims to overcome the gap between approaches and improve the genetic optimization approach.
+According to~\cite{ahmad18}, the genetic optimization approach solves less number of problems than other approaches does. Optimized parameter values could improve the results. This thesis aims to overcome the gap between approaches and improve the genetic optimization approach using parameter tuning.
 
 
 \section{Objective}
@@ -27,17 +26,17 @@ To answer these questions, we are using several methods that improve the genetic
 \section{Solution}
 
 The suggested modifications improve the results of the genetic approach and consist of several steps.
-The first step is searching of externally changeable parameters. These parameters we are optimizing. 
-The second step is exposing parameters for external tuning. Because most parameters of the genetic solver are not exposed for external change.
-Results at this point shows that parameter tuning improves the result of the genetic solver, but for further improvement it requires more modifications.
+The first step is searching for externally changeable parameters. These parameters we are optimizing. 
+The second step is exposing parameters for external tuning because most parameters of the genetic solver are not exposed to external change.
+Results at this point show that parameter tuning improves the result of the genetic solver, but for further improvement, it requires more modifications.
 We introduce fine-grained crossover and mutation points by adding additional probabilities. Parameter tuning so far gives \textbf{valid results}. 
 
-Due to fact that number of unique elements goes down on each iteration we describe two methods to solve this issue.
+Due to the fact that the number of unique elements goes down on each iteration, we describe two methods to solve this issue.
 
-Simple parameter control that stops the crossover if the part of unique elements in a population is lower than some value. This value is also parameter. 
-The population without duplicates is a second method to save population diversity. This method makes all individuals unique, but slow down the solver.
+Simple parameter control that stops the crossover if the part of unique elements in a population is lower than some value. This value is also a parameter. 
+The population without duplicates is a second method to save population diversity. This method makes all individuals unique but slows down the solver.
 
-After evaluation shows that fine-grained crossover/mutation points and parameter tuning gives the best results for the genetic solver.
+The evaluation shows that fine-grained crossover/mutation points and parameter tuning give the best results for the genetic solver.
 The results are improved not only in terms of solution validity but in terms of scalability.
 
 
