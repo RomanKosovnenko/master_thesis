@@ -2,7 +2,7 @@
 
 Optimization problems occur in all aspects of our life.  While advancing with science, we improved our abilities in solving problems from naïve random trials in try-fail-try approaches to mathematical analysis or even quantum computing~\cite{hogg2000quantum}.
 
-Evolutionary computing~(EC) is a research field comprising state-of-the-art optimization approaches, among which evolutionary algorithms~(EAs) is one of the most popular~\cite{vikhar16}. EAs are applicable for various optimization problems: Traveling Salesman Problem\cite{carter2006new}, VLSI~(Very Large Scale Integration) layout~\cite{shahookar1990genetic}, Sequencing Problem~\cite{gockel1997influencing}. They are especially useful when the user does not possess any knowledge about the form of a fitness landscape. Different variants of EAs are built on top of different combinations of primitive operators and relative parameters, meaning that the parameter values could influence performance of an Evolutionary Algorithm. 
+Evolutionary computing~(EC) is a research field comprising state-of-the-art optimization approaches, among which evolutionary algorithms~(EAs) are one of the most popular~\cite{vikhar16}. EAs are applicable to various optimization problems: Traveling Salesman Problem~\cite{carter2006new}, VLSI~(Very Large Scale Integration) layout~\cite{shahookar1990genetic}, Sequencing Problem~\cite{gockel1997influencing}. They are especially useful when the user does not possess any knowledge about the form of a fitness landscape. Different variants of EAs are built on top of different combinations of primitive operators and relative parameters, meaning that the parameter values could influence performance of an Evolutionary Algorithm. 
 
 In this thesis, we describe the process of parameter analysis and tuning for the Evolutionary Algorithm, applied to solve a problem of software variant selection and hardware resource allocation.
 
@@ -11,15 +11,13 @@ This chapter describes the motivation for parameter tuning and analysis of the g
 
 \section{Motivation}
 
-Despite the high popularity of EA, its development is not trivial.
-In~\cite{ahmad18} the author presents an EA, which aims to solve an optimization problem of software variant selection and hardware resource mapping. Analysis of the results showed that this approach showed the worst performance.
+Despite the high popularity of EAs, their development is not trivial.
+In~\cite{ahmad18} the author presents an EA, which aims to solve an optimization problem of software variant selection and hardware resource mapping. An analysis of the results showed that this approach has the worst performance among the other approaches that solve this problem.
 
 
-Researchers and developers know that good parameter values could improve the results of the evolutionary algorithm~\cite{eiben03}. However, a search for the optimized parameter values is another optimization problem that needs to be solved. This problem is one of the persisting challenges of the EC field~\cite{smit2010parameter}. The main problem is that the specific EA contains unique design choices presented in form of operators or its parameters.  Thus, parameter tuning was not performed but it is required.
+Researchers and developers know that good parameter values could improve the results of the evolutionary algorithm~\cite{eiben03}. However, a search for the optimized parameter values is another optimization problem that needs to be solved. This problem is one of the persisting challenges of the EC field~\cite{smit2010parameter}. The main problem is that the specific EA contains unique design choices presented in form of operators or its parameters.  
 
-There exist many recommendations about which values of the parameters of EA are preferable~\cite{de2007parameter, sipper2018investigating}.  
-
-But the experimental studies~\cite{de2007parameter, shahookar1990genetic, gockel1997influencing} show that recommendations do not always work. 
+There exist many recommendations about which values of the parameters of EA are preferable~\cite{de2007parameter, sipper2018investigating}. However, the experimental studies~\cite{de2007parameter, shahookar1990genetic, gockel1997influencing} show that these recommendations do not always work. 
 
 As a result, parameters need to be tuned. There are two main approaches: parameter tuning and parameter control. Parameter control could set the parameter value at runtime, while parameter tuning finds optimized values at design time.
 
@@ -46,11 +44,11 @@ We introduced fine-grained crossover and mutation points by adding additional pr
 
 Due to the fact that the number of unique elements goes down on each iteration, we developed two methods to solve this issue.
 
-The first approach stops the crossover if the part of unique elements in a population is lower than some threshold. This value is also a parameter. 
-The second approach blocks the possibility of adding to the population a new element if the population already contains it. This method makes all individuals unique but slows down the solver.
+The first approach stops the crossover if the part of unique elements in a population is lower than some threshold.
+The second approach blocks the possibility of adding a new element to the population if it already contains such an element. This method makes all individuals unique but slows down the solver.
 
 We evaluated our approach on a set of problems of software variant selection and hardware resource allocation which showed that the fine-grained crossover/mutation points and parameter tuning give the best results for the genetic solver. The results are improved not only in terms of solution validity but also scalability.
 
 
 \section{Overview}
-This thesis is organized as follows. In Chapter~\ref{chapter:background}, we describe the basic knowledge of the evolutionary algorithms, parameter tuning,  software selection and hardware resource allocation problem. Chapter~\ref{chapter:Implementation} describes an iterative approach to improving the genetic approach. The evaluation results and analysis could be found in Chapter~\ref{chapter:evaluationAnalysis}. Finally, Chapter~\ref{chapter:conclusion} concludes the thesis and Chapter~\ref{chapter:futureWork} describes the future work.
+This thesis is organized as follows. In Chapter~\ref{chapter:background}, we provide a background on the evolutionary algorithms, parameter tuning,  software selection and hardware resource allocation problem. Chapter~\ref{chapter:Implementation} describes an iterative approach on improving the genetic approach. The evaluation of the results and its analysis could be found in Chapter~\ref{chapter:evaluationAnalysis}. Finally, Chapter~\ref{chapter:conclusion} concludes the thesis and Chapter~\ref{chapter:futureWork} describes the future work.
