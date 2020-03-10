@@ -149,21 +149,20 @@ In this section, we present a discussion of results and reasons why described in
 
 Firstly, let us discuss the reasons why modifications improve the genetic solver. After that, we will describe the reasons why not all problems could be solved.
 
-\paragraph{Positive reasons} \\
-There are a few reasons why the genetic solver with our modifications could solve more problems than the \textbf{B} version. 
-
-First, parameter tuning is performed for all versions of the genetic solver. Optimized values of parameters give better results, as it showed in the previous section. 
-
-The second reason is in new probabilities that we added in Section~\ref{sec:NP}. These probabilities give a possibility to change the position of the crossover and mutation points randomly, but as a result, the genetic solver gives results that a bit worse than parameter tuning. 
-
-\paragraph{Negative reasons} \\
-There are a few reasons why not all problems are solved.
-
-One of the reasons for such a result is that we optimized parameters for a specific problem that we described at the beginning of Chapter~\ref{chapter:Implementation}.
-
-Obtained results could be explained with a \textbf{"no free lunch" (NFL) theorem}~\cite{wolpert1996, wolpert1997}. It states that if an algorithm is performing well with a certain class of tasks, then it must pay for it with a deterioration in performance on the set of all remaining problems.
-
-Another reason that we optimize parameters without knowledge about dependencies between them. Parameters that we found or added did not fit well for our goals. Let us analyze earlier discussed parameters.
+\begin{itemize}
+	\item[\textbf{Positive reasons}] There are a few reasons why the genetic solver with our modifications could solve more problems than the \textbf{B} version. 
+	
+	First, parameter tuning is performed for all versions of the genetic solver. Optimized values of parameters give better results, as it showed in the previous section. 
+	
+	The second reason is in new probabilities that we added in Section~\ref{sec:NP}. These probabilities give a possibility to change the position of the crossover and mutation points randomly, but as a result, the genetic solver gives results that a bit worse than parameter tuning. 
+	\item[\textbf{Negative reasons}] There are a few reasons why not all problems are solved.
+	
+	One of the reasons for such a result is that we optimized parameters for a specific problem that we described at the beginning of Chapter~\ref{chapter:Implementation}.
+	
+	Obtained results could be explained with a \textbf{"no free lunch" (NFL) theorem}~\cite{wolpert1996, wolpert1997}. It states that if an algorithm is performing well with a certain class of tasks, then it must pay for it with a deterioration in performance on the set of all remaining problems.
+	
+	Another reason that we optimize parameters without knowledge about dependencies between them. Parameters that we found or added did not fit well for our goals. Let us analyze earlier discussed parameters.
+\end{itemize}
 
 \subsection{Search Space}
 

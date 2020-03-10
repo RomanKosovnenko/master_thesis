@@ -95,14 +95,14 @@ In the previous section, we showed that not all parameters of the genetic solver
 \paragraph{\texttt{CrossoverProbability}~(R9)~[0.0-1.0]~[Float]} — it describes the probability of crossover that checks in the crossover operator. The default value of this parameter is 0.8. This parameter is removed in later versions of the genetic solver because it duplicates the functionality of \texttt{CrossoverRate}~(R5). This fact answers \textbf{RQ2}. It is one bad design choice that we want to find, according to \textbf{RQ2}.\\ 
 
 
-Within the genetic solver evaluator, two factors penalize the quality of the solution in the case of a contract breach or errors in dependencies in the software tree. These coefficients were not set for external tuning. The default value for all parameters is 0.5 from the (\textbf{B}) version.
-\paragraph{\texttt{ValidityWeight}~(R10)~[0.0-1.0]~[Float]} — the coefficient that shows how each contract violation decreases the quality of the solution.
-\paragraph{\texttt{SoftwareValidityWeight}~(R11)~[0.0-1.0]~[Float]} — the coefficient that shows how each error in the software tree decreases the quality of the solution.\\
+Within the genetic solver evaluator, two factors penalize the quality of the solution in the case of a contract violations or errors in dependencies in the software tree. These coefficients were not set for external tuning. The default value for all parameters is 0.5 from the (\textbf{B}) version.
+\paragraph{\texttt{ValidityWeight}~(R10)~[0.0-1.0]~[Float]} is a coefficient that shows how each contract violation decreases the quality of the solution.
+\paragraph{\texttt{SoftwareValidityWeight}~(R11)~[0.0-1.0]~[Float]} is a the coefficient that shows how each error in the software tree decreases the quality of the solution.\\
 
 As described in Section~\ref{sec:GeneticSolver}, a creator creates random individuals for the initial population.
 This method has two features that are necessary to obtain better individuals at the initial stage. These features have parameters:
-\paragraph{\texttt{RandomSoftwareAssignmentAttempts}~(R12)~[1-1000]~[Integer]} — max number of attempts to set a valid software tree to the individual on the creation phase. The default value is 50.
-\paragraph{\texttt{populateSoftwareSolutionAttempts}~(R13)~[1-1000]~[Integer]} —  max number of attempts to assign software components and resources to get a valid individual on the creation phase. The default value is 100.\\
+\paragraph{\texttt{RandomSoftwareAssignmentAttempts}~(R12)~[1-1000]~[Integer]} is a max number of attempts to set a valid software tree to the individual on the creation phase. The default value is 50.
+\paragraph{\texttt{populateSoftwareSolutionAttempts}~(R13)~[1-1000]~[Integer]} is a max number of attempts to assign software components and resources to get a valid individual on the creation phase. The default value is 100.\\
 
 We mark this version\footnote{commit: \href{https://git-st.inf.tu-dresden.de/mquat/mquat2/commit/e1db4a941622f9a6609ffcfb5d05df9e7abaffc2}{e1db4a941622f9a6609ffcfb5d05df9e7abaffc2}} of the genetic solver as \textbf{WHC-T}~(Without Hard-Code-Tuned).
 

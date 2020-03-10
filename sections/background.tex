@@ -408,6 +408,15 @@ The mutation occurs for one random request. With the probability \texttt{Mutatio
 	\label{fig:GeneticSolverMutation}
 \end{figure}
 
+\subsection{Evaluator}
+
+As mentioned in Section~\ref{sec:GeneticAlgorithm}, the evaluator calculates the quality of the solution. In the Genetic Solver, the quality function calculates the energy consumption.
+It uses the MQuAT energy consumption calculation and adds penalties to it depends on contract violations and errors. These penalties are characterized by two parameters:
+\begin{itemize}
+	\item \texttt{ValidityWeight} is a coefficient that shows how each contract violation decreases the quality of the solution;
+	\item \texttt{SoftwareValidityWeight} is a the coefficient that shows how each error in the software tree decreases the quality of the solution.
+\end{itemize}
+
 \section{Parameter Tuning Strategies for Evolutionary Algorithms}\label{sec:Parameter Tuning Strategies}
 As discussed above, one of the crucial tasks of EA is parameter tuning. A lot of variants of parameters relating to the generation, the population and operators~\cite{sipper2018investigating}. There exist different commonly used rules and researches of setting the parameter values of EA.
 
