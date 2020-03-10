@@ -1,15 +1,17 @@
 \chapter{Introduction}\label{intro}
-
-Many optimization problems could be solved using evolutionary computing~(EC). The evolutionary algorithms~(EAs) are part of it. These algorithms are wide-used due to ability to solve the optimization problems without additional understanding of the problem. All algorithms in this class are based on variants operators and parameters. This thesis describes parameter tuning and parameter analysis of genetic optimization approach of solving a problem of software variant selection and hardware resource allocation.  
+Optimization problem occurs in all aspects of our life and have complex classification. There exist different methods to solve optimization problems. One of them is evolutionary computing~(EC) approach. The evolutionary algorithms~(EAs) are part of EC. EAs could solve many optimization problems. It is especially good when user does know additional information about the problem. All algorithms of EAs are based on variants operators and parameters. It means that parameter values could influence the solution of optimization problem. This thesis describes parameter tuning and parameter analysis of genetic optimization approach of solving a problem of software variant selection and hardware resource allocation.  
 
 This chapter describes the motivation for parameter tuning and analysis of genetic optimization approach and marks out research questions to be answered in this thesis. It additionally outlines a solution and contains an overview of the thesis structure.
 
 \section{Motivation}
-Researchers and developers of EA know that good parameter value could improve the results of the algorithm. But searching for optimized parameter values is another problem. It is one of the persisting challenges of the EC field~\cite{smit2010parameter}. The main problem is that specific EA contains unique design choices that presented in form of operators or it's parameters. 
+Researchers and developers know that good parameter values could improve the results of the algorithm. But searching for optimized parameter values is another problem, that needs to be solved. This problem is one of the persisting challenges of the EC field~\cite{smit2010parameter}. The main problem is that specific EA contains unique design choices that presented in form of operators or its parameters. 
 
-There exist many approaches and recommendation about what values are preferable~\cite{de2007parameter, sipper2018investigating}. But in experimental researches~\cite{de2007parameter, shahookar1990genetic, gockel1997influencing}, these recommendations does not work. 
+There exist many recommendations about what values are preferable~\cite{de2007parameter, sipper2018investigating}.  But in experimental researches~\cite{de2007parameter, shahookar1990genetic, gockel1997influencing}, these recommendations does not work. 
 
-As a result, parameter values need to be tuned for specified problem or class of problems. In our case, this problem is a problem of software variant selection and hardware resource allocation. 
+As a result, parameters need to be tuned. EAs have two approaches for parameter setting: parameter tuning and parameter control. Parameter control could change the parameter value during the EA work. Parameter tuning finds optimized values before EA starts to solve the optimization problem. In our case, this problem is a problem of software variant selection and hardware resource allocation. 
+
+Due to fact, that genetic approach solves not all problems of mentioned problem type, like ILP~\cite{gotz18} approach does.
+This thesis aims to overcome the gape between approaches and improve the genetic optimization approach.
 
 
 \section{Objective}
