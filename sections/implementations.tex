@@ -106,7 +106,6 @@ This method has two features that are necessary to obtain better individuals at 
 
 We mark this version\footnote{commit: \href{https://git-st.inf.tu-dresden.de/mquat/mquat2/commit/e1db4a941622f9a6609ffcfb5d05df9e7abaffc2}{e1db4a941622f9a6609ffcfb5d05df9e7abaffc2}} of the genetic solver as \textbf{WHC-T}~(Without Hard-Code-Tuned).
 
-After optimization, we use an optimized set of values of hyperparameters from BRISE. Table~\ref{tab:Parameters_NHC-T} depicts a set of optimized parameter values. With more parameters, BRISE suggests using the \textit{SPEA2} selector algorithm, but the value of the \texttt{CrossoverRate}~(R5) is not changed.
 
 \begin{table}
 	\centering
@@ -122,12 +121,17 @@ After optimization, we use an optimized set of values of hyperparameters from BR
 	}
 \end{table}
 
-\begin{figure}
+\begin{figure}[!htb]
 	\centering
 	\includegraphics[width=\textwidth]{images/BoxPlotSolverNoHardcodedTuning.pdf}
 	\caption[Box-plot with a number of contract violations for the genetic solver without hard-coded parameters in comparison with previous versions]{Box-plot with a number of contract violations for the genetic solver without hard-coded parameters in comparison with previous versions}
 	\label{fig:boxplotsolverNoHardcodedTuning}
 \end{figure}
+
+
+After optimization, we use an optimized set of values of hyperparameters from BRISE. Table~\ref{tab:Parameters_NHC-T} depicts a set of optimized parameter values. With more parameters, BRISE suggests using the \textit{SPEA2} selector algorithm, but the value of the \texttt{CrossoverRate}~(R5) is not changed.
+
+
 
 Figure~\ref{fig:boxplotsolverNoHardcodedTuning} depicts the results of the WHC-T version of the genetic solver as a box-plot in comparison with earlier versions~(\textbf{B}, \textbf{B-T}). This box-plot shows that the WHC-T version of the genetic solver is better in comparison to B-T. The max number of contract violations in WHC-T is \textbf{7}. This number is equal to a minimum number of contract violations from the B-T version. But solutions are still \textbf{not valid} for the current problem. 
 
