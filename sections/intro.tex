@@ -26,9 +26,19 @@ To answer these questions, we are using several methods that improve the genetic
 
 \section{Solution}
 
-The described modifications iteratively improve the results of the genetic approach in terms of solution validity using several methods such as parameter tuning of the genetic approach, new parameters that make crossover and mutation fine-grained, and approaches that help to avoid trapping in a local optimum.
+The suggested modifications improve the results of the genetic approach and consist of several steps.
+The first step is searching of externally changeable parameters. These parameters we are optimizing. 
+The second step is exposing parameters for external tuning. Because most parameters of the genetic solver are not exposed for external change.
+Results at this point shows that parameter tuning improves the result of the genetic solver, but for further improvement it requires more modifications.
+We introduce fine-grained crossover and mutation points by adding additional probabilities. Parameter tuning so far gives \textbf{valid results}. 
 
-The evaluation shows that the combination of described modification gives the best results. The results are improved not only in terms of solution validity but scalability. It solves more different sized problems. 
+Due to fact that number of unique elements goes down on each iteration we describe two methods to solve this issue.
+
+Simple parameter control that stops the crossover if the part of unique elements in a population is lower than some value. This value is also parameter. 
+The population without duplicates is a second method to save population diversity. This method makes all individuals unique, but slow down the solver.
+
+After evaluation shows that fine-grained crossover/mutation points and parameter tuning gives the best results for the genetic solver.
+The results are improved not only in terms of solution validity but in terms of scalability.
 
 
 \section{Overview}
